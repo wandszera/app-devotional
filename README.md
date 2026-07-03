@@ -37,45 +37,6 @@ Este repositório contém o código-fonte completo do **App Devocional**, dividi
 1. **Backend**: API RESTful de alta performance construída em **FastAPI** e banco de dados relacional **SQLite** com **SQLAlchemy**.
 2. **Mobile**: Aplicativo mobile multiplataforma construído com **Flutter**, apresentando onboarding dinâmico, fluxo de lembretes offline, estatísticas e gerenciamento completo.
 
----
-
-## 🏗️ Arquitetura do Sistema
-
-O fluxo de comunicação e a arquitetura geral do sistema estão estruturados da seguinte forma:
-
-```mermaid
-graph TD
-    subgraph Cliente [Front-end Mobile (Flutter)]
-        App[App Shell]
-        Auth[Autenticação & Onboarding]
-        DevReader[Leitor de Devocionais]
-        ProgTab[Histórico & Streaks]
-        AdminPanel[Painel Admin Flutter]
-    end
-
-    subgraph Servidor [Back-end API (FastAPI)]
-        Router[Router Principal / API]
-        AuthSvc[Serviço de Autenticação]
-        StreakSvc[Motor de Streaks]
-        NotifSvc[Agendador de Notificações]
-        AdminSvc[Gerenciador de Conteúdo]
-    end
-
-    subgraph Persistencia [Banco de Dados]
-        DB[(devotional.db SQLite)]
-    end
-
-    App -->|HTTP/REST com JSON| Router
-    Router --> AuthSvc
-    Router --> StreakSvc
-    Router --> NotifSvc
-    Router --> AdminSvc
-    
-    AuthSvc --> DB
-    StreakSvc --> DB
-    NotifSvc --> DB
-    AdminSvc --> DB
-```
 
 ---
 
