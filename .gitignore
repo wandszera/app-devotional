@@ -1,0 +1,34 @@
+# Python / FastAPI
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+ENV/
+env/
+.env
+
+# Database (SQLite)
+*.db
+*.db-journal
+*.db-shm
+*.db-wal
+*.sqlite3
+
+# Logs
+*.log
+backend_web.err.log
+backend_web.out.log
+flutter_web.err.log
+flutter_web.out.log
+
+# IDEs and Editors
+.idea/
+.vscode/
+*.swp
+*.swo
+*.iml
+
+# OS files
+.DS_Store
+Thumbs.db
