@@ -1,6 +1,6 @@
-# 📱 App Devocional
+# 📱 Devotional App
 
-> Uma plataforma moderna para desenvolvimento espiritual diário, focada em ajudar o usuário a construir e manter o hábito da leitura diária através de gamificação inteligente e lembretes eficientes.
+> A modern platform for daily spiritual development, focused on helping users build and maintain a daily reading habit through smart gamification and efficient reminders.
 
 ---
 
@@ -14,109 +14,148 @@
 
 ---
 
-## 🧭 Sumário
+## 🧭 Table of Contents
 
-- [🔍 Visão Geral](#-visão-geral)
-- [🏗️ Arquitetura do Sistema](#%EF%B8%8F-arquitetura-do-sistema)
-- [📁 Estrutura do Repositório](#-estrutura-do-repositório)
+- [🔍 Overview](#-overview)
+- [🏗️ System Architecture](#%EF%B8%8F-system-architecture)
+- [📁 Repository Structure](#-repository-structure)
 - [⚡ Backend (FastAPI)](#-backend-fastapi)
-  - [Endpoints da API](#endpoints-da-api)
-  - [Como Executar o Backend](#como-executar-o-backend)
-  - [Como Rodar Testes](#como-rodar-testes)
+  - [API Endpoints](#api-endpoints)
+  - [How to Run the Backend](#how-to-run-the-backend)
+  - [How to Run Tests](#how-to-run-tests)
 - [📱 Mobile (Flutter)](#-mobile-flutter)
-  - [Como Executar o Mobile](#como-executar-o-mobile)
-- [🎯 Loop de Engajamento & Regra de Streak](#-loop-de-engajamento--regra-de-streak)
-- [📈 Roadmap de Desenvolvimento](#-roadmap-de-desenvolvimento)
-- [🔗 Documentos Úteis](#-documentos-úteis)
+  - [How to Run the Mobile App](#how-to-run-the-mobile-app)
+- [🎯 Engagement Loop & Streak Rules](#-engagement-loop--streak-rules)
+- [📈 Development Roadmap](#-development-roadmap)
+- [🔗 Useful Documents](#-useful-documents)
 
 ---
 
-## 🔍 Visão Geral
+## 🔍 Overview
 
-Este repositório contém o código-fonte completo do **App Devocional**, dividido em dois módulos principais:
-1. **Backend**: API RESTful de alta performance construída em **FastAPI** e banco de dados relacional **SQLite** com **SQLAlchemy**.
-2. **Mobile**: Aplicativo mobile multiplataforma construído com **Flutter**, apresentando onboarding dinâmico, fluxo de lembretes offline, estatísticas e gerenciamento completo.
-
+This repository contains the complete source code for the **Devotional App**, divided into two main modules:
+1. **Backend**: A high-performance RESTful API built with **FastAPI** and a relational **SQLite** database using **SQLAlchemy**.
+2. **Mobile**: A cross-platform mobile application built with **Flutter**, featuring dynamic onboarding, an offline reminder flow, statistics, and full management.
 
 ---
 
-## 📁 Estrutura do Repositório
+## 🏗️ System Architecture
+
+The communication flow and overall system architecture are structured as follows:
+
+```mermaid
+graph TD
+    subgraph Client [Mobile Front-end (Flutter)]
+        App[App Shell]
+        Auth[Authentication & Onboarding]
+        DevReader[Devotional Reader]
+        ProgTab[History & Streaks]
+        AdminPanel[Flutter Admin Panel]
+    end
+
+    subgraph Server [API Back-end (FastAPI)]
+        Router[Main Router / API]
+        AuthSvc[Authentication Service]
+        StreakSvc[Streak Engine]
+        NotifSvc[Notification Scheduler]
+        AdminSvc[Content Manager]
+    end
+
+    subgraph Persistence [Database]
+        DB[(devotional.db SQLite)]
+    end
+
+    App -->|HTTP/REST with JSON| Router
+    Router --> AuthSvc
+    Router --> StreakSvc
+    Router --> NotifSvc
+    Router --> AdminSvc
+    
+    AuthSvc --> DB
+    StreakSvc --> DB
+    NotifSvc --> DB
+    AdminSvc --> DB
+```
+
+---
+
+## 📁 Repository Structure
 
 ```text
 app_devocional/
-├── app/                  # Código-fonte da API Backend (FastAPI)
-│   ├── api/              # Configurações de API e middlewares
-│   ├── core/             # Configurações de sistema e segurança
-│   ├── db/               # Sessão e engine do banco de dados (SQLAlchemy)
-│   ├── models/           # Modelos de dados do ORM
-│   ├── routes/           # Rotas divididas por módulos (auth, devotional, etc.)
-│   └── services/         # Lógica de negócios central (streaks, notificações)
-├── docs/                 # Documentação e Roadmap estratégico do produto
-├── mobile/               # Projeto do aplicativo multiplataforma (Flutter)
-│   ├── lib/              # Código Dart estruturado em features e services
-│   └── test/             # Testes de widgets e unitários do Flutter
-├── tests/                # Testes de integração e unitários do backend (Pytest)
-├── make_admin.py         # Script utilitário para promover usuários para administrador
-└── requirements.txt      # Dependências de bibliotecas Python
+├── app/                  # Backend API source code (FastAPI)
+│   ├── api/              # API configurations and middlewares
+│   ├── core/             # System and security configurations
+│   ├── db/               # Database session and engine (SQLAlchemy)
+│   ├── models/           # ORM data models
+│   ├── routes/           # Routes divided by modules (auth, devotional, etc.)
+│   └── services/         # Core business logic (streaks, notifications)
+├── docs/                 # Documentation and product strategic roadmap
+├── mobile/               # Cross-platform mobile application project (Flutter)
+│   ├── lib/              # Dart code structured into features and services
+│   └── test/             # Flutter unit and widget tests
+├── tests/                # Backend unit and integration tests (Pytest)
+├── make_admin.py         # Utility script to promote users to administrator
+└── requirements.txt      # Python library dependencies
 ```
 
 ---
 
 ## ⚡ Backend (FastAPI)
 
-O backend do projeto gerencia a lógica de autenticação (JWT), regras de negócio de streaks consecutivas, persistência de preferências de notificações de lembrete diário e fornece painéis administrativos.
+The project backend manages authentication logic (JWT), consecutive streak business rules, daily reminder notification preferences persistence, and provides administrative dashboards.
 
-### Endpoints da API
+### API Endpoints
 
-A tabela abaixo detalha todas as rotas e regras de autorização atuais:
+The table below details all current routes and authorization rules:
 
-| Método | Endpoint | Autenticação | Acesso Admin | Descrição |
+| Method | Endpoint | Authentication | Admin Access | Description |
 | :--- | :--- | :---: | :---: | :--- |
-| `POST` | `/auth/register` | ❌ | ❌ | Cadastra um novo usuário e retorna o token de acesso. |
-| `POST` | `/auth/login` | ❌ | ❌ | Autentica o usuário e retorna o token JWT de acesso. |
-| `GET` | `/auth/me` | 🔒 Bearer | ❌ | Retorna os detalhes do perfil do usuário autenticado. |
-| `GET` | `/devotional/today` | 🔒 Bearer | ❌ | Obtém o devocional disponível para o dia atual. |
-| `POST` | `/devotional/complete` | 🔒 Bearer | ❌ | Marca o devocional de hoje como lido e atualiza o streak. |
-| `GET` | `/devotional/admin` | 🔒 Bearer |  Admin | Lista todos os devocionais (para fins administrativos). |
-| `POST` | `/devotional/admin` | 🔒 Bearer |  Admin | Cria um novo devocional. |
-| `PUT` | `/devotional/admin/{id}` | 🔒 Bearer |  Admin | Atualiza um devocional existente pelo ID. |
-| `DELETE` | `/devotional/admin/{id}` | 🔒 Bearer |  Admin | Exclui um devocional específico pelo ID. |
-| `GET` | `/notifications/settings` | 🔒 Bearer | ❌ | Recupera as preferências de notificação do usuário. |
-| `PUT` | `/notifications/settings` | 🔒 Bearer | ❌ | Atualiza as configurações de horário e timezone de notificação. |
-| `GET` | `/notifications/admin/due` | 🔒 Bearer |  Admin | Consulta notificações pendentes de envio. |
-| `POST` | `/notifications/admin/dispatch` | 🔒 Bearer |  Admin | Dispara o envio em lote das notificações agendadas. |
-| `GET` | `/notifications/admin/deliveries` | 🔒 Bearer |  Admin | Exibe o histórico de entregas de notificações. |
-| `POST` | `/notifications/admin/{user_id}/mark-sent` | 🔒 Bearer |  Admin | Registra o envio manual de notificação para um usuário específico. |
-| `GET` | `/streak` | 🔒 Bearer | ❌ | Retorna o status de streak atual e recorde do usuário. |
-| `GET` | `/progress` | 🔒 Bearer | ❌ | Retorna o histórico de leitura mensal e dias concluídos. |
-| `GET` | `/health` | ❌ | ❌ | Endpoint simples de monitoramento e integridade do serviço. |
+| `POST` | `/auth/register` | ❌ | ❌ | Registers a new user and returns an access token. |
+| `POST` | `/auth/login` | ❌ | ❌ | Authenticates a user and returns a JWT access token. |
+| `GET` | `/auth/me` | 🔒 Bearer | ❌ | Returns the authenticated user's profile details. |
+| `GET` | `/devotional/today` | 🔒 Bearer | ❌ | Gets the available devotional for the current day. |
+| `POST` | `/devotional/complete` | 🔒 Bearer | ❌ | Marks today's devotional as read and updates the streak. |
+| `GET` | `/devotional/admin` | 🔒 Bearer |  Admin | Lists all devotionals (for administrative purposes). |
+| `POST` | `/devotional/admin` | 🔒 Bearer |  Admin | Creates a new devotional. |
+| `PUT` | `/devotional/admin/{id}` | 🔒 Bearer |  Admin | Updates an existing devotional by ID. |
+| `DELETE` | `/devotional/admin/{id}` | 🔒 Bearer |  Admin | Deletes a specific devotional by ID. |
+| `GET` | `/notifications/settings` | 🔒 Bearer | ❌ | Retrieves the user's notification preferences. |
+| `PUT` | `/notifications/settings` | 🔒 Bearer | ❌ | Updates notification time and timezone settings. |
+| `GET` | `/notifications/admin/due` | 🔒 Bearer |  Admin | Queries pending notifications to be sent. |
+| `POST` | `/notifications/admin/dispatch` | 🔒 Bearer |  Admin | Triggers batch sending of scheduled notifications. |
+| `GET` | `/notifications/admin/deliveries` | 🔒 Bearer |  Admin | Displays the notification delivery history. |
+| `POST` | `/notifications/admin/{user_id}/mark-sent` | 🔒 Bearer |  Admin | Records manual notification delivery for a specific user. |
+| `GET` | `/streak` | 🔒 Bearer | ❌ | Returns the user's current and longest streak status. |
+| `GET` | `/progress` | 🔒 Bearer | ❌ | Returns the monthly reading history and completed days. |
+| `GET` | `/health` | ❌ | ❌ | Simple service health and monitoring endpoint. |
 
-### Como Executar o Backend
+### How to Run the Backend
 
-1. **Clone o repositório** e entre no diretório raiz.
-2. **Crie e ative um ambiente virtual** do Python:
+1. **Clone the repository** and enter the root directory.
+2. **Create and activate a virtual environment** in Python:
    ```bash
    python -m venv .venv
-   # No Windows (PowerShell):
+   # On Windows (PowerShell):
    .venv\Scripts\Activate.ps1
-   # No macOS/Linux:
+   # On macOS/Linux:
    source .venv/bin/activate
    ```
-3. **Instale as dependências**:
+3. **Install dependencies**:
    ```bash
    pip install -r requirements.txt
    ```
-4. **Execute o servidor de desenvolvimento** via Uvicorn:
+4. **Run the development server** via Uvicorn:
    ```bash
    python -m uvicorn app.main:app --reload
    ```
-5. **Acesse a documentação interativa**:
+5. **Access the interactive documentation**:
    - Swagger UI: [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs)
    - Redoc: [http://127.0.0.1:8000/redoc](http://127.0.0.1:8000/redoc)
 
-### Como Rodar Testes
+### How to Run Tests
 
-Nós utilizamos o [pytest](https://pytest.org/) para a cobertura de testes de integração e unitários do backend.
+We use [pytest](https://pytest.org/) for backend unit and integration test coverage.
 ```bash
 python -m pytest -q
 ```
@@ -125,84 +164,84 @@ python -m pytest -q
 
 ## 📱 Mobile (Flutter)
 
-O aplicativo mobile é construído em Flutter e projetado para funcionar perfeitamente de forma responsiva. Ele contém recursos de onboarding interativo, painéis gráficos de conquistas diárias e uma área dedicada a administradores.
+The mobile app is built in Flutter and designed to work perfectly responsively. It features interactive onboarding, visual daily achievement dashboards, and a dedicated admin area.
 
 > [!NOTE]
-> Por padrão, o aplicativo aponta para `http://10.0.2.2:8000` (resolução nativa para o emulador Android apontar para a máquina local). 
-> Se você estiver rodando em plataformas desktop, web, ou simulador de iOS, pode definir a variável de ambiente durante a execução ou alterar o arquivo de serviço correspondente.
+> By default, the app points to `http://10.0.2.2:8000` (native resolution for the Android emulator to point to the local machine). 
+> If you are running on desktop platforms, web, or iOS simulator, you can set the environment variable during runtime or modify the corresponding service file.
 
-### Como Executar o Mobile
+### How to Run the Mobile App
 
-1. Navegue para a pasta `mobile/`:
+1. Navigate to the `mobile/` folder:
    ```bash
    cd mobile
    ```
-2. Crie ou atualize as plataformas necessárias:
+2. Create or update the necessary platforms:
    ```bash
    flutter create --platforms=windows,web .
    ```
-3. Instale os pacotes e dependências do Pubspec:
+3. Install the Pubspec packages and dependencies:
    ```bash
    flutter pub get
    ```
-4. Execute o aplicativo passando o host da API local:
+4. Run the application passing the local API host:
    
-   **No Windows**:
+   **On Windows**:
    ```bash
    flutter run -d windows --dart-define=API_BASE_URL=http://127.0.0.1:8000
    ```
 
-   **No Navegador (Web)**:
+   **On Browser (Web)**:
    ```bash
    flutter run -d chrome --dart-define=API_BASE_URL=http://127.0.0.1:8000
    ```
 
-   **No Emulador Android**:
+   **On Android Emulator**:
    ```bash
    flutter run -d android --dart-define=API_BASE_URL=http://10.0.2.2:8000
    ```
 
 ---
 
-## 🎯 Loop de Engajamento & Regra de Streak
+## 🎯 Engagement Loop & Streak Rules
 
-O sucesso do aplicativo é mensurado com base no retorno constante do usuário. O loop de engajamento principal consiste em:
-1. **Notificação diária**: O usuário recebe o alerta em seu horário preferido.
-2. **Leitura**: Abertura do app e leitura do devocional diário.
-3. **Conclusão**: O usuário marca o devocional como lido.
-4. **Gratificação**: A contagem de streak do usuário incrementa e conquistas visuais são liberadas.
+The success of the application is measured based on the user's constant return. The core engagement loop consists of:
+1. **Daily Notification**: The user receives an alert at their preferred time.
+2. **Reading**: Opening the app and reading the daily devotional.
+3. **Completion**: The user marks the devotional as read.
+4. **Gratification**: The user's streak count increases, and visual achievements are unlocked.
 
-### Algoritmo de Validação do Streak
+### Streak Validation Algorithm
 
-A lógica de cálculo de consistência diária funciona com base na última atividade realizada:
-* Se o usuário conclui o devocional **hoje** e a última atividade foi **ontem**, o streak incrementa em 1 dia.
-* Se a última atividade foi **hoje**, o streak permanece inalterado.
-* Se a última atividade ocorreu há **mais de 1 dia**, o streak é resetado e recomeça em 1 dia.
-
----
-
-## 📈 Roadmap de Desenvolvimento
-
-- [x] **Fase 1: MVP Core (Foco em Retenção)**
-  - Sistema de login e cadastro.
-  - Exibição de devocionais e marcação de leitura diária.
-  - Lógica e exibição de streaks consecutivas.
-  - Tela de progresso mensal básica e histórico.
-- [ ] **Fase 2: Gamificação e Refinamentos**
-  - Marcos e badges de conquistas (ex: 7 dias, 30 dias de leitura).
-  - Animações e feedbacks sonoros na marcação de dia concluído.
-  - Notificações locais agendadas mais robustas.
-- [ ] **Fase 3: Monetização e Freemium**
-  - Implementação de anúncios controlados.
-  - Plano Premium com devocionais exclusivos e histórico expandido.
-  - Configuração de assinaturas in-app.
-- [ ] **Fase 4: Expansão de Conteúdo**
-  - Player de áudio para escutar o devocional diário.
-  - Sistema de anotações pessoais ligadas a cada dia de leitura.
+The daily consistency calculation logic works based on the last performed activity:
+* If the user completes the devotional **today** and the last activity was **yesterday**, the streak increases by 1 day.
+* If the last activity was **today**, the streak remains unchanged.
+* If the last activity occurred **more than 1 day ago**, the streak is reset and restarts at 1 day.
 
 ---
 
-## 🔗 Documentos Úteis
+## 📈 Development Roadmap
 
-* [Documentação do Roadmap de Produto](file:///c:/Users/wand/Desktop/projetos_pessoais/app_devocional/docs/product-roadmap.md) - Visão estratégica detalhada, escopo inicial e regras de negócio.
-* [Documentação do Módulo Mobile](file:///c:/Users/wand/Desktop/projetos_pessoais/app_devocional/mobile/README.md) - Passo a passo aprofundado, instruções de deploy e troubleshooting específicos do app Flutter.
+- [x] **Phase 1: Core MVP (Focus on Retention)**
+  - Login and registration system.
+  - Display devotionals and daily reading tracking.
+  - Logic and display of consecutive streaks.
+  - Basic monthly progress screen and history.
+- [ ] **Phase 2: Gamification and Refinements**
+  - Achievement milestones and badges (e.g., 7 days, 30 days of reading).
+  - Animations and sound feedback upon completing a day.
+  - More robust scheduled local notifications.
+- [ ] **Phase 3: Monetization and Freemium**
+  - Controlled ad implementation.
+  - Premium plan with exclusive devotionals and expanded history.
+  - In-app subscriptions configuration.
+- [ ] **Phase 4: Content Expansion**
+  - Audio player to listen to the daily devotional.
+  - Personal notes system linked to each reading day.
+
+---
+
+## 🔗 Useful Documents
+
+* [Product Roadmap Documentation](file:///c:/Users/wand/Desktop/projetos_pessoais/app_devocional/docs/product-roadmap.md) - Detailed strategic vision, initial scope, and business rules.
+* [Mobile Module Documentation](file:///c:/Users/wand/Desktop/projetos_pessoais/app_devocional/mobile/README.md) - In-depth step-by-step, deployment instructions, and specific Flutter app troubleshooting.
