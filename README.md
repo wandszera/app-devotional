@@ -45,7 +45,7 @@ The communication flow and overall system architecture are structured as follows
 
 ```mermaid
 graph TD
-    subgraph Client [Mobile Front-end (Flutter)]
+    subgraph Client ["Mobile Front-end (Flutter)"]
         App[App Shell]
         Auth[Authentication & Onboarding]
         DevReader[Devotional Reader]
@@ -53,7 +53,7 @@ graph TD
         AdminPanel[Flutter Admin Panel]
     end
 
-    subgraph Server [API Back-end (FastAPI)]
+    subgraph Server ["API Back-end (FastAPI)"]
         Router[Main Router / API]
         AuthSvc[Authentication Service]
         StreakSvc[Streak Engine]
@@ -61,7 +61,7 @@ graph TD
         AdminSvc[Content Manager]
     end
 
-    subgraph Persistence [Database]
+    subgraph Persistence ["Database"]
         DB[(devotional.db SQLite)]
     end
 
