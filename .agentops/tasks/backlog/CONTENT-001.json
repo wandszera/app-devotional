@@ -1,0 +1,20 @@
+{
+  "id": "content-001-canonical-source",
+  "title": "Definir fonte canonica de conteudo liturgico",
+  "objective": "Eliminar precedencia ambigua entre bundle, cache, API, seed e CRUD administrativo, mantendo fallback offline e regras editoriais claras.",
+  "status": "backlog",
+  "priority": "P1",
+  "complexity": "complex",
+  "plannerTier": "complex",
+  "executorTier": "complex",
+  "risk": "high",
+  "baseCommit": null,
+  "dependencies": ["ops-002-ci-quality-gates"],
+  "allowedPaths": ["docs/", "app/db/init_db.py", "app/services/devotional_service.py", "app/routes/devotional.py", "app/models/schemas.py", "mobile/assets/liturgy/", "mobile/lib/src/services/catalog_source.dart", "mobile/lib/src/services/bundled_gospel_catalogue.dart", "mobile/lib/src/services/api_client.dart", "mobile/test/", "tests/"],
+  "forbiddenActions": ["Nao copiar texto biblico sem licenca", "Nao publicar conteudo sem revisao editorial", "Nao remover fallback offline sem substituto"],
+  "acceptanceCriteria": ["Uma fonte canonica e precedencia estao documentadas", "Edicao administrativa tem efeito previsivel", "Bundle/cache/API nao divergem silenciosamente", "Licenca e revisao humana ficam como gates explicitos"],
+  "verification": ["Revisao de arquitetura Sol high", "python -m pytest -q", "cd mobile; flutter test"],
+  "worktreePath": "TBD",
+  "notes": "Comecar por ADR; implementacao so apos decisao de produto/editorial."
+}
+

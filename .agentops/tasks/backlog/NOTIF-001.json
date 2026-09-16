@@ -1,0 +1,20 @@
+{
+  "id": "notif-001-idempotent-delivery",
+  "title": "Projetar entrega de notificacoes idempotente",
+  "objective": "Evitar duplicacao e permitir operacao automatizada, com lock, retry, estados terminais e observabilidade.",
+  "status": "backlog",
+  "priority": "P1",
+  "complexity": "complex",
+  "plannerTier": "complex",
+  "executorTier": "complex",
+  "risk": "high",
+  "baseCommit": null,
+  "dependencies": ["ops-002-ci-quality-gates"],
+  "allowedPaths": ["docs/", "app/services/notification_service.py", "app/services/push_service.py", "app/routes/notifications.py", "app/db/models.py", "alembic/", "tests/"],
+  "forbiddenActions": ["Nao enviar notificacao real em teste", "Nao expor push token em resposta/log", "Nao configurar servico externo sem autorizacao"],
+  "acceptanceCriteria": ["Dispatch concorrente nao duplica entrega", "Simulacao nao fica eternamente elegivel", "Retries e erros sao observaveis", "Scheduler escolhido esta documentado"],
+  "verification": ["python -m pytest -q", "Teste concorrente/idempotencia em banco descartavel"],
+  "worktreePath": "TBD",
+  "notes": "Separar desenho do scheduler da ativacao em producao."
+}
+

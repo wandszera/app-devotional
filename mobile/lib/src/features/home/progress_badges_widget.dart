@@ -26,7 +26,7 @@ class ProgressBadgesWidget extends StatelessWidget {
             borderRadius: BorderRadius.circular(24),
             boxShadow: [
               BoxShadow(
-                color: Colors.black.withOpacity(0.03),
+                color: Colors.black.withValues(alpha: 0.03),
                 blurRadius: 10,
                 offset: const Offset(0, 4),
               ),
@@ -45,7 +45,7 @@ class ProgressBadgesWidget extends StatelessWidget {
             itemBuilder: (context, index) {
               final milestone = _milestones[index];
               final isUnlocked = streak.longestStreak >= milestone;
-              
+
               return _BadgeItem(
                 milestone: milestone,
                 isUnlocked: isUnlocked,
@@ -70,7 +70,7 @@ class _BadgeItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
-    
+
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -84,7 +84,7 @@ class _BadgeItem extends StatelessWidget {
                 ? LinearGradient(
                     colors: [
                       colorScheme.secondary,
-                      colorScheme.secondary.withOpacity(0.7),
+                      colorScheme.secondary.withValues(alpha: 0.7),
                     ],
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
@@ -94,7 +94,7 @@ class _BadgeItem extends StatelessWidget {
             boxShadow: isUnlocked
                 ? [
                     BoxShadow(
-                      color: colorScheme.secondary.withOpacity(0.4),
+                      color: colorScheme.secondary.withValues(alpha: 0.4),
                       blurRadius: 8,
                       offset: const Offset(0, 4),
                     )

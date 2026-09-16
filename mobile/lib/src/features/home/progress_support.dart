@@ -1,5 +1,4 @@
 import '../../models/devotional_models.dart';
-import '../../models/retention_models.dart';
 import 'retention_support.dart';
 
 typedef ProgressInsightsData = ({
@@ -41,10 +40,12 @@ class ProgressSupport {
         .whereType<DateTime>()
         .toList();
 
-    final referenceDate =
-        completedDates.isNotEmpty ? completedDates.first : (fallbackDate ?? DateTime.now());
+    final referenceDate = completedDates.isNotEmpty
+        ? completedDates.first
+        : (fallbackDate ?? DateTime.now());
     final monthStart = DateTime(referenceDate.year, referenceDate.month, 1);
-    final nextMonthStart = DateTime(referenceDate.year, referenceDate.month + 1, 1);
+    final nextMonthStart =
+        DateTime(referenceDate.year, referenceDate.month + 1, 1);
     final daysInMonth = nextMonthStart.subtract(const Duration(days: 1)).day;
     final leadingOffset = monthStart.weekday % 7;
     final completedMap = {

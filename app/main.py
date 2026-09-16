@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
+from app.core.config import settings
 from app.db.init_db import init_db
 from app.routes.auth import router as auth_router
 from app.routes.devotional import router as devotional_router
@@ -14,6 +15,8 @@ app = FastAPI(
     version="0.1.0",
     description="Initial MVP backend for the devotional app.",
 )
+
+settings.validate()
 
 app.add_middleware(
     CORSMiddleware,

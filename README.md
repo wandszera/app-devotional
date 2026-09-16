@@ -113,6 +113,7 @@ The table below details all current routes and authorization rules:
 | :--- | :--- | :---: | :---: | :--- |
 | `POST` | `/auth/register` | ❌ | ❌ | Registers a new user and returns an access token. |
 | `POST` | `/auth/login` | ❌ | ❌ | Authenticates a user and returns a JWT access token. |
+| `POST` | `/auth/google` | ❌ | ❌ | Exchanges a verified Firebase Google ID token for an app access token; creates or links the local account. |
 | `GET` | `/auth/me` | 🔒 Bearer | ❌ | Returns the authenticated user's profile details. |
 | `GET` | `/devotional/today` | 🔒 Bearer | ❌ | Gets the available devotional for the current day. |
 | `POST` | `/devotional/complete` | 🔒 Bearer | ❌ | Marks today's devotional as read and updates the streak. |
@@ -145,11 +146,15 @@ The table below details all current routes and authorization rules:
    ```bash
    pip install -r requirements.txt
    ```
-4. **Run the development server** via Uvicorn:
+4. **Apply database migrations**:
+   ```bash
+   python -m alembic upgrade head
+   ```
+5. **Run the development server** via Uvicorn:
    ```bash
    python -m uvicorn app.main:app --reload
    ```
-5. **Access the interactive documentation**:
+6. **Access the interactive documentation**:
    - Swagger UI: [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs)
    - Redoc: [http://127.0.0.1:8000/redoc](http://127.0.0.1:8000/redoc)
 
@@ -159,6 +164,23 @@ We use [pytest](https://pytest.org/) for backend unit and integration test cover
 ```bash
 python -m pytest -q
 ```
+
+> [!IMPORTANT]
+> For an existing local database created before Alembic, make a backup before adopting the migration history. If it matches the original schema but does not yet have the Google identity columns, run `python -m alembic stamp 20260901_01` followed by `python -m alembic upgrade head`; only use `stamp head` when the database already has every current column. New databases should always use `upgrade head`.
+
+### Login com Google
+
+O app mantém o cadastro por e-mail e senha e oferece **Continuar com Google**. O Firebase autentica a pessoa no celular; o backend valida o ID token com o Firebase Admin e só então cria ou vincula a conta local pelo e-mail verificado.
+
+Antes de testar em um aparelho Android:
+
+1. No [Firebase Console](https://console.firebase.google.com/), abra o projeto `app-devocional-mobile`, vá em **Authentication > Sign-in method** e habilite **Google**.
+2. Em **Project settings > Your apps**, cadastre as impressões digitais SHA-1 e SHA-256 do certificado de depuração e do certificado de produção. Para depuração no Windows, execute `cd mobile/android; .\gradlew signingReport` e copie os valores do variant `debug`.
+3. Baixe o `google-services.json` atualizado e substitua `mobile/android/app/google-services.json`. O arquivo atual não possui clientes OAuth, portanto o login Google ainda não poderá abrir a seleção de conta até este passo.
+4. No servidor, baixe uma chave de conta de serviço em **Project settings > Service accounts**, guarde-a fora do repositório e configure `FIREBASE_SERVICE_ACCOUNT_PATH` com o caminho absoluto dela antes de iniciar a API.
+5. Execute `python -m alembic upgrade head`, reinicie a API e gere/instale novamente o APK.
+
+Não envie a chave da conta de serviço ao Git. Ela permite que o servidor valide tokens e use os recursos administrativos do Firebase.
 
 ---
 

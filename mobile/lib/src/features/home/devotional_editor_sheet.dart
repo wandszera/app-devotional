@@ -32,8 +32,10 @@ class _DevotionalEditorSheetState extends State<DevotionalEditorSheet> {
       apiClient: widget.apiClient,
       devotional: widget.devotional,
     );
-    titleController = TextEditingController(text: widget.devotional?.title ?? '');
-    contentController = TextEditingController(text: widget.devotional?.content ?? '');
+    titleController =
+        TextEditingController(text: widget.devotional?.title ?? '');
+    contentController =
+        TextEditingController(text: widget.devotional?.content ?? '');
     dateController = TextEditingController(text: widget.devotional?.date ?? '');
   }
 
@@ -65,7 +67,8 @@ class _DevotionalEditorSheetState extends State<DevotionalEditorSheet> {
   }
 
   Future<void> _pickDate() async {
-    final initialDate = _tryParseDate(dateController.text.trim()) ?? DateTime.now();
+    final initialDate =
+        _tryParseDate(dateController.text.trim()) ?? DateTime.now();
     final selected = await showDatePicker(
       context: context,
       initialDate: initialDate,
@@ -104,7 +107,9 @@ class _DevotionalEditorSheetState extends State<DevotionalEditorSheet> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Text(
-                widget.devotional == null ? 'Novo devocional' : 'Editar devocional',
+                widget.devotional == null
+                    ? 'Novo devocional'
+                    : 'Editar devocional',
                 style: Theme.of(context).textTheme.titleLarge,
               ),
               const SizedBox(height: 16),

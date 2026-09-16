@@ -8,7 +8,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../models/auth_models.dart';
 import '../models/devotional_models.dart';
 import '../models/notification_models.dart';
+import 'analytics_service.dart';
 import 'auth_store.dart';
+import 'bundled_gospel_catalogue.dart';
 import 'local_db_service.dart';
 
 class ApiException implements Exception {
@@ -49,7 +51,9 @@ class ApiClient {
         'password': password,
       }),
     );
-    return _parseAuthResponse(response);
+    final auth = _parseAuthResponse(response);
+    unawaited(AnalyticsService.instance.logEvent('sign_up_completed'));
+    return auth;
   }
 
   Future<AuthResponse> login({
@@ -64,7 +68,20 @@ class ApiClient {
         'password': password,
       }),
     );
-    return _parseAuthResponse(response);
+    final auth = _parseAuthResponse(response);
+    unawaited(AnalyticsService.instance.logEvent('login_completed'));
+    return auth;
+  }
+
+  Future<AuthResponse> loginWithGoogle(String idToken) async {
+    final response = await http.post(
+      Uri.parse('$baseUrl/auth/google'),
+      headers: _headers,
+      body: jsonEncode({'id_token': idToken}),
+    );
+    final auth = _parseAuthResponse(response);
+    unawaited(AnalyticsService.instance.logEvent('google_sign_in_completed'));
+    return auth;
   }
 
   Future<UserProfile> updateProfile({
@@ -83,18 +100,27 @@ class ApiClient {
   }
 
   Future<DevotionalCardModel> getTodayDevotional() async {
-    final prefs = await SharedPreferences.getInstance();
     try {
-      final response = await http.get(
-        Uri.parse('$baseUrl/devotional/today'),
-        headers: _headers,
-      ).timeout(const Duration(seconds: 5));
-      final decoded = _decode(response, DevotionalCardModel.fromJson);
-      
-      await LocalDbService().cacheDevotional(decoded);
-      
+      final response = await http
+          .get(
+            Uri.parse('$baseUrl/devotional/today'),
+            headers: _headers,
+          )
+          .timeout(const Duration(seconds: 5));
+      final decoded = await _applyBundledGospel(
+        _decode(response, DevotionalCardModel.fromJson),
+      );
+
+      await LocalDbService().cacheDevotional(authStore.cacheOwnerKey, decoded);
+      unawaited(
+        AnalyticsService.instance.logEvent(
+          'devotional_viewed',
+          parameters: {'devotional_id': decoded.id},
+        ),
+      );
+
       unawaited(syncPendingCompletions());
-      
+
       return decoded;
     } on SocketException {
       return _getOfflineDevotionalFallback();
@@ -108,21 +134,71 @@ class ApiClient {
 
   Future<DevotionalCardModel> _getOfflineDevotionalFallback() async {
     final todayStr = DateTime.now().toIso8601String().split('T').first;
-    final cached = await LocalDbService().getCachedDevotional(todayStr);
+    final cached = await LocalDbService().getCachedDevotional(
+      authStore.cacheOwnerKey,
+      todayStr,
+    );
     if (cached != null) {
-      return cached;
+      return _applyBundledGospel(cached);
     }
-    throw ApiException('Sem conexão com a internet e sem cache disponível para hoje.');
+    final bundled = await BundledGospelCatalogue.instance.findByDate(todayStr);
+    if (bundled != null) {
+      return DevotionalCardModel(
+        id: 0,
+        title: 'Evangelho do dia',
+        content: bundled.reflection,
+        date: bundled.date,
+        liturgicalTitle: bundled.liturgicalTitle,
+        gospelReference: bundled.gospelReference,
+        sourceUrl: bundled.sourceUrl,
+        completed: false,
+        isFavorited: false,
+        guidance: DevotionalGuidanceModel(
+          title: 'Evangelho disponível offline',
+          body:
+              'A referência litúrgica veio do catálogo incluído no aplicativo.',
+          accentLabel: 'Conteúdo oficial',
+          tone: 'building',
+          currentStreak: 0,
+          nextMilestone: null,
+        ),
+      );
+    }
+    throw ApiException(
+        'Sem conexão com a internet e sem cache disponível para hoje.');
+  }
+
+  Future<DevotionalCardModel> _applyBundledGospel(
+    DevotionalCardModel devotional,
+  ) async {
+    final bundled = await BundledGospelCatalogue.instance.findByDate(
+      devotional.date,
+    );
+    if (bundled == null) return devotional;
+    return DevotionalCardModel(
+      id: devotional.id,
+      title: 'Evangelho do dia',
+      content: bundled.reflection,
+      date: devotional.date,
+      liturgicalTitle: bundled.liturgicalTitle,
+      gospelReference: bundled.gospelReference,
+      sourceUrl: bundled.sourceUrl,
+      completed: devotional.completed,
+      isFavorited: devotional.isFavorited,
+      guidance: devotional.guidance,
+    );
   }
 
   Future<StreakModel> getStreak() async {
     try {
-      final response = await http.get(
-        Uri.parse('$baseUrl/streak'),
-        headers: _headers,
-      ).timeout(const Duration(seconds: 5));
+      final response = await http
+          .get(
+            Uri.parse('$baseUrl/streak'),
+            headers: _headers,
+          )
+          .timeout(const Duration(seconds: 5));
       final decoded = _decode(response, StreakModel.fromJson);
-      await LocalDbService().cacheStreak(decoded);
+      await LocalDbService().cacheStreak(authStore.cacheOwnerKey, decoded);
       return decoded;
     } on SocketException {
       return _getOfflineStreakFallback();
@@ -135,7 +211,9 @@ class ApiClient {
   }
 
   Future<StreakModel> _getOfflineStreakFallback() async {
-    final cached = await LocalDbService().getCachedStreak();
+    final cached = await LocalDbService().getCachedStreak(
+      authStore.cacheOwnerKey,
+    );
     if (cached != null) {
       return cached;
     }
@@ -144,17 +222,19 @@ class ApiClient {
 
   Future<List<ProgressEntry>> getProgress() async {
     try {
-      final response = await http.get(
-        Uri.parse('$baseUrl/progress'),
-        headers: _headers,
-      ).timeout(const Duration(seconds: 5));
+      final response = await http
+          .get(
+            Uri.parse('$baseUrl/progress'),
+            headers: _headers,
+          )
+          .timeout(const Duration(seconds: 5));
       final decoded = _decode(response, (json) {
         final items = json['completed_days'] as List<dynamic>? ?? [];
         return items
             .map((item) => ProgressEntry.fromJson(item as Map<String, dynamic>))
             .toList();
       });
-      await LocalDbService().cacheProgress(decoded);
+      await LocalDbService().cacheProgress(authStore.cacheOwnerKey, decoded);
       return decoded;
     } on SocketException {
       return _getOfflineProgressFallback();
@@ -167,7 +247,9 @@ class ApiClient {
   }
 
   Future<List<ProgressEntry>> _getOfflineProgressFallback() async {
-    final cached = await LocalDbService().getCachedProgress();
+    final cached = await LocalDbService().getCachedProgress(
+      authStore.cacheOwnerKey,
+    );
     if (cached != null) {
       return cached;
     }
@@ -177,28 +259,51 @@ class ApiClient {
   Future<DevotionalCompletionResultModel> completeTodayDevotional() async {
     final prefs = await SharedPreferences.getInstance();
     try {
-      final response = await http.post(
-        Uri.parse('$baseUrl/devotional/complete'),
-        headers: _headers,
-      ).timeout(const Duration(seconds: 5));
-      await prefs.remove('pending_completion');
-      
+      final response = await http
+          .post(
+            Uri.parse('$baseUrl/devotional/complete'),
+            headers: _headers,
+          )
+          .timeout(const Duration(seconds: 5));
+      await prefs.remove(_pendingCompletionKey);
+
       final todayStr = DateTime.now().toIso8601String().split('T').first;
-      final cachedToday = await LocalDbService().getCachedDevotional(todayStr);
+      final cachedToday = await LocalDbService().getCachedDevotional(
+        authStore.cacheOwnerKey,
+        todayStr,
+      );
       if (cachedToday != null) {
         final updated = DevotionalCardModel(
           id: cachedToday.id,
           title: cachedToday.title,
           content: cachedToday.content,
           date: cachedToday.date,
+          liturgicalTitle: cachedToday.liturgicalTitle,
+          gospelReference: cachedToday.gospelReference,
+          sourceUrl: cachedToday.sourceUrl,
           completed: true,
           isFavorited: cachedToday.isFavorited,
           guidance: cachedToday.guidance,
         );
-        await LocalDbService().cacheDevotional(updated);
+        await LocalDbService().cacheDevotional(
+          authStore.cacheOwnerKey,
+          updated,
+        );
       }
-      
-      return _decode(response, DevotionalCompletionResultModel.fromJson);
+
+      final completion =
+          _decode(response, DevotionalCompletionResultModel.fromJson);
+      unawaited(
+        AnalyticsService.instance.logEvent(
+          'devotional_completed',
+          parameters: {
+            'devotional_id': completion.devotionalId,
+            'offline': 0,
+            'streak': completion.streak?.currentStreak ?? 0,
+          },
+        ),
+      );
+      return completion;
     } on SocketException {
       return _offlineCompletionFallback(prefs);
     } on TimeoutException {
@@ -209,22 +314,38 @@ class ApiClient {
     }
   }
 
-  Future<DevotionalCompletionResultModel> _offlineCompletionFallback(SharedPreferences prefs) async {
-    await prefs.setBool('pending_completion', true);
-    
+  Future<DevotionalCompletionResultModel> _offlineCompletionFallback(
+      SharedPreferences prefs) async {
     final todayStr = DateTime.now().toIso8601String().split('T').first;
-    final cachedToday = await LocalDbService().getCachedDevotional(todayStr);
+    await prefs.setString(_pendingCompletionKey, todayStr);
+    unawaited(
+      AnalyticsService.instance.logEvent(
+        'devotional_completed',
+        parameters: {'offline': 1},
+      ),
+    );
+
+    final cachedToday = await LocalDbService().getCachedDevotional(
+      authStore.cacheOwnerKey,
+      todayStr,
+    );
     if (cachedToday != null) {
       final updated = DevotionalCardModel(
         id: cachedToday.id,
         title: cachedToday.title,
         content: cachedToday.content,
         date: cachedToday.date,
+        liturgicalTitle: cachedToday.liturgicalTitle,
+        gospelReference: cachedToday.gospelReference,
+        sourceUrl: cachedToday.sourceUrl,
         completed: true,
         isFavorited: cachedToday.isFavorited,
         guidance: cachedToday.guidance,
       );
-      await LocalDbService().cacheDevotional(updated);
+      await LocalDbService().cacheDevotional(
+        authStore.cacheOwnerKey,
+        updated,
+      );
     }
 
     return DevotionalCompletionResultModel(
@@ -233,7 +354,8 @@ class ApiClient {
       streak: null,
       feedback: DevotionalCompletionFeedbackModel(
         title: 'Offline, mas garantido!',
-        body: 'Seu devocional de hoje foi registrado no celular e será sincronizado quando houver internet.',
+        body:
+            'Seu devocional de hoje foi registrado no celular e será sincronizado quando houver internet.',
         tone: 'starter',
         currentStreak: 1, // Will be corrected on sync
         longestStreak: 1,
@@ -246,26 +368,44 @@ class ApiClient {
   /// Sincroniza pendências ao iniciar (chamar no getTodayDevotional por exemplo)
   Future<void> syncPendingCompletions() async {
     final prefs = await SharedPreferences.getInstance();
-    final hasPending = prefs.getBool('pending_completion') ?? false;
-    if (hasPending) {
+    final pendingDate = prefs.getString(_pendingCompletionKey);
+    if (pendingDate != null) {
+      final todayStr = DateTime.now().toIso8601String().split('T').first;
+      if (pendingDate != todayStr) {
+        await prefs.remove(_pendingCompletionKey);
+        return;
+      }
       try {
         await http.post(
           Uri.parse('$baseUrl/devotional/complete'),
           headers: _headers,
         );
-        await prefs.remove('pending_completion');
+        await prefs.remove(_pendingCompletionKey);
       } catch (_) {
         // Falhou na sincronização em background, ignora e tenta depois
       }
     }
   }
 
+  String get _pendingCompletionKey =>
+      'pending_completion_${authStore.cacheOwnerKey}';
+
   Future<FavoriteToggleResultModel> toggleFavorite(int devotionalId) async {
     final response = await http.post(
       Uri.parse('$baseUrl/devotional/$devotionalId/favorite'),
       headers: _headers,
     );
-    return _decode(response, FavoriteToggleResultModel.fromJson);
+    final favorite = _decode(response, FavoriteToggleResultModel.fromJson);
+    unawaited(
+      AnalyticsService.instance.logEvent(
+        'favorite_toggled',
+        parameters: {
+          'devotional_id': devotionalId,
+          'is_favorited': favorite.isFavorited ? 1 : 0,
+        },
+      ),
+    );
+    return favorite;
   }
 
   Future<List<AdminDevotional>> getFavorites() async {
@@ -283,10 +423,12 @@ class ApiClient {
 
   Future<NotificationSettingsModel> getNotificationSettings() async {
     try {
-      final response = await http.get(
-        Uri.parse('$baseUrl/notifications/settings'),
-        headers: _headers,
-      ).timeout(const Duration(seconds: 10));
+      final response = await http
+          .get(
+            Uri.parse('$baseUrl/notifications/settings'),
+            headers: _headers,
+          )
+          .timeout(const Duration(seconds: 10));
       return _decode(response, NotificationSettingsModel.fromJson);
     } on SocketException {
       throw ApiException('Sem conexão com a internet.');
@@ -302,12 +444,25 @@ class ApiClient {
     NotificationSettingsModel settings,
   ) async {
     try {
-      final response = await http.put(
-        Uri.parse('$baseUrl/notifications/settings'),
-        headers: _headers,
-        body: jsonEncode(settings.toJson()),
-      ).timeout(const Duration(seconds: 10));
-      return _decode(response, NotificationSettingsModel.fromJson);
+      final response = await http
+          .put(
+            Uri.parse('$baseUrl/notifications/settings'),
+            headers: _headers,
+            body: jsonEncode(settings.toJson()),
+          )
+          .timeout(const Duration(seconds: 10));
+      final updated = _decode(response, NotificationSettingsModel.fromJson);
+      unawaited(
+        AnalyticsService.instance.logEvent(
+          'reminder_updated',
+          parameters: {
+            'enabled': updated.enabled ? 1 : 0,
+            'reminder_time': updated.reminderTime,
+            'timezone': updated.timezone,
+          },
+        ),
+      );
+      return updated;
     } on SocketException {
       throw ApiException('Sem conexão com a internet.');
     } on TimeoutException {
@@ -326,7 +481,8 @@ class ApiClient {
     return _decode(response, (json) {
       final items = json['due_notifications'] as List<dynamic>? ?? [];
       return items
-          .map((item) => DueNotificationModel.fromJson(item as Map<String, dynamic>))
+          .map((item) =>
+              DueNotificationModel.fromJson(item as Map<String, dynamic>))
           .toList();
     });
   }

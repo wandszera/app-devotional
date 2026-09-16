@@ -33,10 +33,18 @@ def get_today_devotional(
 
 @router.post("/complete", response_model=DevotionalCompletionResponse)
 def complete_today_devotional(
+    completed_date: date | None = None,
     current_user: User = Depends(get_current_user),
     session: Session = Depends(get_db),
 ) -> DevotionalCompletionResponse:
-    result = devotional_service.complete_today_devotional(session, current_user.id)
+    try:
+        result = devotional_service.complete_today_devotional(
+            session,
+            current_user.id,
+            completed_date=completed_date,
+        )
+    except ValueError as exc:
+        raise HTTPException(status_code=422, detail=str(exc)) from exc
     if result is None:
         raise HTTPException(status_code=404, detail="user or devotional not found")
     return result
@@ -48,7 +56,14 @@ def toggle_devotional_favorite(
     current_user: User = Depends(get_current_user),
     session: Session = Depends(get_db),
 ) -> FavoriteToggleResponse:
-    is_favorited = devotional_service.toggle_favorite(session, current_user.id, devotional_id)
+    try:
+        is_favorited = devotional_service.toggle_favorite(
+            session,
+            current_user.id,
+            devotional_id,
+        )
+    except LookupError as exc:
+        raise HTTPException(status_code=404, detail=str(exc)) from exc
     return FavoriteToggleResponse(devotional_id=devotional_id, is_favorited=is_favorited)
 
 
@@ -81,7 +96,15 @@ def create_devotional(
 ):
     del admin_user
     try:
-        return devotional_service.create_devotional(session, payload.title, payload.content, payload.date)
+        return devotional_service.create_devotional(
+            session,
+            payload.title,
+            payload.content,
+            payload.date,
+            liturgical_title=payload.liturgical_title,
+            gospel_reference=payload.gospel_reference,
+            source_url=payload.source_url,
+        )
     except ValueError as exc:
         raise HTTPException(status_code=409, detail=str(exc)) from exc
 
@@ -101,6 +124,9 @@ def update_devotional(
             title=payload.title,
             content=payload.content,
             devotional_date=payload.date,
+            liturgical_title=payload.liturgical_title,
+            gospel_reference=payload.gospel_reference,
+            source_url=payload.source_url,
         )
     except ValueError as exc:
         raise HTTPException(status_code=409, detail=str(exc)) from exc

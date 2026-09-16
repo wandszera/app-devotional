@@ -17,7 +17,9 @@ void main() {
 
     expect(tabs.map((tab) => tab.destination.label), [
       'Hoje',
+      'Calendário',
       'Progresso',
+      'Orações',
       'Ajustes',
     ]);
   });
@@ -34,7 +36,9 @@ void main() {
 
     expect(tabs.map((tab) => tab.destination.label), [
       'Hoje',
+      'Calendário',
       'Progresso',
+      'Orações',
       'Ajustes',
       'Admin',
       'Dispatch',

@@ -7,6 +7,7 @@ venv/
 ENV/
 env/
 .env
+serviceAccountKey.json
 
 # Database (SQLite)
 *.db
@@ -32,3 +33,5 @@ flutter_web.out.log
 # OS files
 .DS_Store
 Thumbs.db
+.agentops/runtime/
+.worktrees/

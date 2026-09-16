@@ -9,6 +9,7 @@ class TodayFlow {
     required DevotionalCardModel devotional,
     required StreakModel streak,
     required Future<DevotionalCompletionResultModel?> Function()? onComplete,
+    required String ownerKey,
   }) async {
     await Navigator.of(context).push(
       MaterialPageRoute<void>(
@@ -16,6 +17,7 @@ class TodayFlow {
           devotional: devotional,
           streak: streak,
           onComplete: onComplete,
+          ownerKey: ownerKey,
         ),
       ),
     );

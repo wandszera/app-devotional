@@ -9,7 +9,6 @@ import 'home_state_widgets.dart';
 import 'settings_support.dart';
 import 'settings_tab_controller.dart';
 import 'settings_tab_content.dart';
-import 'settings_widgets.dart';
 
 class SettingsTab extends StatefulWidget {
   const SettingsTab({

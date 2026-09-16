@@ -1,0 +1,20 @@
+{
+  "id": "be-001-windows-timezone",
+  "title": "Suportar timezones IANA no backend Windows",
+  "objective": "Garantir que ZoneInfo encontre timezones IANA no ambiente Windows e que o gate backend passe de forma reproduzivel.",
+  "status": "backlog",
+  "priority": "P0",
+  "complexity": "simple",
+  "plannerTier": "simple",
+  "executorTier": "simple",
+  "risk": "low",
+  "baseCommit": null,
+  "dependencies": ["ops-001-baseline-checkpoint"],
+  "allowedPaths": ["requirements.txt", "app/core/timezones.py", "tests/test_app.py", "README.md"],
+  "forbiddenActions": ["Nao mudar regra de data do usuario", "Nao afrouxar ou remover o teste existente"],
+  "acceptanceCriteria": ["Pacific/Kiritimati e outros timezones IANA funcionam no Windows", "A dependencia/runtime necessario esta documentado", "Todos os testes backend passam"],
+  "verification": ["python -m pytest -q"],
+  "worktreePath": "TBD",
+  "notes": "Baseline: 22 passed, 1 failed por ModuleNotFoundError tzdata."
+}
+

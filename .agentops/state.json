@@ -1,0 +1,13 @@
+{
+  "schemaVersion": 1,
+  "status": "paused",
+  "orchestrationStarted": false,
+  "pauseReason": "Infraestrutura preparada; aguardando autorizacao explicita do usuario, checkpoint do trabalho local e instalacao/autenticacao do Antigravity CLI.",
+  "baseBranch": "main",
+  "baseCommit": "db84034",
+  "dirtyBaseline": true,
+  "currentTask": null,
+  "automationId": "app-devocional-orquestrador",
+  "automationStatus": "PAUSED",
+  "lastReviewedAt": "2026-09-16T09:00:00-03:00"
+}

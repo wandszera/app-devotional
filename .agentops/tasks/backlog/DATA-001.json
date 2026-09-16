@@ -1,0 +1,20 @@
+{
+  "id": "data-001-scope-local-user-data",
+  "title": "Isolar preferencias locais por usuario",
+  "objective": "Impedir que favoritos, notas e preferencias de Evangelho/oracoes vazem entre contas no mesmo dispositivo.",
+  "status": "backlog",
+  "priority": "P1",
+  "complexity": "complex",
+  "plannerTier": "complex",
+  "executorTier": "complex",
+  "risk": "high",
+  "baseCommit": null,
+  "dependencies": ["ops-002-ci-quality-gates", "content-001-canonical-source"],
+  "allowedPaths": ["mobile/lib/src/services/gospel_store.dart", "mobile/lib/src/services/prayer_store.dart", "mobile/lib/src/services/local_db_service.dart", "mobile/lib/src/services/auth_store.dart", "mobile/test/"],
+  "forbiddenActions": ["Nao apagar dados existentes sem migracao", "Nao misturar dados anonimos e autenticados"],
+  "acceptanceCriteria": ["Cada chave/registro persistido possui owner", "Troca de conta nao exibe dados da conta anterior", "Dados legados possuem estrategia de migracao segura", "Testes cobrem dois usuarios"],
+  "verification": ["cd mobile; flutter analyze", "cd mobile; flutter test"],
+  "worktreePath": "TBD",
+  "notes": "Tratar web separadamente porque parte do estado atual e apenas em memoria."
+}
+

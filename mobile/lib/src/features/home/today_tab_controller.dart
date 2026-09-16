@@ -43,7 +43,8 @@ class TodayTabController extends AsyncController {
         apiClient.getTodayDevotional(),
         apiClient.getStreak(),
       ]);
-      final nextStatus = status.copyWith(loading: false, clearErrorMessage: true);
+      final nextStatus =
+          status.copyWith(loading: false, clearErrorMessage: true);
       _state = _state.copyWith(
         devotional: results[0] as DevotionalCardModel,
         streak: results[1] as StreakModel,
@@ -94,6 +95,9 @@ class TodayTabController extends AsyncController {
         title: devotional.title,
         content: devotional.content,
         date: devotional.date,
+        liturgicalTitle: devotional.liturgicalTitle,
+        gospelReference: devotional.gospelReference,
+        sourceUrl: devotional.sourceUrl,
         completed: devotional.completed,
         isFavorited: result.isFavorited,
         guidance: devotional.guidance,

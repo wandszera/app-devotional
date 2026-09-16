@@ -1,18 +1,28 @@
-from datetime import date, timedelta
+from datetime import UTC, date, datetime, timedelta
 
 from fastapi.testclient import TestClient
 
 from app.core.config import settings
-from app.db.models import UserProgressModel, UserStreakModel
+from app.core.firebase import GoogleIdentity
+from app.db.models import (
+    NotificationSettingsModel,
+    UserModel,
+    UserProgressModel,
+    UserStreakModel,
+)
 from app.db.init_db import init_db
-from app.db.session import Base, SessionLocal, engine
+from app.db.session import Base, DATABASE_URL, SessionLocal, engine
 from app.main import app
+from app.services.devotional_service import devotional_service
 
 
 client = TestClient(app)
 
 
 def setup_function() -> None:
+    assert "app_devocional_tests_" in DATABASE_URL, (
+        "refusing to reset a database outside the isolated test directory"
+    )
     settings.admin_emails = {"admin@example.com"}
     Base.metadata.drop_all(bind=engine)
     init_db()
@@ -137,7 +147,7 @@ def test_completion_returns_milestone_feedback_when_user_hits_three_days() -> No
         assert streak is not None
         streak.current_streak = 2
         streak.longest_streak = 2
-        streak.last_activity_date = date.today() - timedelta(days=1)
+        streak.last_activity_date = datetime.now(UTC).date() - timedelta(days=1)
         session.add(streak)
         session.commit()
     finally:
@@ -157,6 +167,44 @@ def test_protected_routes_require_token() -> None:
 
     assert response.status_code == 401
     assert response.json()["detail"] == "authentication required"
+
+
+def test_favoriting_unknown_devotional_returns_not_found() -> None:
+    register_response = client.post(
+        "/auth/register",
+        json={"email": "user@example.com", "password": "segredo123"},
+    )
+    headers = {"Authorization": f"Bearer {register_response.json()['access_token']}"}
+
+    response = client.post("/devotional/999999/favorite", headers=headers)
+
+    assert response.status_code == 404
+    assert response.json()["detail"] == "devotional not found"
+
+
+def test_devotional_uses_the_users_configured_timezone() -> None:
+    register_response = client.post(
+        "/auth/register",
+        json={"email": "timezone@example.com", "password": "segredo123"},
+    )
+    user_id = register_response.json()["user"]["id"]
+
+    session = SessionLocal()
+    try:
+        settings = session.get(NotificationSettingsModel, user_id)
+        assert settings is not None
+        settings.timezone = "Pacific/Kiritimati"
+        session.commit()
+
+        response = devotional_service.get_today_devotional(
+            session,
+            user_id,
+            now_utc=datetime(2026, 4, 29, 12, 0, tzinfo=UTC),
+        )
+        assert response is not None
+        assert response.devotional.date == date(2026, 4, 30)
+    finally:
+        session.close()
 
 
 def test_login_rejects_invalid_password() -> None:
@@ -190,6 +238,77 @@ def test_login_success() -> None:
     data = resp.json()
     assert data["message"] == "user authenticated"
     assert "access_token" in data
+
+
+def test_google_login_creates_then_reuses_the_local_account(monkeypatch) -> None:
+    identity = GoogleIdentity(
+        uid="firebase-google-user-1",
+        email="google@example.com",
+        name="Pessoa Google",
+    )
+    monkeypatch.setattr(
+        "app.services.user_service.verify_google_id_token",
+        lambda _id_token: identity,
+    )
+
+    first_response = client.post("/auth/google", json={"id_token": "a" * 32})
+
+    assert first_response.status_code == 200
+    first_payload = first_response.json()
+    assert first_payload["user"]["email"] == "google@example.com"
+    assert first_payload["user"]["name"] == "Pessoa Google"
+
+    second_response = client.post("/auth/google", json={"id_token": "b" * 32})
+
+    assert second_response.status_code == 200
+    assert second_response.json()["user"]["id"] == first_payload["user"]["id"]
+
+    session = SessionLocal()
+    try:
+        user = session.query(UserModel).filter(UserModel.email == "google@example.com").one()
+        assert user.firebase_uid == "firebase-google-user-1"
+        assert user.auth_provider == "google"
+        assert session.get(UserStreakModel, user.id) is not None
+        assert session.get(NotificationSettingsModel, user.id) is not None
+    finally:
+        session.close()
+
+
+def test_google_login_links_an_existing_password_account(monkeypatch) -> None:
+    register_response = client.post(
+        "/auth/register",
+        json={"email": "existing@example.com", "password": "segredo123"},
+    )
+    existing_id = register_response.json()["user"]["id"]
+    monkeypatch.setattr(
+        "app.services.user_service.verify_google_id_token",
+        lambda _id_token: GoogleIdentity(
+            uid="firebase-existing-user",
+            email="existing@example.com",
+            name="Nome não substitui perfil",
+        ),
+    )
+
+    response = client.post("/auth/google", json={"id_token": "c" * 32})
+
+    assert response.status_code == 200
+    assert response.json()["user"]["id"] == existing_id
+
+
+def test_google_login_returns_service_unavailable_when_firebase_is_unconfigured(
+    monkeypatch,
+) -> None:
+    from app.core.firebase import FirebaseAuthUnavailableError
+
+    def unavailable(_id_token: str) -> GoogleIdentity:
+        raise FirebaseAuthUnavailableError
+
+    monkeypatch.setattr("app.services.user_service.verify_google_id_token", unavailable)
+
+    response = client.post("/auth/google", json={"id_token": "a" * 32})
+
+    assert response.status_code == 503
+    assert response.json()["detail"] == "google sign-in is not configured on the server"
 
 
 def test_update_profile() -> None:
@@ -405,7 +524,7 @@ def test_admin_can_dispatch_and_list_notification_deliveries() -> None:
     )
     assert dispatch_response.status_code == 200
     assert dispatch_response.json()["processed"] == 1
-    assert dispatch_response.json()["deliveries"][0]["status"] == "sent"
+    assert dispatch_response.json()["deliveries"][0]["status"] == "simulated"
     assert dispatch_response.json()["deliveries"][0]["delivery"]["provider"] == "mock"
 
     deliveries_response = client.get(

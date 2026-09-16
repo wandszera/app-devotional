@@ -1,0 +1,28 @@
+{
+  "id": "replace-with-task-id",
+  "title": "Titulo curto e verificavel",
+  "objective": "Resultado observavel que esta tarefa deve produzir.",
+  "status": "backlog",
+  "priority": "P2",
+  "complexity": "simple",
+  "plannerTier": "simple",
+  "executorTier": "simple",
+  "risk": "low",
+  "baseCommit": null,
+  "dependencies": [],
+  "allowedPaths": [
+    "path/to/file"
+  ],
+  "forbiddenActions": [
+    "Nao alterar arquivos fora de allowedPaths",
+    "Nao fazer push, merge, deploy ou publicacao"
+  ],
+  "acceptanceCriteria": [
+    "Criterio objetivo e testavel"
+  ],
+  "verification": [
+    "Comando ou inspecao que prova o criterio"
+  ],
+  "worktreePath": "TBD",
+  "notes": "Contexto minimo adicional."
+}

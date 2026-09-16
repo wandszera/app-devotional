@@ -10,7 +10,7 @@ class FirebasePushSdkBridge implements PushSdkBridge {
 
   void _initFirebaseMessaging() {
     if (kIsWeb) return;
-    
+
     // Opcional: configurar handler em background se necessario futuramente
     // FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
   }
@@ -27,7 +27,9 @@ class FirebasePushSdkBridge implements PushSdkBridge {
 
   @override
   Future<PushSdkState> requestPermission() async {
-    if (kIsWeb || (defaultTargetPlatform != TargetPlatform.android && defaultTargetPlatform != TargetPlatform.iOS)) {
+    if (kIsWeb ||
+        (defaultTargetPlatform != TargetPlatform.android &&
+            defaultTargetPlatform != TargetPlatform.iOS)) {
       return _buildState();
     }
 
@@ -40,27 +42,32 @@ class FirebasePushSdkBridge implements PushSdkBridge {
     return _buildState(permissionSettings: settings);
   }
 
-  Future<PushSdkState> _buildState({NotificationSettings? permissionSettings}) async {
-    if (kIsWeb || (defaultTargetPlatform != TargetPlatform.android && defaultTargetPlatform != TargetPlatform.iOS)) {
+  Future<PushSdkState> _buildState(
+      {NotificationSettings? permissionSettings}) async {
+    if (kIsWeb ||
+        (defaultTargetPlatform != TargetPlatform.android &&
+            defaultTargetPlatform != TargetPlatform.iOS)) {
       return const PushSdkState(
         sdkReady: false,
         isSupported: false,
         permissionStatus: PushPermissionStatus.notSupported,
         pushToken: null,
         statusMessage: 'Plataforma não suportada nativamente',
-        helpMessage: 'Push nativo suportado apenas no Android e iOS. No momento, o lembrete salvará apenas o horário.',
+        helpMessage:
+            'Push nativo suportado apenas no Android e iOS. No momento, o lembrete salvará apenas o horário.',
       );
     }
 
-    final settings = permissionSettings ?? await FirebaseMessaging.instance.getNotificationSettings();
+    final settings = permissionSettings ??
+        await FirebaseMessaging.instance.getNotificationSettings();
     final permissionStatus = _mapPermissionStatus(settings.authorizationStatus);
 
     String? token;
     if (permissionStatus == PushPermissionStatus.granted) {
       try {
         token = await FirebaseMessaging.instance.getToken();
-      } catch (e) {
-        debugPrint('Erro ao capturar push token: \$e');
+      } catch (error) {
+        debugPrint('Erro ao capturar push token: $error');
       }
     }
 
@@ -80,6 +87,7 @@ class FirebasePushSdkBridge implements PushSdkBridge {
       case AuthorizationStatus.provisional:
         return PushPermissionStatus.granted;
       case AuthorizationStatus.denied:
+      case AuthorizationStatus.deniedPermanently:
         return PushPermissionStatus.denied;
       case AuthorizationStatus.notDetermined:
         return PushPermissionStatus.notDetermined;
@@ -88,7 +96,9 @@ class FirebasePushSdkBridge implements PushSdkBridge {
 
   String _buildStatusMessage(PushPermissionStatus status, String? token) {
     if (status == PushPermissionStatus.granted) {
-      return token != null ? 'Pronto para receber notificações!' : 'Permissão concedida, gerando token...';
+      return token != null
+          ? 'Pronto para receber notificações!'
+          : 'Permissão concedida, gerando token...';
     }
     if (status == PushPermissionStatus.denied) {
       return 'Notificações bloqueadas pelo usuário.';

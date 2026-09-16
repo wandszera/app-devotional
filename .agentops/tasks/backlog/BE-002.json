@@ -1,0 +1,20 @@
+{
+  "id": "be-002-startup-migrations",
+  "title": "Separar startup, migrations e seed",
+  "objective": "Remover mutacoes de schema/dados do import da aplicacao e definir lifecycle previsivel para desenvolvimento, testes e producao.",
+  "status": "backlog",
+  "priority": "P1",
+  "complexity": "complex",
+  "plannerTier": "complex",
+  "executorTier": "complex",
+  "risk": "high",
+  "baseCommit": null,
+  "dependencies": ["ops-002-ci-quality-gates", "content-001-canonical-source"],
+  "allowedPaths": ["app/main.py", "app/db/init_db.py", "app/db/session.py", "alembic/", "tests/", "README.md"],
+  "forbiddenActions": ["Nao migrar devotional.db sem backup", "Nao usar create_all como substituto silencioso de Alembic em producao"],
+  "acceptanceCriteria": ["Importar app.main nao altera schema", "Migracao e seed sao comandos/lifecycles explicitos", "Testes usam banco descartavel", "Inicializacao multiworker e segura"],
+  "verification": ["python -m pytest -q", "python -m alembic upgrade head em banco temporario", "Importar app.main e comparar schema antes/depois"],
+  "worktreePath": "TBD",
+  "notes": "Planejar compatibilidade com bancos locais anteriores."
+}
+

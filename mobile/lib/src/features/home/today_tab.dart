@@ -3,7 +3,10 @@ import 'package:share_plus/share_plus.dart';
 
 import '../../models/devotional_models.dart';
 import '../../models/retention_models.dart';
+import '../../config/app_config.dart';
 import '../../services/api_client.dart';
+import '../../services/analytics_service.dart';
+import '../../services/devotional_share_service.dart';
 import 'completion_feedback_dialog.dart';
 import 'home_state_widgets.dart';
 import 'retention_support.dart';
@@ -40,7 +43,8 @@ class _TodayTabState extends State<TodayTab> {
   Future<DevotionalCompletionResultModel?> _complete() async {
     final result = await controller.complete();
     if (result != null) {
-      final milestone = result.feedback.milestoneHit ?? result.feedback.currentStreak;
+      final milestone =
+          result.feedback.milestoneHit ?? result.feedback.currentStreak;
       if (mounted) {
         await CompletionFeedbackDialog.show(context, result.feedback);
       }
@@ -64,6 +68,7 @@ class _TodayTabState extends State<TodayTab> {
       devotional: devotional,
       streak: streak,
       onComplete: completed ? null : _complete,
+      ownerKey: widget.apiClient.authStore.cacheOwnerKey,
     );
     if (mounted) {
       await controller.load();
@@ -71,11 +76,16 @@ class _TodayTabState extends State<TodayTab> {
   }
 
   void _share(DevotionalCardModel devotional, StreakModel streak) {
-    final title = devotional.title;
-    final currentStreak = streak.currentStreak;
-    
-    final text = 'Estou no meu $currentStreakº dia de devocional seguido no App Devocional!\n\nO tema de hoje é: "$title".\n\nVenha construir esse hábito comigo!';
-    Share.share(text);
+    final text = DevotionalShareService.buildText(
+      devotional: devotional,
+      currentStreak: streak.currentStreak,
+      appUrl: AppConfig.shareUrl,
+    );
+    AnalyticsService.instance.logEvent(
+      'devotional_shared',
+      parameters: {'devotional_id': devotional.id},
+    );
+    SharePlus.instance.share(ShareParams(text: text));
   }
 
   @override
@@ -97,7 +107,8 @@ class _TodayTabState extends State<TodayTab> {
         if (devotionalData == null || streakData == null) {
           return const HomeEmptyView(message: 'Nenhum conteudo encontrado.');
         }
-        final nextMilestone = RetentionSupport.nextMilestone(streakData.currentStreak);
+        final nextMilestone =
+            RetentionSupport.nextMilestone(streakData.currentStreak);
         final now = DateTime.now();
         final greeting = TodaySupport.greetingForHour(
           now.hour,

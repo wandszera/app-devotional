@@ -1,0 +1,55 @@
+{
+  "schemaVersion": 1,
+  "executionEnabled": false,
+  "maxParallelExecutors": 1,
+  "orchestrator": {
+    "complex": {
+      "model": "gpt-5.6-sol",
+      "reasoningEffort": "high"
+    },
+    "simple": {
+      "model": "gpt-5.6-sol",
+      "reasoningEffort": "low"
+    }
+  },
+  "executor": {
+    "complex": {
+      "agent": "antigravity-executor-high",
+      "model": "gemini-3.1-pro-high",
+      "reasoningEffort": "high",
+      "timeout": "45m"
+    },
+    "simple": {
+      "agent": "antigravity-executor-light",
+      "model": "gemini-3.8-flash-medium",
+      "reasoningEffort": "low",
+      "timeout": "20m"
+    },
+    "review": {
+      "agent": "antigravity-reviewer",
+      "model": "gemini-3.1-pro-high",
+      "reasoningEffort": "high",
+      "timeout": "30m"
+    }
+  },
+  "qualityGates": {
+    "backend": [
+      "python -m pytest -q"
+    ],
+    "mobile": [
+      "flutter analyze",
+      "flutter test"
+    ]
+  },
+  "paths": {
+    "backlog": ".agentops/tasks/backlog",
+    "ready": ".agentops/tasks/ready",
+    "running": ".agentops/tasks/running",
+    "review": ".agentops/tasks/review",
+    "blocked": ".agentops/tasks/blocked",
+    "done": ".agentops/tasks/done",
+    "handoffs": ".agentops/handoffs",
+    "runtime": ".agentops/runtime"
+  }
+}
+

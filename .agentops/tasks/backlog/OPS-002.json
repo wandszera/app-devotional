@@ -1,0 +1,20 @@
+{
+  "id": "ops-002-ci-quality-gates",
+  "title": "Criar CI minima para backend e Flutter",
+  "objective": "Executar automaticamente os gates backend e mobile em ambiente limpo e publicar falhas claras.",
+  "status": "backlog",
+  "priority": "P1",
+  "complexity": "complex",
+  "plannerTier": "complex",
+  "executorTier": "complex",
+  "risk": "medium",
+  "baseCommit": null,
+  "dependencies": ["mob-001-restore-catalog-build", "be-001-windows-timezone"],
+  "allowedPaths": [".github/workflows/", "pytest.ini", "requirements.txt", "mobile/pubspec.yaml", "mobile/pubspec.lock", "README.md"],
+  "forbiddenActions": ["Nao publicar artefatos", "Nao usar segredos", "Nao fazer deploy"],
+  "acceptanceCriteria": ["CI roda pytest", "CI roda flutter analyze e flutter test", "Cache nao mascara dependencias ausentes", "Falha em qualquer gate reprova o job"],
+  "verification": ["Validar sintaxe do workflow", "Reproduzir comandos localmente"],
+  "worktreePath": "TBD",
+  "notes": "Escolha do provedor deve ser confirmada; GitHub e apenas a opcao provavel pelo remote."
+}
+

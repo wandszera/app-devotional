@@ -1,0 +1,20 @@
+{
+  "id": "ops-001-baseline-checkpoint",
+  "title": "Consolidar baseline local recuperavel",
+  "objective": "Revisar e registrar o trabalho local atual em um checkpoint aprovado, produzindo uma base limpa e reproduzivel para worktrees.",
+  "status": "backlog",
+  "priority": "P0",
+  "complexity": "complex",
+  "plannerTier": "complex",
+  "executorTier": "complex",
+  "risk": "high",
+  "baseCommit": null,
+  "dependencies": [],
+  "allowedPaths": ["repository-wide inventory; no source edits without a separate task"],
+  "forbiddenActions": ["Nao descartar alteracoes", "Nao reescrever historico", "Nao fazer push", "Nao misturar arquivos alheios sem decisao humana"],
+  "acceptanceCriteria": ["Todas as mudancas locais estao inventariadas", "O usuario aprovou a estrategia de checkpoint", "Existe uma branch/commit recuperavel e a arvore usada como base esta limpa", "state.json registra o novo baseCommit"],
+  "verification": ["git status --short --branch", "git diff --stat", "git log -1 --oneline"],
+  "worktreePath": "TBD",
+  "notes": "Gate humano obrigatorio. Esta tarefa nao deve ser executada automaticamente."
+}
+
