@@ -2,12 +2,12 @@
   "schemaVersion": 1,
   "status": "running",
   "orchestrationStarted": true,
-  "pauseReason": null,
+  "pauseReason": "OPS-002 aguarda autorizacao OAuth workflow no GitHub para o push da branch.",
   "baseBranch": "codex/baseline-20260916",
   "baseCommit": "db9cbce1e02dc7ff769084475dafe64539b794d2",
   "dirtyBaseline": false,
   "currentTask": "ops-002-ci-quality-gates",
   "automationId": "app-devocional-orquestrador",
   "automationStatus": "ACTIVE",
-  "lastReviewedAt": "2026-09-16T11:09:29-03:00"
+  "lastReviewedAt": "2026-09-16T11:18:12-03:00"
 }

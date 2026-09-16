@@ -2,7 +2,7 @@
   "id": "ops-002-ci-quality-gates",
   "title": "Criar CI minima para backend e Flutter",
   "objective": "Executar automaticamente os gates backend e mobile em ambiente limpo e publicar falhas claras.",
-  "status": "ready",
+  "status": "blocked",
   "priority": "P1",
   "complexity": "complex",
   "plannerTier": "complex",
@@ -15,5 +15,5 @@
   "acceptanceCriteria": ["CI roda pytest", "CI roda flutter analyze e flutter test", "Cache nao mascara dependencias ausentes", "Falha em qualquer gate reprova o job"],
   "verification": ["Validar sintaxe do workflow", "Reproduzir comandos localmente"],
   "worktreePath": "C:/Users/wand/Desktop/projetos_pessoais/app_devocional/.worktrees/ops-002-ci-quality-gates",
-  "notes": "GitHub Actions confirmado como provedor porque o remoto autorizado e o origin no GitHub. Integracao, release e deploy permanecem proibidos sem nova autorizacao."
+  "notes": "Implementacao e handoff commitados em 1e649ff e 3af156c. Gates locais verdes. Push bloqueado porque a credencial GitHub ativa possui repo, mas nao possui o escopo workflow. Renovar autenticacao e repetir push antes da revisao e integracao."
 }
