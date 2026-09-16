@@ -87,6 +87,7 @@ function Invoke-Dispatch {
     $prompt = @"
 Execute exatamente a tarefa descrita em $taskRelativePath.
 Leia primeiro AGENTS.md e respeite todas as travas, caminhos permitidos, criterios de aceite e verificacoes.
+O worktree autorizado e $worktree. Nao procure arquivos fora dele. Para todo comando de shell, use exatamente o prefixo: Set-Location -LiteralPath '$worktree';
 Ao concluir, crie o handoff em .agentops/handoffs/$($task.id).md e pare.
 "@
 
