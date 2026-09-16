@@ -43,7 +43,8 @@ Considere complexa uma tarefa que atravesse backend e Flutter, altere esquema/mi
 - Prefixos recomendados: `codex/<task-id>` para trabalho do orquestrador e `antigravity/<task-id>` para execucao.
 - Um executor por worktree. Tarefas paralelas nao podem editar os mesmos arquivos.
 - Quando todas as verificacoes declaradas na tarefa passarem, o executor deve criar um commit na branch dedicada e fazer push dessa branch para `origin`.
-- Nunca faca push direto para `main` ou outra branch protegida. Force-push, merge, release, deploy, publicacao em loja e alteracoes de servicos externos continuam exigindo autorizacao explicita do usuario.
+- Quando todas as verificacoes declaradas passarem e a revisao nao tiver achados bloqueantes, o orquestrador deve fazer merge automatico da branch dedicada na `baseBranch` registrada em `.agentops/state.json` e fazer push dessa baseline.
+- Nunca faca push direto ou merge em `main` ou outra branch protegida. Force-push, release, deploy, publicacao em loja e alteracoes de servicos externos continuam exigindo autorizacao explicita do usuario.
 
 ## Contrato de execucao
 
@@ -53,7 +54,7 @@ Considere complexa uma tarefa que atravesse backend e Flutter, altere esquema/mi
 4. Rode as verificacoes indicadas. Nao esconda falhas preexistentes.
 5. Se todas as verificacoes passarem, crie um commit descritivo e faca push da branch da tarefa para `origin`. Se qualquer verificacao falhar, nao faca commit nem push.
 6. Gere um handoff em `.agentops/handoffs/<task-id>.md` com resumo, arquivos, comandos, resultados, branch remota, riscos e pendencias.
-7. Pare. O orquestrador revisa e decide sobre integracao ou retrabalho.
+7. Pare. O orquestrador revisa e, se todos os gates estiverem verdes e nao houver achado bloqueante, integra automaticamente na baseline; caso contrario, solicita retrabalho.
 
 ## Qualidade minima
 

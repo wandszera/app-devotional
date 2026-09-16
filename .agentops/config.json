@@ -8,7 +8,11 @@
     "remote": "origin",
     "protectedBranches": ["main"],
     "allowForcePush": false,
-    "allowMerge": false
+    "allowMerge": true,
+    "autoMergeOnGreen": true,
+    "mergeTarget": "state.baseBranch",
+    "requireAllDeclaredChecks": true,
+    "requireReviewerApproval": true
   },
   "orchestrator": {
     "complex": {
