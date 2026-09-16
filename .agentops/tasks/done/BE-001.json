@@ -2,7 +2,7 @@
   "id": "be-001-windows-timezone",
   "title": "Suportar timezones IANA no backend Windows",
   "objective": "Garantir que ZoneInfo encontre timezones IANA no ambiente Windows e que o gate backend passe de forma reproduzivel.",
-  "status": "ready",
+  "status": "done",
   "priority": "P0",
   "complexity": "simple",
   "plannerTier": "simple",
@@ -15,5 +15,5 @@
   "acceptanceCriteria": ["Pacific/Kiritimati e outros timezones IANA funcionam no Windows", "A dependencia/runtime necessario esta documentado", "Todos os testes backend passam"],
   "verification": ["python -m pytest -q"],
   "worktreePath": "C:/Users/wand/Desktop/projetos_pessoais/app_devocional/.worktrees/be-001-windows-timezone",
-  "notes": "Baseline: 22 passed, 1 failed por ModuleNotFoundError tzdata. Usar o Python do venv do projeto ou criar ambiente equivalente sem tocar devotional.db."
+  "notes": "Concluida no commit b057355; handoff eeece5e; push em origin/antigravity/be-001-windows-timezone. Revisao independente: 23 testes passaram, 97 avisos preexistentes."
 }
