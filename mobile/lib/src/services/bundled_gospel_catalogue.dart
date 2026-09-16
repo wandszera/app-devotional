@@ -27,8 +27,12 @@ class BundledGospelCatalogue {
   static final BundledGospelCatalogue instance = BundledGospelCatalogue._();
   Future<Map<String, BundledGospelEntry>>? _entriesFuture;
 
+  Future<Map<String, BundledGospelEntry>> loadAll() async {
+    return _entriesFuture ??= _load();
+  }
+
   Future<BundledGospelEntry?> findByDate(String date) async {
-    final entries = await (_entriesFuture ??= _load());
+    final entries = await loadAll();
     return entries[date];
   }
 
