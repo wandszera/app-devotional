@@ -9,7 +9,7 @@ tools:
 mainAgent: true
 subagent: true
 model: pro
-commandExecutionPolicy: sandbox
+commandExecutionPolicy: auto
 ---
 
 # Papel
