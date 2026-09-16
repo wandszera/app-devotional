@@ -2,12 +2,12 @@
   "schemaVersion": 1,
   "status": "running",
   "orchestrationStarted": true,
-  "pauseReason": null,
+  "pauseReason": "CONTENT-001 aguarda decisao humana sobre a fonte canonica descrita no ADR CONTENT-001A.",
   "baseBranch": "codex/baseline-20260916",
-  "baseCommit": "0181ff3c67487901de52909719841ad2e1af8a33",
+  "baseCommit": "12c868bea88313daa9a13d30d6952997abe5c4ee",
   "dirtyBaseline": false,
-  "currentTask": "content-001a-liturgical-source-diagnostic",
+  "currentTask": null,
   "automationId": "app-devocional-orquestrador",
   "automationStatus": "ACTIVE",
-  "lastReviewedAt": "2026-09-16T12:01:49-03:00"
+  "lastReviewedAt": "2026-09-16T15:37:46-03:00"
 }
