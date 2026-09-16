@@ -2,7 +2,7 @@
   "id": "mob-001-restore-catalog-build",
   "title": "Restaurar compilacao do catalogo liturgico Flutter",
   "objective": "Alinhar GospelStore e BundledGospelCatalogue para que o app e os testes compilem sem alterar a regra editorial.",
-  "status": "ready",
+  "status": "done",
   "priority": "P0",
   "complexity": "simple",
   "plannerTier": "simple",
@@ -15,5 +15,5 @@
   "acceptanceCriteria": ["Nao existe chamada a metodo ausente", "O catalogo devolve todas as entradas esperadas", "Flutter analyze e Flutter test compilam"],
   "verification": ["cd mobile; flutter analyze", "cd mobile; flutter test"],
   "worktreePath": "C:/Users/wand/Desktop/projetos_pessoais/app_devocional/.worktrees/mob-001-restore-catalog-build",
-  "notes": "Falha atual confirmada em gospel_store.dart:13. Corrigir o contrato com a menor mudanca coerente."
+  "notes": "Concluida no commit 6f2f2d0; push em origin/antigravity/mob-001-restore-catalog-build. Revisao independente: analyze limpo e 44 testes passaram."
 }
