@@ -74,7 +74,8 @@ function Invoke-Dispatch {
     if (-not $agyCommand) { throw 'Antigravity CLI (agy) nao encontrado.' }
 
     $worktree = (Resolve-Path -LiteralPath $task.worktreePath).Path
-    $gitRoot = (& git -C $worktree rev-parse --show-toplevel 2>$null).Trim()
+    $gitRootText = (& git -C $worktree rev-parse --show-toplevel 2>$null).Trim()
+    $gitRoot = if ($gitRootText) { (Resolve-Path -LiteralPath $gitRootText).Path } else { '' }
     if (-not $gitRoot -or $gitRoot -ne $worktree) { throw 'worktreePath precisa apontar para a raiz de um worktree Git.' }
     if (& git -C $worktree status --porcelain) { throw 'O worktree da tarefa deve estar limpo antes do despacho.' }
 
