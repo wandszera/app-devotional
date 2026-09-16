@@ -13,7 +13,8 @@ Este arquivo vale para todo o repositorio e deve ser lido por Codex/GPT, Antigra
 ## Papeis
 
 - GPT/Codex e o orquestrador. Ele entende o pedido, inspeciona o estado, define tarefas pequenas, resolve dependencias, escolhe o nivel de raciocinio, revisa resultados e decide o proximo passo.
-- Antigravity e o executor. Ele so implementa uma tarefa formal em `.agentops/tasks/ready/`, respeita o escopo e devolve um handoff verificavel.
+- Antigravity e o executor primario. Ele so implementa uma tarefa formal em `.agentops/tasks/ready/`, respeita o escopo e devolve um handoff verificavel.
+- Quando o Antigravity estiver indisponivel por cota ou falha externa e `executor.codexFallback.enabled` estiver ativo, o Codex pode concluir somente uma tarefa ja formalizada em `ready`, usando o modelo e esforco do fallback, sem ampliar o escopo.
 - O revisor nao implementa. Ele compara diff, criterios de aceite, testes e riscos.
 
 O orquestrador nao deve delegar uma meta ampla. Cada tarefa precisa ter escopo, caminhos permitidos, criterios de aceite, verificacoes e proibicoes explicitas.
@@ -32,6 +33,7 @@ Antes de alterar codigo, leia `.agentops/config.json` e `.agentops/state.json`.
 - Planejamento simples, triagem e acompanhamento: `gpt-5.6-sol` com raciocinio `low`.
 - Execucao complexa no Antigravity: agente `antigravity-executor-high`, modelo Pro, esforco alto.
 - Execucao simples no Antigravity: agente `antigravity-executor-light`, modelo Flash, esforco baixo.
+- Fallback autorizado quando o Antigravity estiver indisponivel: Codex `gpt-5.6-sol` com raciocinio `low`, somente para tarefa `ready` ja delimitada.
 - Revisao de mudanca de alto risco: agente `antigravity-reviewer`, modelo Pro.
 
 Considere complexa uma tarefa que atravesse backend e Flutter, altere esquema/migracao, autenticacao, sincronizacao offline, notificacoes, seguranca, dados editoriais ou tenha criterio de aceite ambiguo. Alteracoes locais, mecanicas, bem delimitadas e reversiveis podem usar o nivel leve.
