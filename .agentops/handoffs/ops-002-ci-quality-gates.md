@@ -23,11 +23,12 @@ O job de backend instala as dependências a partir de `requirements.txt` antes d
 - Worktree: `C:/Users/wand/Desktop/projetos_pessoais/app_devocional/.worktrees/ops-002-ci-quality-gates`
 - Branch: `antigravity/ops-002-ci-quality-gates`
 - Commit de implementação: `1e649ff`
-- Push: bloqueado pelo GitHub; a credencial OAuth ativa possui `repo`, mas não possui o escopo `workflow` exigido para criar `.github/workflows/ci.yml`.
+- Commit de handoff: `3af156c`.
+- Branch remota: `origin/antigravity/ops-002-ci-quality-gates`.
+- Push concluído após a autorização explícita do usuário e a renovação da credencial OAuth com o escopo `workflow`.
 
 ## Riscos e pendências
 
 - Risco funcional baixo; a mudança adiciona somente automação de CI.
-- O workflow ainda não pôde ser executado nos runners do GitHub porque a branch não pôde ser enviada.
-- É necessário renovar a autenticação do GitHub CLI com o escopo `workflow` e repetir o push.
+- O workflow ainda precisa ser observado em uma execução do GitHub Actions após integração ou pull request.
 - Merge, release e deploy não foram executados.
