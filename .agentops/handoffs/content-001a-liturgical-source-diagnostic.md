@@ -1,25 +1,41 @@
-# Handoff: Diagnosticar fontes e precedencia do conteudo liturgico (CONTENT-001A)
+# Handoff: content-001a-liturgical-source-diagnostic
 
-## Resumo
-Foi criado o ADR `docs/adr/CONTENT-001A-liturgical-content-sources.md` documentando o diagnóstico das fontes e precedência do conteúdo litúrgico. O documento foi estruturado conforme os critérios de aceite, detalhando a sobreposição do CRUD administrativo pelo bundle local no aplicativo móvel, a cobertura distinta de dados entre bundle e backend, e as propostas de tarefas subsequentes.
+## Resultado
 
-## Arquivos Alterados / Criados
-- `docs/adr/CONTENT-001A-liturgical-content-sources.md` (criado)
+Foi criado o ADR `docs/adr/CONTENT-001A-liturgical-content-sources.md` com estado `Proposed / Undecided`. O documento inventaria bundle, cache, API/banco, seed, placeholder e CRUD; descreve seis fluxos de precedência campo a campo; compara três alternativas pelos mesmos sete critérios; e mantém licença, revisão editorial, novos meses e escolha da fonte canônica como gates humanos.
 
-## Comandos Executados
-- `git diff --check` (para garantir a ausência de marcadores de conflito/espaços em branco indevidos)
+Nenhuma fonte canônica foi escolhida ou recomendada. Nenhum código, teste, asset, banco ou conteúdo litúrgico foi alterado.
 
-## Resultados
-A matriz de precedência foi mapeada sem alterar nenhum arquivo de código, teste ou configuração. A decisão arquitetural permanece `Proposed / Undecided`, delegando as escolhas ao time técnico e gates humanos. Nenhuma chamada externa ou alteração de banco de dados foi efetuada. 
+## Arquivos alterados
 
-## Branch Remota
-A submeter pelo executor (se aplicável, não foi feito push de acordo com as instruções até finalização, a menos que especificado).
+- `docs/adr/CONTENT-001A-liturgical-content-sources.md`
+- `.agentops/handoffs/content-001a-liturgical-source-diagnostic.md` (handoff operacional obrigatório)
 
-## Riscos
-Nenhum novo risco introduzido no sistema, pois a tarefa é puramente documental. O risco inerente ao produto, detalhado no ADR, reside na falta de sincronização entre a versão do catálogo no backend e no frontend, o que deve ser tratado em tarefas futuras.
+## Verificações
 
-## Pendências
-1. Decisão Arquitetural: Aprovar qual será a fonte canônica (API First, Offline First, Híbrido).
-2. Validação da licença de texto bíblico caso seja adicionada.
-3. Criação do contrato de versionamento.
-4. Implementação de migração e testes.
+- `git diff --check`: passou sem erros.
+- `git status --short` e `git diff --name-only`: confirmaram somente o ADR durante o retrabalho; o handoff foi atualizado depois para registrar a rastreabilidade.
+- Pesquisa dos termos exigidos (`Proposed`, `Undecided`, bundle, cache, API, seed, placeholder, CRUD, versionamento, licença e revisão editorial): passou.
+- Conferência dirigida dos caminhos e símbolos citados: passou.
+- Testes executáveis não foram rodados, conforme a tarefa documental.
+
+## Revisão e retrabalho
+
+- A primeira revisão rejeitou a versão inicial porque as alternativas não usavam uma matriz comum e o handoff continha texto de template.
+- O Antigravity iniciou o retrabalho, mas atingiu a cota individual antes de concluir.
+- Conforme fallback autorizado, o Codex `gpt-5.6-sol` com esforço `low` concluiu o ADR sem ampliar o escopo.
+- O ADR corrigido contém os seis fluxos separados, matriz de fontes concreta, referências `caminho::símbolo` e comparação neutra pelos mesmos critérios.
+
+## Git e branch remota
+
+- Branch: `antigravity/content-001a-liturgical-source-diagnostic`
+- Commit inicial: `ce40f75`
+- Commit de retrabalho do ADR: `2fe9310`
+- Branch remota: `origin/antigravity/content-001a-liturgical-source-diagnostic`
+- Push do retrabalho: concluído com sucesso.
+
+## Riscos e pendências
+
+- A escolha arquitetural permanece deliberadamente pendente de decisão humana.
+- Licenciamento de texto bíblico, revisão editorial e processo de publicação de novos meses continuam bloqueantes.
+- A próxima etapa deve decidir a fonte canônica antes de qualquer implementação de contrato, sincronização ou migração.
