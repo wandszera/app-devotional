@@ -2,19 +2,18 @@
   "id": "ops-002-ci-quality-gates",
   "title": "Criar CI minima para backend e Flutter",
   "objective": "Executar automaticamente os gates backend e mobile em ambiente limpo e publicar falhas claras.",
-  "status": "backlog",
+  "status": "ready",
   "priority": "P1",
   "complexity": "complex",
   "plannerTier": "complex",
   "executorTier": "complex",
   "risk": "medium",
-  "baseCommit": null,
+  "baseCommit": "db9cbce1e02dc7ff769084475dafe64539b794d2",
   "dependencies": ["mob-001-restore-catalog-build", "be-001-windows-timezone"],
   "allowedPaths": [".github/workflows/", "pytest.ini", "requirements.txt", "mobile/pubspec.yaml", "mobile/pubspec.lock", "README.md"],
   "forbiddenActions": ["Nao publicar artefatos", "Nao usar segredos", "Nao fazer deploy"],
   "acceptanceCriteria": ["CI roda pytest", "CI roda flutter analyze e flutter test", "Cache nao mascara dependencias ausentes", "Falha em qualquer gate reprova o job"],
   "verification": ["Validar sintaxe do workflow", "Reproduzir comandos localmente"],
-  "worktreePath": "TBD",
-  "notes": "Escolha do provedor deve ser confirmada; GitHub e apenas a opcao provavel pelo remote."
+  "worktreePath": "C:/Users/wand/Desktop/projetos_pessoais/app_devocional/.worktrees/ops-002-ci-quality-gates",
+  "notes": "GitHub Actions confirmado como provedor porque o remoto autorizado e o origin no GitHub. Integracao, release e deploy permanecem proibidos sem nova autorizacao."
 }
-
