@@ -9,7 +9,7 @@ tools:
 mainAgent: true
 subagent: true
 model: flash
-commandExecutionPolicy: sandbox
+commandExecutionPolicy: auto
 ---
 
 # Papel
