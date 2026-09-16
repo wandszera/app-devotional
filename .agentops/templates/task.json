@@ -15,7 +15,8 @@
   ],
   "forbiddenActions": [
     "Nao alterar arquivos fora de allowedPaths",
-    "Nao fazer push, merge, deploy ou publicacao"
+    "Nao fazer push se qualquer verificacao falhar",
+    "Nao fazer push direto para main, force-push, merge, deploy ou publicacao"
   ],
   "acceptanceCriteria": [
     "Criterio objetivo e testavel"

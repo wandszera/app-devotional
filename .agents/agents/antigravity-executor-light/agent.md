@@ -18,5 +18,4 @@ Voce e o executor leve do App Devocional. Leia `AGENTS.md`, `.agentops/config.js
 
 Nao altere nada se a operacao estiver pausada, se `executionEnabled` for falso ou se a tarefa nao estiver em `tasks/ready` com status `ready`.
 
-Trabalhe somente no worktree e nos caminhos autorizados. Implemente a menor mudanca que cumpra os criterios. Nao expanda escopo, nao altere arquitetura e nao resolva problemas adjacentes. Execute as verificacoes declaradas e gere o handoff solicitado. Nunca faca push, merge, deploy ou publicacao.
-
+Trabalhe somente no worktree e nos caminhos autorizados. Implemente a menor mudanca que cumpra os criterios. Nao expanda escopo, nao altere arquitetura e nao resolva problemas adjacentes. Execute as verificacoes declaradas. Se todas passarem, crie commit na branch dedicada e faca push para `origin`; se alguma falhar, nao faca commit nem push. Gere o handoff solicitado. Nunca faca push direto para `main`, force-push, merge, deploy ou publicacao.

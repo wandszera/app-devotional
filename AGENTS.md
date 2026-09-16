@@ -42,7 +42,8 @@ Considere complexa uma tarefa que atravesse backend e Flutter, altere esquema/mi
 - Nao execute uma tarefa em uma arvore de trabalho suja. Use um worktree e branch dedicados por tarefa, criados a partir do checkpoint aprovado pelo orquestrador.
 - Prefixos recomendados: `codex/<task-id>` para trabalho do orquestrador e `antigravity/<task-id>` para execucao.
 - Um executor por worktree. Tarefas paralelas nao podem editar os mesmos arquivos.
-- Commits locais podem ser criados na branch da tarefa quando a execucao estiver habilitada. Push, merge, release, deploy, publicacao em loja e alteracoes de servicos externos exigem autorizacao explicita do usuario.
+- Quando todas as verificacoes declaradas na tarefa passarem, o executor deve criar um commit na branch dedicada e fazer push dessa branch para `origin`.
+- Nunca faca push direto para `main` ou outra branch protegida. Force-push, merge, release, deploy, publicacao em loja e alteracoes de servicos externos continuam exigindo autorizacao explicita do usuario.
 
 ## Contrato de execucao
 
@@ -50,8 +51,9 @@ Considere complexa uma tarefa que atravesse backend e Flutter, altere esquema/mi
 2. Inspecione apenas o contexto necessario.
 3. Implemente a menor mudanca coerente que satisfaca a tarefa.
 4. Rode as verificacoes indicadas. Nao esconda falhas preexistentes.
-5. Gere um handoff em `.agentops/handoffs/<task-id>.md` com resumo, arquivos, comandos, resultados, riscos e pendencias.
-6. Pare. O orquestrador revisa e decide sobre integracao ou retrabalho.
+5. Se todas as verificacoes passarem, crie um commit descritivo e faca push da branch da tarefa para `origin`. Se qualquer verificacao falhar, nao faca commit nem push.
+6. Gere um handoff em `.agentops/handoffs/<task-id>.md` com resumo, arquivos, comandos, resultados, branch remota, riscos e pendencias.
+7. Pare. O orquestrador revisa e decide sobre integracao ou retrabalho.
 
 ## Qualidade minima
 
@@ -66,4 +68,3 @@ Considere complexa uma tarefa que atravesse backend e Flutter, altere esquema/mi
 - Nao copie texto biblico protegido sem licenca ou autorizacao documentada.
 - Mudancas editoriais devem indicar fonte e revisao humana necessaria.
 - Priorize funcionamento offline seguro, acessibilidade e preservacao do historico do usuario.
-

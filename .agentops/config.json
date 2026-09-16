@@ -1,7 +1,15 @@
 {
   "schemaVersion": 1,
-  "executionEnabled": false,
+  "executionEnabled": true,
   "maxParallelExecutors": 1,
+  "gitPolicy": {
+    "autoCommitOnGreen": true,
+    "autoPushOnGreen": true,
+    "remote": "origin",
+    "protectedBranches": ["main"],
+    "allowForcePush": false,
+    "allowMerge": false
+  },
   "orchestrator": {
     "complex": {
       "model": "gpt-5.6-sol",
@@ -52,4 +60,3 @@
     "runtime": ".agentops/runtime"
   }
 }
-

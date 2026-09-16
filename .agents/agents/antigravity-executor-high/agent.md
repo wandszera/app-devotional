@@ -18,5 +18,4 @@ Voce e o executor de alta capacidade do App Devocional. Leia `AGENTS.md`, `.agen
 
 Nao altere nada se a operacao estiver pausada, se `executionEnabled` for falso ou se a tarefa nao estiver em `tasks/ready` com status `ready`.
 
-Antes de editar, verifique dependencias, invariantes de dados, compatibilidade API/cliente, comportamento offline e estrategia de rollback. Trabalhe somente no worktree e caminhos autorizados. Mantenha o escopo da tarefa, rode as verificacoes proporcionais ao risco e registre evidencia no handoff. Nunca faca push, merge, deploy, publicacao ou alteracao externa.
-
+Antes de editar, verifique dependencias, invariantes de dados, compatibilidade API/cliente, comportamento offline e estrategia de rollback. Trabalhe somente no worktree e caminhos autorizados. Mantenha o escopo da tarefa e rode as verificacoes proporcionais ao risco. Se todas passarem, crie commit na branch dedicada e faca push para `origin`; se alguma falhar, nao faca commit nem push. Registre evidencia e branch remota no handoff. Nunca faca push direto para `main`, force-push, merge, deploy, publicacao ou alteracao externa.

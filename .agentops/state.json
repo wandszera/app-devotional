@@ -1,13 +1,13 @@
 {
   "schemaVersion": 1,
-  "status": "paused",
-  "orchestrationStarted": false,
-  "pauseReason": "Infraestrutura preparada; aguardando autorizacao explicita do usuario, checkpoint do trabalho local e instalacao/autenticacao do Antigravity CLI.",
-  "baseBranch": "main",
-  "baseCommit": "db84034",
-  "dirtyBaseline": true,
-  "currentTask": null,
+  "status": "running",
+  "orchestrationStarted": true,
+  "pauseReason": null,
+  "baseBranch": "codex/baseline-20260916",
+  "baseCommit": "039b3eb",
+  "dirtyBaseline": false,
+  "currentTask": "mob-001-restore-catalog-build",
   "automationId": "app-devocional-orquestrador",
-  "automationStatus": "PAUSED",
-  "lastReviewedAt": "2026-09-16T09:00:00-03:00"
+  "automationStatus": "ACTIVE",
+  "lastReviewedAt": "2026-09-16T10:42:00-03:00"
 }

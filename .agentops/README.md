@@ -1,6 +1,6 @@
 # Central de operacao multiagente
 
-Esta pasta e o protocolo compartilhado entre o GPT/Codex (orquestrador) e o Google Antigravity (executor). A operacao foi preparada, mas permanece pausada.
+Esta pasta e o protocolo compartilhado entre o GPT/Codex (orquestrador) e o Google Antigravity (executor). A operacao foi ativada em 16/09/2026 apos autorizacao explicita do usuario.
 
 ## Fluxo
 
@@ -10,14 +10,15 @@ Esta pasta e o protocolo compartilhado entre o GPT/Codex (orquestrador) e o Goog
 4. O executor trabalha no worktree informado, executa verificacoes e cria `handoffs/<task-id>.md`.
 5. O orquestrador revisa o diff e move a tarefa para `done`, `blocked` ou novamente para `ready`.
 
-## Travas atuais
+Quando todos os gates declarados passam, o executor cria commit e envia a branch dedicada para `origin`. A integracao em `main` continua sendo uma decisao separada do orquestrador/usuario.
 
-- `.agentops/config.json`: `executionEnabled` esta `false`.
-- `.agentops/state.json`: `status` esta `paused`.
-- Nao ha tarefa em `tasks/ready/`.
-- O executavel `agy` nao estava instalado ou disponivel no `PATH` durante a preparacao.
-- A branch `main` contem um conjunto grande de mudancas locais ainda sem checkpoint; elas nao devem ser usadas como base concorrente ate serem revisadas e registradas.
-- O heartbeat `App Devocional — Orquestrador` (`app-devocional-orquestrador`) existe, mas esta `PAUSED` e nao executa tarefas.
+## Estado atual
+
+- `.agentops/config.json`: `executionEnabled` esta `true`.
+- `.agentops/state.json`: `status` esta `running`.
+- O checkpoint aprovado e `039b3eb` na branch `codex/baseline-20260916`.
+- O Antigravity CLI 1.2.4 esta instalado em `%LOCALAPPDATA%/agy/bin/agy.exe`.
+- O heartbeat `App Devocional — Orquestrador` (`app-devocional-orquestrador`) esta `ACTIVE`.
 
 ## Ativacao futura
 

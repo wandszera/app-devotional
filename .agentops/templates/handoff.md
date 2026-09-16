@@ -24,5 +24,5 @@ Resumo objetivo do que mudou e do comportamento entregue.
 
 - Branch:
 - Commit:
+- Branch remota:
 - Worktree:
-

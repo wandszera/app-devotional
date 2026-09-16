@@ -2,19 +2,18 @@
   "id": "mob-001-restore-catalog-build",
   "title": "Restaurar compilacao do catalogo liturgico Flutter",
   "objective": "Alinhar GospelStore e BundledGospelCatalogue para que o app e os testes compilem sem alterar a regra editorial.",
-  "status": "backlog",
+  "status": "ready",
   "priority": "P0",
   "complexity": "simple",
   "plannerTier": "simple",
   "executorTier": "simple",
   "risk": "low",
-  "baseCommit": null,
+  "baseCommit": "039b3eb",
   "dependencies": ["ops-001-baseline-checkpoint"],
   "allowedPaths": ["mobile/lib/src/services/gospel_store.dart", "mobile/lib/src/services/bundled_gospel_catalogue.dart", "mobile/test/bundled_gospel_catalogue_test.dart", "mobile/test/liturgical_calendar_test.dart"],
   "forbiddenActions": ["Nao alterar o JSON editorial", "Nao adicionar dependencia", "Nao mudar navegacao ou UI"],
   "acceptanceCriteria": ["Nao existe chamada a metodo ausente", "O catalogo devolve todas as entradas esperadas", "Flutter analyze e Flutter test compilam"],
   "verification": ["cd mobile; flutter analyze", "cd mobile; flutter test"],
-  "worktreePath": "TBD",
-  "notes": "Falha atual confirmada em gospel_store.dart:13."
+  "worktreePath": "C:/Users/wand/Desktop/projetos_pessoais/app_devocional/.worktrees/mob-001-restore-catalog-build",
+  "notes": "Falha atual confirmada em gospel_store.dart:13. Corrigir o contrato com a menor mudanca coerente."
 }
-
