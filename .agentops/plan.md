@@ -1,6 +1,6 @@
 # Plano operacional multiagente
 
-Status: **PAUSADO**. Este plano organiza a execucao futura; nao autoriza implementacao.
+Status: **EM EXECUCAO**. A operacao foi habilitada explicitamente pelo usuario e segue as travas de `config.json` e `state.json`.
 
 ## Objetivo operacional
 
@@ -83,5 +83,4 @@ Exigem decisao explicita: checkpoint inicial; push/merge na principal; deploy; m
 3. `BE-001` — suporte timezone no Windows.
 4. `OPS-002` — CI minima.
 
-Somente depois dos quatro itens: `SYNC-001` e `CONTENT-001`.
-
+Os quatro itens foram concluidos. A proxima etapa comeca pelo ADR de `CONTENT-001`; qualquer decisao editorial continua sujeita a gate humano antes da implementacao.

@@ -2,12 +2,12 @@
   "schemaVersion": 1,
   "status": "running",
   "orchestrationStarted": true,
-  "pauseReason": "OPS-002 aprovada em revisao e aguarda autorizacao explicita para merge.",
+  "pauseReason": null,
   "baseBranch": "codex/baseline-20260916",
-  "baseCommit": "db9cbce1e02dc7ff769084475dafe64539b794d2",
+  "baseCommit": "eb911b6d29ac5dfb12c36869da90cc7e325bc1bb",
   "dirtyBaseline": false,
-  "currentTask": "ops-002-ci-quality-gates",
+  "currentTask": null,
   "automationId": "app-devocional-orquestrador",
   "automationStatus": "ACTIVE",
-  "lastReviewedAt": "2026-09-16T11:54:57-03:00"
+  "lastReviewedAt": "2026-09-16T11:58:19-03:00"
 }
