@@ -29,7 +29,7 @@
     },
     "simple": {
       "agent": "antigravity-executor-light",
-      "model": "gemini-3.8-flash-medium",
+      "model": "gemini-3.8-flash-low",
       "reasoningEffort": "low",
       "timeout": "20m"
     },
