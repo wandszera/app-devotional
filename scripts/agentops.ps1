@@ -83,8 +83,9 @@ function Invoke-Dispatch {
     $runtimeRoot = Join-Path $repoRoot $config.paths.runtime
     New-Item -ItemType Directory -Force -Path $runtimeRoot | Out-Null
     $resultPath = Join-Path $runtimeRoot ($task.id + '.result.json')
+    $taskRelativePath = ".agentops/tasks/ready/$([IO.Path]::GetFileName($resolvedTask))"
     $prompt = @"
-Execute exatamente a tarefa descrita em $resolvedTask.
+Execute exatamente a tarefa descrita em $taskRelativePath.
 Leia primeiro AGENTS.md e respeite todas as travas, caminhos permitidos, criterios de aceite e verificacoes.
 Ao concluir, crie o handoff em .agentops/handoffs/$($task.id).md e pare.
 "@
