@@ -12,6 +12,16 @@ $schemaPath = Join-Path $repoRoot '.agentops\task.schema.json'
 $config = Get-Content -Raw -LiteralPath $configPath | ConvertFrom-Json
 $state = Get-Content -Raw -LiteralPath $statePath | ConvertFrom-Json
 
+function Resolve-AgyCommand {
+    $command = Get-Command agy -ErrorAction SilentlyContinue
+    if ($command) { return $command.Source }
+
+    $localBinary = Join-Path $env:LOCALAPPDATA 'agy\bin\agy.exe'
+    if (Test-Path -LiteralPath $localBinary) { return $localBinary }
+
+    return $null
+}
+
 function Show-Status {
     [pscustomobject]@{
         status = $state.status
@@ -21,7 +31,7 @@ function Show-Status {
         baseCommit = $state.baseCommit
         dirtyBaseline = $state.dirtyBaseline
         currentTask = $state.currentTask
-        antigravityCli = [bool](Get-Command agy -ErrorAction SilentlyContinue)
+        antigravityCli = [bool](Resolve-AgyCommand)
         readyTasks = @(Get-ChildItem -LiteralPath (Join-Path $repoRoot $config.paths.ready) -Filter '*.json' -File -ErrorAction SilentlyContinue).Count
     } | Format-List
 }
@@ -60,7 +70,8 @@ function Invoke-Dispatch {
     $task = Get-Content -Raw -LiteralPath $resolvedTask | ConvertFrom-Json
     if ($task.status -ne 'ready') { throw 'A tarefa precisa ter status ready.' }
     if ($task.complexity -notin @('simple', 'complex')) { throw 'complexity deve ser simple ou complex.' }
-    if (-not (Get-Command agy -ErrorAction SilentlyContinue)) { throw 'Antigravity CLI (agy) nao encontrado no PATH.' }
+    $agyCommand = Resolve-AgyCommand
+    if (-not $agyCommand) { throw 'Antigravity CLI (agy) nao encontrado.' }
 
     $worktree = (Resolve-Path -LiteralPath $task.worktreePath).Path
     $gitRoot = (& git -C $worktree rev-parse --show-toplevel 2>$null).Trim()
@@ -79,7 +90,7 @@ Ao concluir, crie o handoff em .agentops/handoffs/$($task.id).md e pare.
 
     Push-Location $worktree
     try {
-        & agy -p $prompt --agent $route.agent --model $route.model --effort $route.reasoningEffort --output-format json --sandbox --print-timeout $route.timeout | Set-Content -LiteralPath $resultPath -Encoding utf8
+        & $agyCommand -p $prompt --agent $route.agent --model $route.model --effort $route.reasoningEffort --output-format json --sandbox --print-timeout $route.timeout | Set-Content -LiteralPath $resultPath -Encoding utf8
         if ($LASTEXITCODE -ne 0) { throw "Antigravity terminou com codigo $LASTEXITCODE. Veja $resultPath" }
     }
     finally {
@@ -93,4 +104,3 @@ switch ($Action) {
     'validate' { Assert-Configuration; Show-Status }
     'dispatch' { Assert-Configuration; Invoke-Dispatch }
 }
-
