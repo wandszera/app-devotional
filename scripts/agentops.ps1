@@ -92,7 +92,7 @@ Ao concluir, crie o handoff em .agentops/handoffs/$($task.id).md e pare.
 
     Push-Location $worktree
     try {
-        & $agyCommand -p $prompt --agent $route.agent --model $route.model --effort $route.reasoningEffort --output-format json --sandbox --print-timeout $route.timeout | Set-Content -LiteralPath $resultPath -Encoding utf8
+        & $agyCommand -p $prompt --agent $route.agent --model $route.model --effort $route.reasoningEffort --output-format json --print-timeout $route.timeout | Set-Content -LiteralPath $resultPath -Encoding utf8
         if ($LASTEXITCODE -ne 0) { throw "Antigravity terminou com codigo $LASTEXITCODE. Veja $resultPath" }
     }
     finally {
