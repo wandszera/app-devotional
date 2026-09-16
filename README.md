@@ -146,6 +146,9 @@ The table below details all current routes and authorization rules:
    ```bash
    pip install -r requirements.txt
    ```
+   > [!NOTE]
+   > Em ambientes Windows, a biblioteca padrão `zoneinfo` requer uma base IANA para resolver fusos horários (como `Pacific/Kiritimati`). O pacote `tzdata` listado no `requirements.txt` fornece esses dados automaticamente.
+
 4. **Apply database migrations**:
    ```bash
    python -m alembic upgrade head
