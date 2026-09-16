@@ -28,4 +28,14 @@ void main() {
     expect(today?.sourceUrl,
         startsWith('https://liturgiadiaria.edicoescnbb.com.br'));
   });
+
+  test('loadAll returns all catalog entries mapped by date', () async {
+    final catalogue = BundledGospelCatalogue.instance;
+    final allEntries = await catalogue.loadAll();
+
+    expect(allEntries, isNotEmpty);
+    expect(allEntries.containsKey('2026-09-01'), isTrue);
+    expect(allEntries.containsKey('2026-09-30'), isTrue);
+    expect(allEntries.length, 30);
+  });
 }
