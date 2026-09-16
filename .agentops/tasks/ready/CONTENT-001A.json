@@ -1,0 +1,43 @@
+{
+  "id": "content-001a-liturgical-source-diagnostic",
+  "title": "Diagnosticar fontes e precedencia do conteudo liturgico",
+  "objective": "Produzir um ADR diagnostico do fluxo atual entre bundle, cache local, API, banco, seed e CRUD administrativo, sem escolher uma fonte canonica e sem alterar codigo ou conteudo editorial.",
+  "status": "ready",
+  "priority": "P1",
+  "complexity": "complex",
+  "plannerTier": "complex",
+  "executorTier": "complex",
+  "risk": "medium",
+  "baseCommit": "0181ff3c67487901de52909719841ad2e1af8a33",
+  "dependencies": ["ops-002-ci-quality-gates"],
+  "allowedPaths": ["docs/adr/CONTENT-001A-liturgical-content-sources.md"],
+  "forbiddenActions": [
+    "Nao escolher, recomendar ou declarar definitivamente uma fonte canonica",
+    "Nao alterar codigo, testes, schemas, banco, migrations, assets ou qualquer entrada do catalogo liturgico",
+    "Nao copiar texto biblico protegido nem validar licenca por suposicao",
+    "Nao editar README.md, docs/product-roadmap.md ou docs/release-checklist.md",
+    "Nao consultar nem modificar devotional.db",
+    "Nao realizar chamadas externas, publicar conteudo ou alterar servicos externos",
+    "Nao implementar sincronizacao, versionamento ou migracao nesta tarefa"
+  ],
+  "acceptanceCriteria": [
+    "Existe exatamente um novo ADR no caminho permitido e nenhum arquivo executavel, teste, asset ou conteudo liturgico foi alterado",
+    "O ADR declara estado Proposed/Undecided e deixa a escolha da fonte canonica pendente de decisao humana",
+    "Uma matriz cobre bundle, cache, API/banco, seed, placeholder e CRUD com produtor, consumidor, autoridade de escrita, versao, cobertura, offline e risco editorial",
+    "Os fluxos online, cache offline, bundle offline, calendario, seed e edicao administrativa descrevem passo a passo a precedencia e os campos vencedores",
+    "Cada constatacao referencia caminho e simbolo verificavel do repositorio",
+    "O ADR registra a substituicao silenciosa do CRUD pelo bundle, a cobertura de 30 contra 7 entradas e a versao do catalogo que nao atravessa o fluxo",
+    "Pelo menos tres alternativas sao comparadas pelos mesmos criterios sem que qualquer uma seja marcada como aceita ou recomendada",
+    "Licenca de texto biblico, revisao editorial, novos meses e aprovacao da fonte canonica aparecem como gates humanos bloqueantes",
+    "O ADR propoe tarefas posteriores separadas para decisao, contrato/versionamento, sincronizacao/migracao e testes"
+  ],
+  "verification": [
+    "git diff --check",
+    "Confirmar que somente docs/adr/CONTENT-001A-liturgical-content-sources.md mudou, alem do handoff operacional obrigatorio",
+    "Pesquisar no ADR os termos Proposed, Undecided, bundle, cache, API, seed, placeholder, CRUD, versionamento, licenca e revisao editorial",
+    "Revisao de arquitetura Sol high comparando o ADR com os caminhos e simbolos citados",
+    "Nao executar pytest, flutter analyze ou flutter test porque a tarefa e exclusivamente documental"
+  ],
+  "worktreePath": "C:/Users/wand/Desktop/projetos_pessoais/app_devocional/.worktrees/content-001a-liturgical-source-diagnostic",
+  "notes": "Subtarefa preparatoria de CONTENT-001. Inventariar e comparar o estado atual, registrar perguntas, invariantes e gates, mas manter a decisao Proposed/Undecided. Handoff obrigatorio em .agentops/handoffs/content-001a-liturgical-source-diagnostic.md."
+}

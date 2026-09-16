@@ -4,10 +4,10 @@
   "orchestrationStarted": true,
   "pauseReason": null,
   "baseBranch": "codex/baseline-20260916",
-  "baseCommit": "eb911b6d29ac5dfb12c36869da90cc7e325bc1bb",
+  "baseCommit": "0181ff3c67487901de52909719841ad2e1af8a33",
   "dirtyBaseline": false,
-  "currentTask": null,
+  "currentTask": "content-001a-liturgical-source-diagnostic",
   "automationId": "app-devocional-orquestrador",
   "automationStatus": "ACTIVE",
-  "lastReviewedAt": "2026-09-16T11:58:19-03:00"
+  "lastReviewedAt": "2026-09-16T12:01:49-03:00"
 }
