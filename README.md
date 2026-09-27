@@ -1,5 +1,7 @@
 # 📱 Devotional App
 
+[![CI](https://github.com/wandszera/app-devotional/actions/workflows/ci.yml/badge.svg)](https://github.com/wandszera/app-devotional/actions/workflows/ci.yml)
+
 > A modern platform for daily spiritual development, focused on helping users build and maintain a daily reading habit through smart gamification and efficient reminders.
 
 ---

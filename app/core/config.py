@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import os
+import warnings
 
 
 class Settings:
@@ -18,8 +19,16 @@ class Settings:
     ).strip()
 
     def validate(self) -> None:
-        if self.environment == "production" and self.secret_key == "dev-secret-change-me":
-            raise RuntimeError("APP_SECRET_KEY must be configured in production")
+        if self.environment == "production":
+            if self.secret_key == "dev-secret-change-me" or len(self.secret_key) < 32:
+                raise ValueError(
+                    "APP_SECRET_KEY deve ser definida com pelo menos 32 caracteres em producao"
+                )
+        elif self.secret_key == "dev-secret-change-me":
+            warnings.warn(
+                "Usando secret_key padrao de desenvolvimento. Defina APP_SECRET_KEY em producao.",
+                stacklevel=2,
+            )
 
 
 settings = Settings()

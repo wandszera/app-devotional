@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 
 from app.api.deps import get_current_user, get_db
@@ -65,7 +65,10 @@ def update_me(
     
     user_model = session.query(UserModel).filter(UserModel.email == current_user.email).first()
     if not user_model:
-        raise ValueError("User not found")
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="user not found",
+        )
         
     user_model.name = payload.name
     user_model.bio = payload.bio
