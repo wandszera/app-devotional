@@ -194,6 +194,7 @@ class _FakeApiClient extends ApiClient {
       content: 'Conteudo de teste',
       date: '2026-05-01',
       completed: false,
+      isFavorited: false,
       guidance: DevotionalGuidanceModel(
         title: 'Marco proximo',
         body: 'Falta so hoje para voce chegar a 3 dias seguidos. Vale a pena proteger esse ritmo.',

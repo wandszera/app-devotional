@@ -94,6 +94,7 @@ void main() {
         enabled: false,
         reminderTime: ' 09:30 ',
         timezone: ' America/Sao_Paulo ',
+        pushToken: '',
       );
 
       expect(saved?.enabled, isFalse);
@@ -237,6 +238,7 @@ class _FakeApiClient extends ApiClient {
       content: 'Conteudo',
       date: '2026-05-01',
       completed: _completedToday,
+      isFavorited: false,
       guidance: DevotionalGuidanceModel(
         title: 'Siga no ritmo',
         body: 'Hoje ainda conta.',

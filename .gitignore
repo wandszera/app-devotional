@@ -7,6 +7,14 @@ venv/
 ENV/
 env/
 .env
+.env.*
+!.env.example
+serviceAccountKey.json
+
+# Firebase credentials
+mobile/android/app/google-services.json
+mobile/ios/Runner/GoogleService-Info.plist
+mobile/lib/firebase_options.dart
 
 # Database (SQLite)
 *.db
@@ -32,3 +40,5 @@ flutter_web.out.log
 # OS files
 .DS_Store
 Thumbs.db
+.agentops/runtime/
+.worktrees/

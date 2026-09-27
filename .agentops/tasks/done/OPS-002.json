@@ -1,0 +1,19 @@
+{
+  "id": "ops-002-ci-quality-gates",
+  "title": "Criar CI minima para backend e Flutter",
+  "objective": "Executar automaticamente os gates backend e mobile em ambiente limpo e publicar falhas claras.",
+  "status": "done",
+  "priority": "P1",
+  "complexity": "complex",
+  "plannerTier": "complex",
+  "executorTier": "complex",
+  "risk": "medium",
+  "baseCommit": "db9cbce1e02dc7ff769084475dafe64539b794d2",
+  "dependencies": ["mob-001-restore-catalog-build", "be-001-windows-timezone"],
+  "allowedPaths": [".github/workflows/", "pytest.ini", "requirements.txt", "mobile/pubspec.yaml", "mobile/pubspec.lock", "README.md"],
+  "forbiddenActions": ["Nao publicar artefatos", "Nao usar segredos", "Nao fazer deploy"],
+  "acceptanceCriteria": ["CI roda pytest", "CI roda flutter analyze e flutter test", "Cache nao mascara dependencias ausentes", "Falha em qualquer gate reprova o job"],
+  "verification": ["Validar sintaxe do workflow", "Reproduzir comandos localmente"],
+  "worktreePath": "C:/Users/wand/Desktop/projetos_pessoais/app_devocional/.worktrees/ops-002-ci-quality-gates",
+  "notes": "Implementacao, handoff e atualizacao commitados em 1e649ff, 3af156c e e2c7c21. Branch enviada para origin, revisao Pro/high aprovada e merge autorizado integrado em eb911b6. Gates pos-merge: 23 testes backend, 44 testes Flutter, flutter analyze limpo e YAML valido."
+}

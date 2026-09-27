@@ -1,9 +1,10 @@
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 
 from app.api.deps import get_current_user, get_db
 from app.models.schemas import (
     AuthenticatedUserResponse,
+    GoogleLoginRequest,
     LoginRequest,
     LoginResponse,
     RegisterRequest,
@@ -36,6 +37,19 @@ def login(payload: LoginRequest, session: Session = Depends(get_db)) -> LoginRes
     )
 
 
+@router.post("/google", response_model=LoginResponse)
+def login_with_google(
+    payload: GoogleLoginRequest,
+    session: Session = Depends(get_db),
+) -> LoginResponse:
+    user = user_service.authenticate_with_google(session, payload.id_token)
+    return LoginResponse(
+        user=user,
+        message="user authenticated with Google",
+        access_token=user_service.create_token(user),
+    )
+
+
 @router.get("/me", response_model=AuthenticatedUserResponse)
 def me(current_user: User = Depends(get_current_user)) -> AuthenticatedUserResponse:
     return AuthenticatedUserResponse(user=current_user)
@@ -51,7 +65,10 @@ def update_me(
     
     user_model = session.query(UserModel).filter(UserModel.email == current_user.email).first()
     if not user_model:
-        raise ValueError("User not found")
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="user not found",
+        )
         
     user_model.name = payload.name
     user_model.bio = payload.bio

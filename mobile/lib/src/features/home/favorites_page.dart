@@ -64,7 +64,8 @@ class _FavoritesPageState extends State<FavoritesPage> {
               return Card(
                 margin: const EdgeInsets.only(bottom: 12),
                 child: ListTile(
-                  title: Text(fav.title, style: const TextStyle(fontWeight: FontWeight.bold)),
+                  title: Text(fav.title,
+                      style: const TextStyle(fontWeight: FontWeight.bold)),
                   subtitle: Text(fav.date),
                   trailing: const Icon(Icons.favorite, color: Colors.redAccent),
                   onTap: () {
@@ -77,6 +78,9 @@ class _FavoritesPageState extends State<FavoritesPage> {
                             title: fav.title,
                             content: fav.content,
                             date: fav.date,
+                            liturgicalTitle: fav.liturgicalTitle,
+                            gospelReference: fav.gospelReference,
+                            sourceUrl: fav.sourceUrl,
                             completed: true,
                             isFavorited: true,
                             guidance: DevotionalGuidanceModel(
@@ -95,6 +99,7 @@ class _FavoritesPageState extends State<FavoritesPage> {
                             latestMilestone: null,
                           ),
                           onComplete: null,
+                          ownerKey: widget.apiClient.authStore.cacheOwnerKey,
                         ),
                       ),
                     );

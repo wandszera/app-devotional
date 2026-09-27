@@ -7,6 +7,9 @@ class DevotionalCardModel {
     required this.completed,
     required this.isFavorited,
     required this.guidance,
+    this.liturgicalTitle = '',
+    this.gospelReference = '',
+    this.sourceUrl = '',
   });
 
   final int id;
@@ -16,6 +19,9 @@ class DevotionalCardModel {
   final bool completed;
   final bool isFavorited;
   final DevotionalGuidanceModel guidance;
+  final String liturgicalTitle;
+  final String gospelReference;
+  final String sourceUrl;
 
   Map<String, dynamic> toJson() {
     return {
@@ -24,6 +30,9 @@ class DevotionalCardModel {
         'title': title,
         'content': content,
         'date': date,
+        'liturgical_title': liturgicalTitle,
+        'gospel_reference': gospelReference,
+        'source_url': sourceUrl,
       },
       'completed': completed,
       'is_favorited': isFavorited,
@@ -38,6 +47,9 @@ class DevotionalCardModel {
       title: devotional['title'] as String,
       content: devotional['content'] as String,
       date: devotional['date'] as String,
+      liturgicalTitle: devotional['liturgical_title'] as String? ?? '',
+      gospelReference: devotional['gospel_reference'] as String? ?? '',
+      sourceUrl: devotional['source_url'] as String? ?? '',
       completed: json['completed'] as bool? ?? false,
       isFavorited: json['is_favorited'] as bool? ?? false,
       guidance: DevotionalGuidanceModel.fromJson(
@@ -151,7 +163,8 @@ class DevotionalCompletionFeedbackModel {
   final int? milestoneHit;
   final int? nextMilestone;
 
-  factory DevotionalCompletionFeedbackModel.fromJson(Map<String, dynamic> json) {
+  factory DevotionalCompletionFeedbackModel.fromJson(
+      Map<String, dynamic> json) {
     return DevotionalCompletionFeedbackModel(
       title: json['title'] as String? ?? 'Dia concluido',
       body: json['body'] as String? ??
@@ -171,12 +184,18 @@ class AdminDevotional {
     required this.title,
     required this.content,
     required this.date,
+    this.liturgicalTitle = '',
+    this.gospelReference = '',
+    this.sourceUrl = '',
   });
 
   final int id;
   final String title;
   final String content;
   final String date;
+  final String liturgicalTitle;
+  final String gospelReference;
+  final String sourceUrl;
 
   factory AdminDevotional.fromJson(Map<String, dynamic> json) {
     return AdminDevotional(
@@ -184,6 +203,9 @@ class AdminDevotional {
       title: json['title'] as String,
       content: json['content'] as String,
       date: json['date'] as String,
+      liturgicalTitle: json['liturgical_title'] as String? ?? '',
+      gospelReference: json['gospel_reference'] as String? ?? '',
+      sourceUrl: json['source_url'] as String? ?? '',
     );
   }
 }

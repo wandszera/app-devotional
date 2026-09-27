@@ -1,0 +1,73 @@
+{
+  "schemaVersion": 1,
+  "executionEnabled": true,
+  "maxParallelExecutors": 1,
+  "gitPolicy": {
+    "autoCommitOnGreen": true,
+    "autoPushOnGreen": true,
+    "remote": "origin",
+    "protectedBranches": ["main"],
+    "allowForcePush": false,
+    "allowMerge": true,
+    "autoMergeOnGreen": true,
+    "mergeTarget": "state.baseBranch",
+    "requireAllDeclaredChecks": true,
+    "requireReviewerApproval": true
+  },
+  "orchestrator": {
+    "complex": {
+      "model": "gpt-5.6-sol",
+      "reasoningEffort": "high"
+    },
+    "simple": {
+      "model": "gpt-5.6-sol",
+      "reasoningEffort": "low"
+    }
+  },
+  "executor": {
+    "complex": {
+      "agent": "antigravity-executor-high",
+      "model": "gemini-3.1-pro-high",
+      "reasoningEffort": "high",
+      "timeout": "45m"
+    },
+    "simple": {
+      "agent": "antigravity-executor-light",
+      "model": "gemini-3.8-flash-low",
+      "reasoningEffort": "low",
+      "timeout": "20m"
+    },
+    "review": {
+      "agent": "antigravity-reviewer",
+      "model": "gemini-3.1-pro-high",
+      "reasoningEffort": "high",
+      "timeout": "30m"
+    },
+    "codexFallback": {
+      "enabled": true,
+      "when": ["antigravity_quota_exhausted", "antigravity_unavailable"],
+      "model": "gpt-5.6-sol",
+      "reasoningEffort": "low",
+      "scope": "ready_task_only"
+    }
+  },
+  "qualityGates": {
+    "backend": [
+      "python -m pytest -q"
+    ],
+    "mobile": [
+      "flutter analyze",
+      "flutter test"
+    ]
+  },
+  "paths": {
+    "backlog": ".agentops/tasks/backlog",
+    "ready": ".agentops/tasks/ready",
+    "running": ".agentops/tasks/running",
+    "review": ".agentops/tasks/review",
+    "blocked": ".agentops/tasks/blocked",
+    "done": ".agentops/tasks/done",
+    "handoffs": ".agentops/handoffs",
+    "runtime": ".agentops/runtime"
+  }
+}

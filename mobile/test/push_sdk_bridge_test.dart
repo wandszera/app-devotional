@@ -37,6 +37,6 @@ void main() {
 
     expect(state.isSupported, isFalse);
     expect(state.permissionStatus, PushPermissionStatus.notSupported);
-    expect(state.statusMessage, contains('indisponivel'));
+    expect(state.statusMessage, contains('sem push nativo'));
   });
 }

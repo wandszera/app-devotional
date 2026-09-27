@@ -232,7 +232,7 @@ class _NotificationPromptPageState extends State<NotificationPromptPage> {
               _PushSdkStatusCard(
                 state: pushSdkState,
                 onRefresh: saving ? null : _refreshPushSdkState,
-                onRequestPermission: null,
+                onRequestPermission: saving ? null : _requestPushPermission,
               ),
               const SizedBox(height: 20),
               SwitchListTile(

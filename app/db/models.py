@@ -17,6 +17,17 @@ class UserModel(Base):
     name: Mapped[str] = mapped_column(String(255), default="", nullable=False)
     bio: Mapped[str] = mapped_column(Text, default="", nullable=False)
     password_hash: Mapped[str] = mapped_column(String(255), nullable=False)
+    firebase_uid: Mapped[str] = mapped_column(
+        String(128),
+        unique=True,
+        index=True,
+        nullable=True,
+    )
+    auth_provider: Mapped[str] = mapped_column(
+        String(32),
+        default="password",
+        nullable=False,
+    )
     is_admin: Mapped[bool] = mapped_column(Boolean, default=False, nullable=False)
     created_at: Mapped[datetime] = mapped_column(DateTime, default=utc_now, nullable=False)
 
@@ -33,8 +44,14 @@ class DevotionalModel(Base):
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True, index=True)
     title: Mapped[str] = mapped_column(String(255), nullable=False)
+    # `content` is deliberately app-authored reflection.  We do not store the
+    # biblical text here: the CNBB translation and the daily liturgy are
+    # followed through their official source instead.
     content: Mapped[str] = mapped_column(Text, nullable=False)
     date: Mapped[date] = mapped_column(Date, unique=True, index=True, nullable=False)
+    liturgical_title: Mapped[str] = mapped_column(String(255), default="", nullable=False)
+    gospel_reference: Mapped[str] = mapped_column(String(128), default="", nullable=False)
+    source_url: Mapped[str] = mapped_column(String(1024), default="", nullable=False)
 
 
 class UserProgressModel(Base):

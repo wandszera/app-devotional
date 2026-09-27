@@ -20,8 +20,10 @@ class SettingsAccountCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final displayName = (name != null && name!.trim().isNotEmpty) ? name! : 'Usuário';
-    final displayBio = (bio != null && bio!.trim().isNotEmpty) ? bio! : (email ?? 'Conta');
+    final displayName =
+        (name != null && name!.trim().isNotEmpty) ? name! : 'Usuário';
+    final displayBio =
+        (bio != null && bio!.trim().isNotEmpty) ? bio! : (email ?? 'Conta');
     final initial = displayName.substring(0, 1).toUpperCase();
 
     return Card(
@@ -67,7 +69,7 @@ class SettingsAccountCard extends StatelessWidget {
                         displayBio,
                         style: TextStyle(
                           fontSize: 14,
-                          color: Colors.black.withOpacity(0.6),
+                          color: Colors.black.withValues(alpha: 0.6),
                         ),
                       ),
                     ],

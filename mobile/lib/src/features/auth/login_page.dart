@@ -1,19 +1,23 @@
 import 'package:flutter/material.dart';
 
+import '../../models/auth_models.dart';
 import '../../services/api_client.dart';
 import '../../services/auth_store.dart';
+import '../../services/google_auth_service.dart';
 
 class LoginPage extends StatefulWidget {
-  const LoginPage({
+  LoginPage({
     required this.apiClient,
     required this.authStore,
     required this.onAuthenticated,
+    GoogleAuthService? googleAuthService,
     super.key,
-  });
+  }) : googleAuthService = googleAuthService ?? FirebaseGoogleAuthService();
 
   final ApiClient apiClient;
   final AuthStore authStore;
   final VoidCallback onAuthenticated;
+  final GoogleAuthService googleAuthService;
 
   @override
   State<LoginPage> createState() => _LoginPageState();
@@ -53,13 +57,7 @@ class _LoginPageState extends State<LoginPage> {
           ? await widget.apiClient.register(email: email, password: password)
           : await widget.apiClient.login(email: email, password: password);
 
-      await widget.authStore.save(
-        tokenValue: auth.accessToken,
-        emailValue: auth.email,
-        nameValue: auth.name,
-        bioValue: auth.bio,
-        isAdminValue: auth.isAdmin,
-      );
+      await _saveAuthenticatedUser(auth);
       widget.onAuthenticated();
     } on ApiException catch (error) {
       setState(() {
@@ -72,6 +70,45 @@ class _LoginPageState extends State<LoginPage> {
         });
       }
     }
+  }
+
+  Future<void> _signInWithGoogle() async {
+    setState(() {
+      loading = true;
+      errorMessage = null;
+    });
+
+    try {
+      final idToken = await widget.googleAuthService.signIn();
+      final auth = await widget.apiClient.loginWithGoogle(idToken);
+      await _saveAuthenticatedUser(auth);
+      widget.onAuthenticated();
+    } on ApiException catch (error) {
+      setState(() {
+        errorMessage = error.message;
+      });
+    } catch (_) {
+      setState(() {
+        errorMessage = 'Não foi possível entrar com Google. Tente novamente.';
+      });
+    } finally {
+      if (mounted) {
+        setState(() {
+          loading = false;
+        });
+      }
+    }
+  }
+
+  Future<void> _saveAuthenticatedUser(AuthResponse auth) {
+    return widget.authStore.save(
+      tokenValue: auth.accessToken,
+      userIdValue: auth.userId,
+      emailValue: auth.email,
+      nameValue: auth.name,
+      bioValue: auth.bio,
+      isAdminValue: auth.isAdmin,
+    );
   }
 
   @override
@@ -119,7 +156,8 @@ class _LoginPageState extends State<LoginPage> {
                               Expanded(
                                 child: Text(
                                   isRegisterMode ? 'Criar conta' : 'Entrar',
-                                  style: Theme.of(context).textTheme.headlineSmall,
+                                  style:
+                                      Theme.of(context).textTheme.headlineSmall,
                                 ),
                               ),
                             ],
@@ -204,7 +242,9 @@ class _LoginPageState extends State<LoginPage> {
                         FilledButton.icon(
                           onPressed: loading ? null : _submit,
                           icon: Icon(
-                            isRegisterMode ? Icons.person_add_alt_1 : Icons.login,
+                            isRegisterMode
+                                ? Icons.person_add_alt_1
+                                : Icons.login,
                           ),
                           label: Text(
                             loading
@@ -213,6 +253,27 @@ class _LoginPageState extends State<LoginPage> {
                                     ? 'Criar conta'
                                     : 'Entrar',
                           ),
+                        ),
+                        const SizedBox(height: 16),
+                        Row(
+                          children: [
+                            const Expanded(child: Divider()),
+                            Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 12),
+                              child: Text(
+                                'ou',
+                                style: Theme.of(context).textTheme.bodySmall,
+                              ),
+                            ),
+                            const Expanded(child: Divider()),
+                          ],
+                        ),
+                        const SizedBox(height: 16),
+                        OutlinedButton.icon(
+                          onPressed: loading ? null : _signInWithGoogle,
+                          icon: const Icon(Icons.g_mobiledata, size: 28),
+                          label: const Text('Continuar com Google'),
                         ),
                         const SizedBox(height: 12),
                         TextButton(

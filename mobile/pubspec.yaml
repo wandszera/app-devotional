@@ -22,6 +22,8 @@ dependencies:
   sqflite: ^2.3.0
   sqflite_common_ffi: ^2.3.4
   path: ^1.9.0
+  firebase_auth: ^6.6.1
+  google_sign_in: ^7.2.0
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -32,3 +34,4 @@ flutter:
 
   assets:
     - assets/lottie/
+    - assets/liturgy/gospel_catalogue.json

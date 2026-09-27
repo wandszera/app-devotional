@@ -5,7 +5,9 @@ import '../../services/auth_store.dart';
 import '../../services/push_sdk_bridge.dart';
 import 'admin_devotionals_tab.dart';
 import 'admin_notifications_tab.dart';
+import 'liturgical_calendar_tab.dart';
 import 'progress_tab.dart';
+import 'prayers_tab.dart';
 import 'settings_tab.dart';
 import 'today_tab.dart';
 
@@ -36,12 +38,28 @@ List<HomeTabDefinition> buildHomeTabDefinitions({
         label: 'Hoje',
       ),
     ),
+    const HomeTabDefinition(
+      builder: LiturgicalCalendarTab.new,
+      destination: NavigationDestination(
+        icon: Icon(Icons.calendar_month_outlined),
+        selectedIcon: Icon(Icons.calendar_month),
+        label: 'Calendário',
+      ),
+    ),
     HomeTabDefinition(
       builder: () => ProgressTab(apiClient: apiClient),
       destination: const NavigationDestination(
         icon: Icon(Icons.insights_outlined),
         selectedIcon: Icon(Icons.insights),
         label: 'Progresso',
+      ),
+    ),
+    const HomeTabDefinition(
+      builder: PrayersTab.new,
+      destination: NavigationDestination(
+        icon: Icon(Icons.auto_stories_outlined),
+        selectedIcon: Icon(Icons.auto_stories),
+        label: 'Orações',
       ),
     ),
     HomeTabDefinition(

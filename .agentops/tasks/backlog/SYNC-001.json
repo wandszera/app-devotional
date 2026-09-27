@@ -1,0 +1,20 @@
+{
+  "id": "sync-001-offline-completion-queue",
+  "title": "Criar fila duravel de conclusoes offline",
+  "objective": "Preservar e sincronizar multiplas conclusoes offline atraves da virada do dia, reinicios e trocas de conectividade, sem duplicacao.",
+  "status": "backlog",
+  "priority": "P1",
+  "complexity": "complex",
+  "plannerTier": "complex",
+  "executorTier": "complex",
+  "risk": "high",
+  "baseCommit": null,
+  "dependencies": ["ops-002-ci-quality-gates"],
+  "allowedPaths": ["mobile/lib/src/services/local_db_service.dart", "mobile/lib/src/services/api_client.dart", "mobile/lib/src/features/home/today_tab_controller.dart", "mobile/test/", "app/services/streak_service.py", "app/services/user_day_service.py", "tests/"],
+  "forbiddenActions": ["Nao apagar pendencias sem confirmacao do servidor", "Nao usar devotional.db em testes", "Nao aceitar duplicacao de streak"],
+  "acceptanceCriteria": ["A fila suporta multiplas datas e usuario", "Virada do dia nao remove item pendente", "Retries sao idempotentes", "Timezone do usuario participa da decisao", "Testes cobrem modo aviao, reinicio e reconexao"],
+  "verification": ["python -m pytest -q", "cd mobile; flutter analyze", "cd mobile; flutter test"],
+  "worktreePath": "TBD",
+  "notes": "Requer desenho de contrato antes da implementacao."
+}
+

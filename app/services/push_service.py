@@ -11,6 +11,7 @@ logger = logging.getLogger(__name__)
 @dataclass
 class PushSendResult:
     status: str
+    provider: str
     provider_message_id: str
     error_message: str = ""
 
@@ -20,6 +21,7 @@ class PushService:
         if not push_token:
             return PushSendResult(
                 status="failed",
+                provider="none",
                 provider_message_id="",
                 error_message="missing push token",
             )
@@ -28,7 +30,11 @@ class PushService:
             logger.warning("Simulando push: Firebase não está configurado.")
             sanitized = push_token.replace(" ", "_")
             message_id = f"mock:{sanitized}:{len(title)}:{len(message)}"
-            return PushSendResult(status="sent", provider_message_id=message_id)
+            return PushSendResult(
+                status="simulated",
+                provider="mock",
+                provider_message_id=message_id,
+            )
 
         try:
             fcm_msg = messaging.Message(
@@ -39,11 +45,16 @@ class PushService:
                 token=push_token,
             )
             response = messaging.send(fcm_msg)
-            return PushSendResult(status="sent", provider_message_id=response)
+            return PushSendResult(
+                status="sent",
+                provider="firebase",
+                provider_message_id=response,
+            )
         except Exception as e:
             logger.error(f"Erro ao enviar FCM: {e}")
             return PushSendResult(
                 status="failed",
+                provider="firebase",
                 provider_message_id="",
                 error_message=str(e),
             )

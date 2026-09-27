@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from datetime import date
+from datetime import date, datetime
 
 from sqlalchemy import and_
 from sqlalchemy.orm import Session
@@ -14,18 +14,25 @@ from app.models.schemas import (
     DevotionalWithCompletion,
 )
 from app.services.streak_service import streak_service
+from app.services.user_day_service import get_user_local_date
 
 
 class DevotionalService:
     milestone_days = (3, 7, 14, 30, 60, 100)
 
-    def get_today_devotional(self, session: Session, user_id: int) -> DevotionalWithCompletion | None:
+    def get_today_devotional(
+        self,
+        session: Session,
+        user_id: int,
+        *,
+        now_utc: datetime | None = None,
+    ) -> DevotionalWithCompletion | None:
         user = session.get(UserModel, user_id)
         if user is None:
             return None
 
-        devotional = self._get_or_create_today_devotional(session)
-        today = date.today()
+        today = get_user_local_date(session, user_id, now_utc=now_utc)
+        devotional = self._get_or_create_today_devotional(session, today)
         completed = (
             session.query(UserProgressModel)
             .filter(UserProgressModel.user_id == user_id, UserProgressModel.date == today)
@@ -53,29 +60,48 @@ class DevotionalService:
         self,
         session: Session,
         user_id: int,
+        *,
+        completed_date: date | None = None,
+        now_utc: datetime | None = None,
     ) -> DevotionalCompletionResponse | None:
         user = session.get(UserModel, user_id)
         if user is None:
             return None
 
-        devotional = self._get_or_create_today_devotional(session)
-        today = date.today()
+        today = get_user_local_date(session, user_id, now_utc=now_utc)
+        activity_date = completed_date or today
+        if activity_date > today:
+            raise ValueError("completed_date cannot be in the future")
+        devotional = self._get_or_create_today_devotional(session, activity_date)
         progress = (
             session.query(UserProgressModel)
-            .filter(UserProgressModel.user_id == user_id, UserProgressModel.date == today)
+            .filter(
+                UserProgressModel.user_id == user_id,
+                UserProgressModel.date == activity_date,
+            )
             .first()
         )
         if progress is None:
             session.add(
                 UserProgressModel(
                     user_id=user_id,
-                    date=today,
+                    date=activity_date,
                     completed=True,
                 )
             )
-            session.commit()
+            session.flush()
 
-        streak = streak_service.update_streak(session, user_id, activity_date=today)
+        streak = (
+            streak_service.update_streak(
+                session,
+                user_id,
+                activity_date=activity_date,
+                commit=False,
+            )
+            if activity_date == today
+            else streak_service.recalculate_streak(session, user_id, commit=False)
+        )
+        session.commit()
         return DevotionalCompletionResponse(
             message="devotional completed",
             devotional_id=devotional.id,
@@ -83,19 +109,33 @@ class DevotionalService:
             feedback=self._build_completion_feedback(streak),
         )
 
-    def _get_or_create_today_devotional(self, session: Session) -> DevotionalModel:
-        today = date.today()
-        devotional = session.query(DevotionalModel).filter(DevotionalModel.date == today).first()
+    def _get_or_create_today_devotional(
+        self,
+        session: Session,
+        devotional_date: date,
+    ) -> DevotionalModel:
+        devotional = (
+            session.query(DevotionalModel)
+            .filter(DevotionalModel.date == devotional_date)
+            .first()
+        )
         if devotional is not None:
             return devotional
 
+        # A missing catalogue item must never be replaced by an invented
+        # devotional or an unsourced Bible passage.  The app can still direct
+        # the person to the official daily liturgy while an administrator adds
+        # the citation to the local catalogue.
         devotional = DevotionalModel(
-            title="Faithful today",
+            title="Evangelho do dia",
             content=(
-                "Take a moment to read, pray, and return to what matters most "
-                "before the day speeds up."
+                "A referência do Evangelho ainda não foi adicionada ao catálogo "
+                "local. Consulte a Liturgia Diária oficial da CNBB."
             ),
-            date=today,
+            date=devotional_date,
+            liturgical_title="Liturgia diária",
+            gospel_reference="",
+            source_url="https://liturgiadiaria.edicoescnbb.com.br/",
         )
         session.add(devotional)
         session.commit()
@@ -120,12 +160,29 @@ class DevotionalService:
         devotionals = query.order_by(DevotionalModel.date.asc()).all()
         return [Devotional.model_validate(item) for item in devotionals]
 
-    def create_devotional(self, session: Session, title: str, content: str, devotional_date: date) -> Devotional:
+    def create_devotional(
+        self,
+        session: Session,
+        title: str,
+        content: str,
+        devotional_date: date,
+        *,
+        liturgical_title: str = "",
+        gospel_reference: str = "",
+        source_url: str = "",
+    ) -> Devotional:
         existing = session.query(DevotionalModel).filter(DevotionalModel.date == devotional_date).first()
         if existing is not None:
             raise ValueError("a devotional already exists for this date")
 
-        devotional = DevotionalModel(title=title, content=content, date=devotional_date)
+        devotional = DevotionalModel(
+            title=title,
+            content=content,
+            date=devotional_date,
+            liturgical_title=liturgical_title,
+            gospel_reference=gospel_reference,
+            source_url=source_url,
+        )
         session.add(devotional)
         session.commit()
         session.refresh(devotional)
@@ -138,6 +195,9 @@ class DevotionalService:
         title: str | None = None,
         content: str | None = None,
         devotional_date: date | None = None,
+        liturgical_title: str | None = None,
+        gospel_reference: str | None = None,
+        source_url: str | None = None,
     ) -> Devotional | None:
         devotional = session.get(DevotionalModel, devotional_id)
         if devotional is None:
@@ -153,6 +213,12 @@ class DevotionalService:
             devotional.title = title
         if content is not None:
             devotional.content = content
+        if liturgical_title is not None:
+            devotional.liturgical_title = liturgical_title
+        if gospel_reference is not None:
+            devotional.gospel_reference = gospel_reference
+        if source_url is not None:
+            devotional.source_url = source_url
 
         session.add(devotional)
         session.commit()
@@ -164,11 +230,17 @@ class DevotionalService:
         if devotional is None:
             return False
 
+        session.query(UserFavoriteModel).filter(
+            UserFavoriteModel.devotional_id == devotional_id
+        ).delete(synchronize_session=False)
         session.delete(devotional)
         session.commit()
         return True
 
     def toggle_favorite(self, session: Session, user_id: int, devotional_id: int) -> bool:
+        if session.get(DevotionalModel, devotional_id) is None:
+            raise LookupError("devotional not found")
+
         favorite = (
             session.query(UserFavoriteModel)
             .filter(UserFavoriteModel.user_id == user_id, UserFavoriteModel.devotional_id == devotional_id)

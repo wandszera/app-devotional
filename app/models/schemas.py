@@ -35,18 +35,27 @@ class Devotional(BaseModel):
     title: str
     content: str
     date: date
+    liturgical_title: str = ""
+    gospel_reference: str = ""
+    source_url: str = ""
 
 
 class DevotionalCreateRequest(BaseModel):
     title: str
     content: str
     date: date
+    liturgical_title: str = ""
+    gospel_reference: str = ""
+    source_url: str = ""
 
 
 class DevotionalUpdateRequest(BaseModel):
     title: str | None = None
     content: str | None = None
     date: Optional[date] = None
+    liturgical_title: str | None = None
+    gospel_reference: str | None = None
+    source_url: str | None = None
 
 
 class DevotionalListResponse(BaseModel):
@@ -86,6 +95,10 @@ class LoginRequest(BaseModel):
 
 class RegisterRequest(LoginRequest):
     pass
+
+
+class GoogleLoginRequest(BaseModel):
+    id_token: str = Field(min_length=20, max_length=8192)
 
 
 class LoginResponse(BaseModel):

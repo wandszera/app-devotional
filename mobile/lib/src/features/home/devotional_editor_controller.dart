@@ -55,7 +55,8 @@ class DevotionalEditorController extends AsyncController {
           date: date.trim(),
         );
       }
-      final nextStatus = status.copyWith(submitting: false, clearErrorMessage: true);
+      final nextStatus =
+          status.copyWith(submitting: false, clearErrorMessage: true);
       _state = _state.copyWith(status: nextStatus);
       setStatus(nextStatus);
     } on ApiException catch (error) {

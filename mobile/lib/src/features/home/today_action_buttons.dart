@@ -38,7 +38,7 @@ class TodayActionButtons extends StatelessWidget {
               child: OutlinedButton.icon(
                 onPressed: onShare,
                 icon: const Icon(Icons.share, size: 18),
-                label: const Text('Compartilhar'),
+                label: const Text('Compartilhar reflexão'),
               ),
             ),
             const SizedBox(width: 12),

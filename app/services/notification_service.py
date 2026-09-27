@@ -72,7 +72,9 @@ class NotificationService:
             local_now = now_utc.astimezone(timezone)
             local_date = local_now.date()
             local_hhmm = local_now.strftime("%H:%M")
-            if local_hhmm != settings.reminder_time:
+            # A delayed scheduler should still deliver today's reminder instead
+            # of losing the entire day because it missed the exact minute.
+            if local_hhmm < settings.reminder_time:
                 continue
 
             if settings.last_sent_at is not None:
@@ -153,7 +155,7 @@ class NotificationService:
                 user_id=item.user_id,
                 scheduled_for=now_utc,
                 status=result.status,
-                provider="mock",
+                provider=result.provider,
                 title=item.devotional_title,
                 message=item.message,
                 push_token_snapshot=settings.push_token,

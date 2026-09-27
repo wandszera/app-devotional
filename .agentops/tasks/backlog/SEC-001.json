@@ -1,0 +1,20 @@
+{
+  "id": "sec-001-auth-privacy-hardening",
+  "title": "Endurecer autenticacao e privacidade",
+  "objective": "Definir e implementar sessao segura, armazenamento de token, recuperacao/exclusao de conta e protecoes basicas da API.",
+  "status": "backlog",
+  "priority": "P1",
+  "complexity": "complex",
+  "plannerTier": "complex",
+  "executorTier": "complex",
+  "risk": "high",
+  "baseCommit": null,
+  "dependencies": ["ops-002-ci-quality-gates", "data-001-scope-local-user-data", "be-002-startup-migrations"],
+  "allowedPaths": ["docs/", "app/core/security.py", "app/routes/auth.py", "app/services/user_service.py", "app/db/models.py", "alembic/", "mobile/lib/src/services/auth_store.dart", "mobile/lib/src/services/google_auth_service.dart", "tests/", "mobile/test/"],
+  "forbiddenActions": ["Nao registrar tokens/segredos", "Nao excluir dados reais em teste", "Nao alterar Firebase externo sem autorizacao"],
+  "acceptanceCriteria": ["Modelo de sessao e ameacas documentado", "Tokens usam armazenamento adequado", "Recuperacao e exclusao possuem contratos testados", "API possui protecoes contra abuso acordadas"],
+  "verification": ["Revisao de seguranca independente", "python -m pytest -q", "cd mobile; flutter test"],
+  "worktreePath": "TBD",
+  "notes": "Dividir em subtarefas antes de ficar ready."
+}
+
