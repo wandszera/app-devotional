@@ -1,61 +1,51 @@
-# Panorama do App Devocional — 16/09/2026
+# Panorama do App Devocional — 11/11/2026
 
-Este documento consolida a leitura do repositorio e o baseline de qualidade usado para planejar a proxima etapa. Nenhuma das tarefas descritas aqui foi iniciada.
+Substitui o panorama de 16/09/2026. Baseado na leitura do repositório (`main` em `6d55db0`); os testes backend e Flutter não foram executados nesta análise.
 
 ## Produto e arquitetura
 
-O projeto e um monorepo com API FastAPI/SQLAlchemy/Alembic/SQLite e cliente Flutter. A proposta central e formar habito espiritual diario por meio de devocional, conclusao do dia, streak, progresso e lembretes. O produto ja cresceu alem do MVP original e inclui login por senha/Google, favoritos, administracao de conteudo, cache offline, calendario liturgico, catalogo de evangelhos, biblioteca de oracoes, compartilhamento e analytics.
+Monorepo com API FastAPI + SQLAlchemy + Alembic + SQLite (~2.300 linhas, 23 testes) e cliente Flutter para Android, Windows e web (~8.900 linhas, 44 testes). Objetivo: hábito espiritual diário (Evangelho do dia, conclusão, streak, progresso, favoritos, calendário litúrgico, orações, lembretes e painel admin). Retenção vem antes de monetização.
 
-O backend separa rotas, servicos, modelos e persistencia. O Flutter separa telas, controllers, modelos e services, embora alguns fluxos ainda misturem fonte remota, catalogo empacotado e persistencia local. Firebase participa de autenticacao, analytics e messaging, mas parte da configuracao externa ainda esta incompleta.
+## Bloqueadores da beta (P0)
 
-## Estado verificavel
+1. **Sem conteúdo após setembro/2026.** O catálogo empacotado cobre 01–30/09 e o seed do backend, 7 dias; as demais datas caem no placeholder.
+2. **Fonte de conteúdo indefinida.** O bundle sobrescreve campos editados pelo admin (`_applyBundledGospel`); o ADR CONTENT-001A segue "Undecided".
+3. **Flutter não compila em checkout limpo.** `firebase_options.dart` e `google-services.json` foram removidos do Git (commit `80f1a08`) e `main.dart` importa o primeiro.
+4. **CI sem gate mobile.** O job Flutter foi removido no mesmo commit.
+5. **Release Android inviável.** `applicationId` `com.example…`, assinatura debug, sem `INTERNET` no manifest principal, URL padrão `http://10.0.2.2:8000`.
+6. **Sessão de 60 min sem refresh.** Qualquer 401 desloga e apaga as flags de onboarding.
+7. **Sem produção.** Sem Dockerfile/deploy; CORS só localhost; `init_db()` cria, altera e semeia o banco no import, concorrendo com o Alembic.
 
-- Git: `main` em `db84034`, alinhada com `origin/main`, com dezenas de arquivos modificados e nao rastreados. O conjunto local representa varias frentes de trabalho ainda sem checkpoint.
-- Backend: 23 testes coletados; 22 passaram e 1 falhou. A falha ocorre em timezone no Windows porque `tzdata` nao esta declarado/instalado. O ambiente Python 3.14 emitiu 97 avisos de APIs depreciadas em FastAPI/Starlette.
-- Flutter analyze: falha de compilacao em `gospel_store.dart`; `BundledGospelCatalogue.loadAll()` e chamado, mas nao existe.
-- Flutter test: 32 testes chegaram a passar, mas 4 arquivos de teste nao compilaram pela mesma ausencia de `loadAll`; o comando terminou com falha.
-- CI/CD: nao ha pipeline versionado, deploy automatizado, container ou gates remotos.
-- Antigravity CLI: `agy` nao esta disponivel no `PATH`; portanto o executor externo ainda nao pode ser despachado.
+## Integridade e retenção (P1)
 
-## Capacidades ja presentes
+- Conclusão offline é descartada na virada do dia (`syncPendingCompletions`), embora o backend aceite `completed_date`.
+- Fuso padrão UTC e campo de texto livre no cliente; depois das 21h de Brasília o servidor já serve o dia seguinte.
+- `GET /streak` devolve o streak persistido mesmo após dias sem atividade.
+- Lembretes dependem de um admin chamar `/notifications/admin/dispatch`; sem agendador, sem `onTokenRefresh`, handler de background comentado.
+- `last_sent_at` volta do SQLite sem fuso e é convertido como hora local do servidor.
+- Faltam recuperação de senha, exclusão de conta e política de privacidade.
+- Sem rate limit em login/registro; token em `SharedPreferences`; PBKDF2 com 100 mil iterações.
 
-- Cadastro/login por senha, JWT local e troca de token Google/Firebase.
-- Devocional diario, conclusao, streak, progresso mensal e favoritos.
-- CRUD administrativo de devocionais e endpoints administrativos de notificacao.
-- Preferencias de lembrete, token push e historico de entregas.
-- Cache local de conteudo/progresso, tentativa de sincronizacao e funcionamento parcial offline.
-- Catalogo liturgico empacotado para setembro de 2026, leitor do Evangelho e anotacoes.
-- Biblioteca local de oracoes, compartilhamento de reflexao e eventos de analytics.
-- Migracoes Alembic e testes backend/widget/unitarios relevantes.
+## Otimizações (P2)
 
-## Riscos priorizados
+- Acessibilidade (uma única ocorrência de `Semantics`/escala de texto no `lib/`).
+- Editor admin Flutter não envia campos litúrgicos.
+- Dependências sem versão fixa (`firebase-admin`, `tzdata`); `pytest` junto das dependências de produção.
+- `GET /devotional/today` grava placeholder; `/progress` sem paginação.
+- Higiene: `.agentops/`, `.worktrees/`, branches `antigravity/*` integradas, logs na raiz, links `file:///c:` no README.
 
-### P0 — impedir evolucao segura
+## Ordem recomendada
 
-1. O baseline local nao esta consolidado; agentes concorrentes poderiam sobrescrever trabalho ou partir de estados diferentes.
-2. O cliente Flutter nao compila por contrato incompleto do catalogo.
-3. O gate backend nao fica verde em Windows pela dependencia de timezone ausente.
+1. Voltar ao verde: Firebase local reproduzível, gate Flutter no CI, checkpoint do que está pendente.
+2. Conteúdo: fechar o ADR e publicar o catálogo do período da beta.
+3. Confiabilidade do hábito: sessão longa/refresh, fila offline com data, fuso do aparelho, streak calculado na leitura.
+4. Lembretes reais: agendador para o dispatch e ciclo de vida do token FCM.
+5. Produção: deploy com HTTPS, migrações só via Alembic, CORS e segredos.
+6. Android beta: identidade e assinatura definitivas, permissão de internet, teste em aparelho, trilha de teste interno.
+7. Conta e privacidade: exclusão, recuperação de senha, política.
 
-### P1 — integridade e produto
+## Decisões pendentes (humanas)
 
-1. A conclusao offline guarda apenas uma data; a virada do dia pode apagar uma pendencia sem sincronizar.
-2. Ha fontes concorrentes de conteudo: seed/backend, placeholder sob demanda e catalogo empacotado no app. Alteracoes administrativas podem nao aparecer no cliente.
-3. Favoritos/preferencias de Evangelho e oracoes nao estao integralmente isolados por usuario local.
-4. Streak persistido pode continuar apresentado como atual apos dias sem atividade; backfill historico exige regra explicita.
-5. Notificacoes dependem de endpoint administrativo, sem scheduler, lock ou idempotencia robusta.
-6. O startup da API cria/altera/semeia banco durante import, concorrendo conceitualmente com Alembic e workers.
-
-### P1/P2 — seguranca e lancamento
-
-1. Android ainda usa identificador de exemplo, assinatura debug em release e precisa confirmar permissao de internet no manifest principal.
-2. Token mobile esta em SharedPreferences; JWT nao possui refresh/revogacao/issuer/audience e faltam rate limiting e fluxos de recuperacao/exclusao.
-3. Nao ha politica de privacidade, fluxo de exclusao, monitoramento de producao ou operacao de backend definida.
-4. Conteudo biblico completo depende de licenca/autorizacao e revisao editorial humana.
-5. Acessibilidade e teste end-to-end em aparelho Android ainda nao foram fechados.
-
-## Direcao recomendada
-
-A sequencia segura e: congelar o baseline atual; restaurar build/testes verdes; corrigir integridade offline e fonte de conteudo; isolar dados locais por usuario; tornar notificacoes idempotentes; separar startup/migracao; endurecer autenticacao e preparar Android/producao. Monetizacao deve permanecer depois da estabilizacao de retencao, confiabilidade e privacidade.
-
-O plano operacional detalhado esta em `.agentops/plan.md`; os contratos iniciais ficam em `.agentops/tasks/backlog/` e permanecem desarmados.
-
+- Fonte canônica do conteúdo (recomendação: API como fonte, bundle só como fallback offline).
+- Quem produz o conteúdo editorial dos próximos meses (nenhum conteúdo foi gerado aqui).
+- Hospedagem (SQLite + volume persistente basta para a beta; Postgres só com mais de uma instância).

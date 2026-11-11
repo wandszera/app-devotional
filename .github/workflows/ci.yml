@@ -22,3 +22,21 @@ jobs:
         env:
           APP_ENV: test
           APP_SECRET_KEY: ci-test-secret-key-at-least-32-characters
+
+  mobile:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: mobile
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          cache: true
+      # Credenciais reais não são versionadas; o modelo basta para compilar.
+      - name: Preparar firebase_options (placeholder)
+        run: cp lib/firebase_options.dart.example lib/firebase_options.dart
+      - run: flutter pub get
+      - run: flutter analyze
+      - run: flutter test
