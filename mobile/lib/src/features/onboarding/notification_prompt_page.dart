@@ -156,8 +156,8 @@ class _NotificationPromptPageState extends State<NotificationPromptPage> {
         decoration: const BoxDecoration(
           gradient: LinearGradient(
             colors: [
-              Color(0xFFFFF3E2),
-              Color(0xFFE9D8BE),
+              Color(0xFFF9F1DF),
+              Color(0xFFE6DCC8),
             ],
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
@@ -185,7 +185,7 @@ class _NotificationPromptPageState extends State<NotificationPromptPage> {
                 child: const Icon(
                   Icons.notifications_active_outlined,
                   size: 42,
-                  color: Color(0xFF7A4B2A),
+                  color: Color(0xFF2B4C7E),
                 ),
               ),
               const SizedBox(height: 24),
@@ -193,7 +193,7 @@ class _NotificationPromptPageState extends State<NotificationPromptPage> {
                 'Escolha seu lembrete diario',
                 style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                       fontWeight: FontWeight.w800,
-                      color: const Color(0xFF4B3320),
+                      color: const Color(0xFF1A2F52),
                     ),
               ),
               const SizedBox(height: 12),
@@ -201,7 +201,7 @@ class _NotificationPromptPageState extends State<NotificationPromptPage> {
                 'Esse horario ajuda voce a voltar todos os dias. Escolha um momento simples e realista.',
                 style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                       height: 1.6,
-                      color: const Color(0xFF5F4B39),
+                      color: const Color(0xFF5E584E),
                     ),
               ),
               const SizedBox(height: 28),
@@ -218,7 +218,7 @@ class _NotificationPromptPageState extends State<NotificationPromptPage> {
                       'Primeira meta sugerida',
                       style: TextStyle(
                         fontWeight: FontWeight.w700,
-                        color: Color(0xFF7A4B2A),
+                        color: Color(0xFF2B4C7E),
                       ),
                     ),
                     SizedBox(height: 6),
@@ -294,7 +294,7 @@ class _NotificationPromptPageState extends State<NotificationPromptPage> {
               Text(
                 'Voce pode deixar em branco agora e preencher depois nos ajustes.',
                 style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                      color: const Color(0xFF5F4B39),
+                      color: const Color(0xFF5E584E),
                     ),
               ),
               if (errorMessage != null) ...[
@@ -302,7 +302,7 @@ class _NotificationPromptPageState extends State<NotificationPromptPage> {
                 Container(
                   padding: const EdgeInsets.all(12),
                   decoration: BoxDecoration(
-                    color: const Color(0xFFFFECE8),
+                    color: const Color(0xFFF6E3E4),
                     borderRadius: BorderRadius.circular(14),
                   ),
                   child: Text(
@@ -341,7 +341,7 @@ class _PushSdkStatusCard extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(18),
       decoration: BoxDecoration(
-        color: const Color(0xFFF3ECE2),
+        color: const Color(0xFFF4EEE2),
         borderRadius: BorderRadius.circular(22),
       ),
       child: currentState == null
@@ -365,14 +365,14 @@ class _PushSdkStatusCard extends StatelessWidget {
                   currentState.statusMessage,
                   style: Theme.of(context).textTheme.titleSmall?.copyWith(
                         fontWeight: FontWeight.w700,
-                        color: const Color(0xFF7A4B2A),
+                        color: const Color(0xFF2B4C7E),
                       ),
                 ),
                 const SizedBox(height: 8),
                 Text(
                   currentState.helpMessage,
                   style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                        color: const Color(0xFF5F4B39),
+                        color: const Color(0xFF5E584E),
                       ),
                 ),
                 const SizedBox(height: 12),

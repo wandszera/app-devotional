@@ -18,8 +18,7 @@ class TodayHeader extends StatelessWidget {
         Text(
           greeting,
           style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                fontWeight: FontWeight.w800,
-                color: const Color(0xFF4D341F),
+                fontSize: 32,
               ),
         ),
         const SizedBox(height: 8),

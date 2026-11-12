@@ -29,7 +29,7 @@ class PushSdkInfoCard extends StatelessWidget {
                 : 'Nenhum token nativo foi configurado nesta etapa.';
 
     return HomeFormSection(
-      backgroundColor: const Color(0xFFF3ECE2),
+      backgroundColor: const Color(0xFFF4EEE2),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -37,7 +37,7 @@ class PushSdkInfoCard extends StatelessWidget {
             currentState?.statusMessage ?? 'Aguardando leitura do status dos lembretes',
             style: Theme.of(context).textTheme.titleSmall?.copyWith(
                   fontWeight: FontWeight.w700,
-                  color: const Color(0xFF7A4B2A),
+                  color: const Color(0xFF2B4C7E),
                 ),
           ),
           const SizedBox(height: 8),
@@ -45,14 +45,14 @@ class PushSdkInfoCard extends StatelessWidget {
             currentState?.helpMessage ??
                 'Esta area acompanha como o app vai tratar lembretes e futuras integracoes nativas.',
             style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                  color: const Color(0xFF5F4B39),
+                  color: const Color(0xFF5E584E),
                 ),
           ),
           const SizedBox(height: 10),
           Text(
             tokenStatus,
             style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                  color: const Color(0xFF5F4B39),
+                  color: const Color(0xFF5E584E),
                 ),
           ),
           const SizedBox(height: 12),

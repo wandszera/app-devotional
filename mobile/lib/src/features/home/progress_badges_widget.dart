@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+
 import '../../models/devotional_models.dart';
+import '../../theme/app_theme.dart';
 import 'home_layout_widgets.dart';
 
 class ProgressBadgesWidget extends StatelessWidget {
@@ -22,8 +24,9 @@ class ProgressBadgesWidget extends StatelessWidget {
         Container(
           padding: const EdgeInsets.all(20),
           decoration: BoxDecoration(
-            color: Colors.white,
+            color: AppColors.surface,
             borderRadius: BorderRadius.circular(24),
+            border: Border.all(color: AppColors.sand),
             boxShadow: [
               BoxShadow(
                 color: Colors.black.withValues(alpha: 0.03),

@@ -4,6 +4,8 @@ import '../../models/auth_models.dart';
 import '../../services/api_client.dart';
 import '../../services/auth_store.dart';
 import '../../services/google_auth_service.dart';
+import '../../theme/app_theme.dart';
+import '../../widgets/cross_ornament.dart';
 
 class LoginPage extends StatefulWidget {
   LoginPage({
@@ -119,8 +121,8 @@ class _LoginPageState extends State<LoginPage> {
         decoration: const BoxDecoration(
           gradient: LinearGradient(
             colors: [
-              Color(0xFFF4E7D3),
-              Color(0xFFE7D2B3),
+              AppColors.ivory,
+              AppColors.goldSoft,
             ],
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
@@ -133,7 +135,7 @@ class _LoginPageState extends State<LoginPage> {
               constraints: const BoxConstraints(maxWidth: 420),
               child: Card(
                 elevation: 0,
-                color: Colors.white.withValues(alpha: 0.92),
+                color: AppColors.surface,
                 child: Padding(
                   padding: const EdgeInsets.all(24),
                   child: Form(
@@ -142,23 +144,27 @@ class _LoginPageState extends State<LoginPage> {
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
                         Container(
-                          padding: const EdgeInsets.all(14),
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 16,
+                            vertical: 18,
+                          ),
                           decoration: BoxDecoration(
-                            color: const Color(0xFFF5E9D7),
-                            borderRadius: BorderRadius.circular(18),
+                            gradient: const LinearGradient(
+                              colors: [AppColors.blueDeep, AppColors.blue],
+                            ),
+                            borderRadius: BorderRadius.circular(20),
                           ),
                           child: Row(
                             children: [
-                              const Icon(
-                                Icons.auto_stories,
-                                color: Color(0xFF7A4B2A),
-                              ),
-                              const SizedBox(width: 10),
+                              const CrossMark(size: 26),
+                              const SizedBox(width: 14),
                               Expanded(
                                 child: Text(
                                   isRegisterMode ? 'Criar conta' : 'Entrar',
-                                  style:
-                                      Theme.of(context).textTheme.headlineSmall,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .headlineSmall
+                                      ?.copyWith(color: Colors.white),
                                 ),
                               ),
                             ],
@@ -230,7 +236,7 @@ class _LoginPageState extends State<LoginPage> {
                           Container(
                             padding: const EdgeInsets.all(12),
                             decoration: BoxDecoration(
-                              color: const Color(0xFFFFECE8),
+                              color: const Color(0xFFF6E3E4),
                               borderRadius: BorderRadius.circular(14),
                             ),
                             child: Text(

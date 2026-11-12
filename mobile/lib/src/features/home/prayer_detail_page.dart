@@ -75,7 +75,7 @@ class _PrayerDetailPageState extends State<PrayerDetailPage> {
               prayer.title,
               style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                     fontWeight: FontWeight.w800,
-                    color: const Color(0xFF382315),
+                    color: const Color(0xFF26211C),
                   ),
             ),
             if (metadata.isNotEmpty) ...[
@@ -93,14 +93,14 @@ class _PrayerDetailPageState extends State<PrayerDetailPage> {
               prayer.text,
               style: Theme.of(context).textTheme.titleMedium?.copyWith(
                     height: 1.75,
-                    color: const Color(0xFF2C241B),
+                    color: const Color(0xFF26211C),
                   ),
             ),
             const SizedBox(height: 28),
             Text(
               'Texto publicado no catálogo do app. Favoritos são privados e ficam neste dispositivo.',
               style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                    color: const Color(0xFF6E5A47),
+                    color: const Color(0xFF5E584E),
                   ),
             ),
           ],

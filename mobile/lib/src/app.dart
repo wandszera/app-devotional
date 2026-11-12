@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'package:google_fonts/google_fonts.dart';
-
 import 'config/app_config.dart';
 import 'features/app_shell.dart';
 import 'services/api_client.dart';
@@ -9,6 +7,7 @@ import 'services/auth_store.dart';
 import 'services/firebase_push_sdk_bridge.dart';
 import 'services/local_db_service.dart';
 import 'services/push_sdk_bridge.dart';
+import 'theme/app_theme.dart';
 
 class DevotionalApp extends StatefulWidget {
   const DevotionalApp({super.key});
@@ -48,17 +47,7 @@ class _DevotionalAppState extends State<DevotionalApp> {
     return MaterialApp(
       title: 'App Devocional',
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(
-          seedColor: const Color(0xFF5A3619),
-          primary: const Color(0xFF5A3619),
-          secondary: const Color(0xFFB88645),
-          surface: const Color(0xFFFCF9F2),
-        ),
-        scaffoldBackgroundColor: const Color(0xFFF4EBE1),
-        textTheme: GoogleFonts.interTextTheme(),
-        useMaterial3: true,
-      ),
+      theme: AppTheme.light(),
       home: initialized
           ? AppShell(
               apiClient: apiClient,

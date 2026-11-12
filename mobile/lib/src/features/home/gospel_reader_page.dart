@@ -173,7 +173,7 @@ class _GospelReaderPageState extends State<GospelReaderPage> {
             Text(
               _formatDate(gospel.date),
               style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                    color: const Color(0xFF8B6F56),
+                    color: const Color(0xFF5E584E),
                   ),
             ),
             const SizedBox(height: 8),
@@ -181,14 +181,14 @@ class _GospelReaderPageState extends State<GospelReaderPage> {
               gospel.title,
               style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                     fontWeight: FontWeight.w800,
-                    color: const Color(0xFF382315),
+                    color: const Color(0xFF26211C),
                   ),
             ),
             const SizedBox(height: 8),
             Text(
               gospel.reference,
               style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                    color: const Color(0xFF6E4B2E),
+                    color: const Color(0xFF2B4C7E),
                   ),
             ),
             const SizedBox(height: 24),
@@ -203,7 +203,7 @@ class _GospelReaderPageState extends State<GospelReaderPage> {
               gospel.text,
               style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                     height: 1.75,
-                    color: const Color(0xFF2C241B),
+                    color: const Color(0xFF26211C),
                   ),
             ),
             if (gospel.sourceUrl.isNotEmpty) ...[
@@ -211,7 +211,7 @@ class _GospelReaderPageState extends State<GospelReaderPage> {
               Text(
                 'Referência litúrgica: ${gospel.sourceUrl}',
                 style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                      color: const Color(0xFF6E5A47),
+                      color: const Color(0xFF5E584E),
                     ),
               ),
             ],

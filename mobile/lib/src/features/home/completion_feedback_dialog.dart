@@ -92,27 +92,27 @@ class CompletionFeedbackDialog {
     switch (tone) {
       case 'milestone':
         return (
-          const Color(0xFFFFF2E7),
-          const Color(0xFF9C4A1A),
-          const Color(0xFF5A331B),
+          const Color(0xFFF9F1DF),
+          const Color(0xFF7A2E3A),
+          const Color(0xFF1A2F52),
         );
       case 'starter':
         return (
-          const Color(0xFFF8F0E3),
-          const Color(0xFF7A4B2A),
-          const Color(0xFF4D341F),
+          const Color(0xFFF4EEE2),
+          const Color(0xFF2B4C7E),
+          const Color(0xFF1A2F52),
         );
       case 'strong':
         return (
           const Color(0xFFEAF2FF),
-          const Color(0xFF355B92),
-          const Color(0xFF233B63),
+          const Color(0xFF2B4C7E),
+          const Color(0xFF1A2F52),
         );
       default:
         return (
-          const Color(0xFFF4EEE6),
-          const Color(0xFF6E4B2E),
-          const Color(0xFF4D341F),
+          const Color(0xFFF4EEE2),
+          const Color(0xFF2B4C7E),
+          const Color(0xFF1A2F52),
         );
     }
   }

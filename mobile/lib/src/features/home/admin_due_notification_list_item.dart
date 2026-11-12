@@ -20,7 +20,7 @@ class AdminDueNotificationListItem extends StatelessWidget {
       ),
       leading: const Icon(
         Icons.schedule_send,
-        color: Color(0xFF7A4B2A),
+        color: Color(0xFF2B4C7E),
       ),
       title: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -36,7 +36,7 @@ class AdminDueNotificationListItem extends StatelessWidget {
           Text(
             item.message,
             style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                  color: const Color(0xFF5F4B39),
+                  color: const Color(0xFF5E584E),
                   height: 1.35,
                 ),
           ),
