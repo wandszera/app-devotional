@@ -19,6 +19,7 @@ from app.models.schemas import (
     NotificationSettings,
 )
 from app.services.push_service import push_service
+from app.services.streak_service import streak_service
 
 
 class NotificationService:
@@ -113,7 +114,9 @@ class NotificationService:
                     reminder_time=settings.reminder_time,
                     timezone=settings.timezone,
                     tone=tone,
-                    current_streak=streak.current_streak if streak is not None else 0,
+                    current_streak=streak_service.effective_current_streak(
+                        streak, local_date
+                    ),
                     next_milestone=next_milestone,
                     message=message,
                     devotional_title=devotional_title,

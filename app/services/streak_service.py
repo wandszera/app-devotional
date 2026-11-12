@@ -11,11 +11,34 @@ from app.models.schemas import UserStreak
 class StreakService:
     milestone_days = (3, 7, 14, 30, 60, 100)
 
-    def get_streak(self, session: Session, user_id: int) -> UserStreak | None:
+    def get_streak(
+        self,
+        session: Session,
+        user_id: int,
+        *,
+        today: date | None = None,
+    ) -> UserStreak | None:
         streak = session.get(UserStreakModel, user_id)
         if streak is None:
             return None
-        return self._to_schema(streak)
+        return self._to_schema(streak, today)
+
+    def effective_current_streak(
+        self,
+        streak: UserStreakModel | None,
+        today: date,
+    ) -> int:
+        """Streak visível hoje: zera se a última atividade foi antes de ontem.
+
+        O valor persistido só muda ao concluir um dia; aqui ele é calculado na
+        leitura para não exibir uma sequência já quebrada.
+        """
+        if streak is None:
+            return 0
+        last = streak.last_activity_date
+        if last is not None and last < today - timedelta(days=1):
+            return 0
+        return streak.current_streak
 
     def update_streak(
         self,
@@ -94,7 +117,7 @@ class StreakService:
             session.flush()
         return self._to_schema(streak)
 
-    def _to_schema(self, streak: UserStreakModel) -> UserStreak:
+    def _to_schema(self, streak: UserStreakModel, today: date | None = None) -> UserStreak:
         latest_milestone = None
         for milestone in self.milestone_days:
             if streak.longest_streak >= milestone:
@@ -102,7 +125,11 @@ class StreakService:
 
         return UserStreak(
             user_id=streak.user_id,
-            current_streak=streak.current_streak,
+            current_streak=(
+                self.effective_current_streak(streak, today)
+                if today is not None
+                else streak.current_streak
+            ),
             longest_streak=streak.longest_streak,
             last_activity_date=streak.last_activity_date,
             latest_milestone=latest_milestone,

@@ -49,6 +49,8 @@ Monorepo com API FastAPI + SQLAlchemy + Alembic + SQLite (~2.300 linhas, 23 test
 - 11/11: passo 1 (CI com gate mobile, `firebase_options.dart.example`, checkpoint).
 - 12/11: passo 2 — decisão registrada (API como fonte canônica), `GET /devotional/calendar`, `scripts/import_catalogue.py` e Flutter sem sobrescrita pelo bundle. Falta importar o conteúdo no banco de produção e produzir o conteúdo editorial de outubro em diante.
 
+- 12/11: passo 3 — streak efetivo calculado na leitura; sessão com refresh token (rotação, detecção de reuso, `POST /auth/refresh` e `/auth/logout`; Flutter renova sozinho em 401); fila offline de conclusões por data. Pendente: fuso do aparelho (exige dependência nova), armazenamento seguro do token, rate limit.
+
 ## Decisões pendentes (humanas)
 
 - Fonte canônica do conteúdo (recomendação: API como fonte, bundle só como fallback offline).

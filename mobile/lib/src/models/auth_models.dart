@@ -4,6 +4,7 @@ class AuthResponse {
     required this.email,
     required this.isAdmin,
     required this.accessToken,
+    this.refreshToken = '',
     this.name = '',
     this.bio = '',
   });
@@ -12,6 +13,7 @@ class AuthResponse {
   final String email;
   final bool isAdmin;
   final String accessToken;
+  final String refreshToken;
   final String name;
   final String bio;
 
@@ -22,6 +24,7 @@ class AuthResponse {
       email: user['email'] as String,
       isAdmin: user['is_admin'] as bool? ?? false,
       accessToken: json['access_token'] as String? ?? '',
+      refreshToken: json['refresh_token'] as String? ?? '',
       name: user['name'] as String? ?? '',
       bio: user['bio'] as String? ?? '',
     );

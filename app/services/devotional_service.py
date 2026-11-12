@@ -52,7 +52,7 @@ class DevotionalService:
             is_favorited=is_favorited,
             guidance=self._build_guidance(
                 completed=completed,
-                streak=streak,
+                current_streak=streak_service.effective_current_streak(streak, today),
             ),
         )
 
@@ -282,9 +282,8 @@ class DevotionalService:
         self,
         *,
         completed: bool,
-        streak: UserStreakModel | None,
+        current_streak: int,
     ) -> DevotionalGuidance:
-        current_streak = streak.current_streak if streak is not None else 0
         next_milestone = self._next_milestone(current_streak)
 
         if completed:

@@ -3,6 +3,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthStore extends ChangeNotifier {
   static const _tokenKey = 'auth_token';
+  static const _refreshTokenKey = 'auth_refresh_token';
   static const _userIdKey = 'auth_user_id';
   static const _emailKey = 'auth_email';
   static const _nameKey = 'auth_name';
@@ -12,6 +13,7 @@ class AuthStore extends ChangeNotifier {
   static const _notificationPromptSeenKey = 'notification_prompt_seen';
 
   String? token;
+  String? refreshToken;
   int? userId;
   String? email;
   String? name;
@@ -26,6 +28,7 @@ class AuthStore extends ChangeNotifier {
   Future<void> load() async {
     final prefs = await SharedPreferences.getInstance();
     token = prefs.getString(_tokenKey);
+    refreshToken = prefs.getString(_refreshTokenKey);
     userId = prefs.getInt(_userIdKey);
     email = prefs.getString(_emailKey);
     name = prefs.getString(_nameKey);
@@ -43,8 +46,10 @@ class AuthStore extends ChangeNotifier {
     int? userIdValue,
     String? nameValue,
     String? bioValue,
+    String? refreshTokenValue,
   }) async {
     token = tokenValue;
+    refreshToken = refreshTokenValue;
     userId = userIdValue;
     email = emailValue;
     name = nameValue ?? '';
@@ -53,6 +58,11 @@ class AuthStore extends ChangeNotifier {
 
     final prefs = await SharedPreferences.getInstance();
     await prefs.setString(_tokenKey, tokenValue);
+    if (refreshTokenValue != null && refreshTokenValue.isNotEmpty) {
+      await prefs.setString(_refreshTokenKey, refreshTokenValue);
+    } else {
+      await prefs.remove(_refreshTokenKey);
+    }
     if (userIdValue != null) {
       await prefs.setInt(_userIdKey, userIdValue);
     } else {
@@ -62,6 +72,19 @@ class AuthStore extends ChangeNotifier {
     await prefs.setString(_nameKey, name ?? '');
     await prefs.setString(_bioKey, bio ?? '');
     await prefs.setBool(_isAdminKey, isAdminValue);
+    notifyListeners();
+  }
+
+  /// Guarda o novo par de tokens depois de uma renovação de sessão.
+  Future<void> updateTokens({
+    required String accessToken,
+    required String refreshToken,
+  }) async {
+    token = accessToken;
+    this.refreshToken = refreshToken;
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString(_tokenKey, accessToken);
+    await prefs.setString(_refreshTokenKey, refreshToken);
     notifyListeners();
   }
 
@@ -91,6 +114,7 @@ class AuthStore extends ChangeNotifier {
 
   Future<void> clear() async {
     token = null;
+    refreshToken = null;
     userId = null;
     email = null;
     name = null;
@@ -98,13 +122,12 @@ class AuthStore extends ChangeNotifier {
     isAdmin = false;
     final prefs = await SharedPreferences.getInstance();
     await prefs.remove(_tokenKey);
+    await prefs.remove(_refreshTokenKey);
     await prefs.remove(_userIdKey);
     await prefs.remove(_emailKey);
     await prefs.remove(_nameKey);
     await prefs.remove(_bioKey);
     await prefs.remove(_isAdminKey);
-    await prefs.remove(_onboardingSeenKey);
-    await prefs.remove(_notificationPromptSeenKey);
     notifyListeners();
   }
 }

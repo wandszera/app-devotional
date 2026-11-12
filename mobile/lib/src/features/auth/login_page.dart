@@ -103,6 +103,7 @@ class _LoginPageState extends State<LoginPage> {
   Future<void> _saveAuthenticatedUser(AuthResponse auth) {
     return widget.authStore.save(
       tokenValue: auth.accessToken,
+      refreshTokenValue: auth.refreshToken,
       userIdValue: auth.userId,
       emailValue: auth.email,
       nameValue: auth.name,

@@ -9,6 +9,7 @@ import '../models/auth_models.dart';
 import '../models/devotional_models.dart';
 import '../models/notification_models.dart';
 import 'analytics_service.dart';
+import 'auth_refreshing_client.dart';
 import 'auth_store.dart';
 import 'bundled_gospel_catalogue.dart';
 import 'local_db_service.dart';
@@ -23,10 +24,13 @@ class ApiClient {
   ApiClient({
     required this.authStore,
     required this.baseUrl,
-  });
+    http.Client? client,
+  }) : _client = client ??
+            AuthRefreshingClient(authStore: authStore, baseUrl: baseUrl);
 
   final AuthStore authStore;
   final String baseUrl;
+  final http.Client _client;
 
   Map<String, String> get _headers {
     final headers = <String, String>{
@@ -43,7 +47,7 @@ class ApiClient {
     required String email,
     required String password,
   }) async {
-    final response = await http.post(
+    final response = await _client.post(
       Uri.parse('$baseUrl/auth/register'),
       headers: _headers,
       body: jsonEncode({
@@ -60,7 +64,7 @@ class ApiClient {
     required String email,
     required String password,
   }) async {
-    final response = await http.post(
+    final response = await _client.post(
       Uri.parse('$baseUrl/auth/login'),
       headers: _headers,
       body: jsonEncode({
@@ -74,7 +78,7 @@ class ApiClient {
   }
 
   Future<AuthResponse> loginWithGoogle(String idToken) async {
-    final response = await http.post(
+    final response = await _client.post(
       Uri.parse('$baseUrl/auth/google'),
       headers: _headers,
       body: jsonEncode({'id_token': idToken}),
@@ -84,11 +88,31 @@ class ApiClient {
     return auth;
   }
 
+  /// Encerra a sessão no servidor (revoga o refresh token). Falhas de rede não
+  /// impedem o logout local.
+  Future<void> logout() async {
+    final refreshToken = authStore.refreshToken;
+    if (refreshToken == null || refreshToken.isEmpty) {
+      return;
+    }
+    try {
+      await _client
+          .post(
+            Uri.parse('$baseUrl/auth/logout'),
+            headers: _headers,
+            body: jsonEncode({'refresh_token': refreshToken}),
+          )
+          .timeout(const Duration(seconds: 5));
+    } catch (_) {
+      // Sem rede: o token expira sozinho no servidor.
+    }
+  }
+
   Future<UserProfile> updateProfile({
     required String name,
     required String bio,
   }) async {
-    final response = await http.put(
+    final response = await _client.put(
       Uri.parse('$baseUrl/auth/me'),
       headers: _headers,
       body: jsonEncode({
@@ -101,7 +125,7 @@ class ApiClient {
 
   Future<DevotionalCardModel> getTodayDevotional() async {
     try {
-      final response = await http
+      final response = await _client
           .get(
             Uri.parse('$baseUrl/devotional/today'),
             headers: _headers,
@@ -194,7 +218,7 @@ class ApiClient {
 
   /// Conteúdo litúrgico publicado pela API (fonte canônica do calendário).
   Future<List<AdminDevotional>> getGospelCalendar() async {
-    final response = await http
+    final response = await _client
         .get(
           Uri.parse('$baseUrl/devotional/calendar'),
           headers: _headers,
@@ -210,7 +234,7 @@ class ApiClient {
 
   Future<StreakModel> getStreak() async {
     try {
-      final response = await http
+      final response = await _client
           .get(
             Uri.parse('$baseUrl/streak'),
             headers: _headers,
@@ -241,7 +265,7 @@ class ApiClient {
 
   Future<List<ProgressEntry>> getProgress() async {
     try {
-      final response = await http
+      final response = await _client
           .get(
             Uri.parse('$baseUrl/progress'),
             headers: _headers,
@@ -278,13 +302,15 @@ class ApiClient {
   Future<DevotionalCompletionResultModel> completeTodayDevotional() async {
     final prefs = await SharedPreferences.getInstance();
     try {
-      final response = await http
+      final response = await _client
           .post(
             Uri.parse('$baseUrl/devotional/complete'),
             headers: _headers,
           )
           .timeout(const Duration(seconds: 5));
-      await prefs.remove(_pendingCompletionKey);
+      if (response.statusCode >= 200 && response.statusCode < 300) {
+        await _removePendingDate(prefs, _localDateString());
+      }
 
       final todayStr = DateTime.now().toIso8601String().split('T').first;
       final cachedToday = await LocalDbService().getCachedDevotional(
@@ -336,7 +362,7 @@ class ApiClient {
   Future<DevotionalCompletionResultModel> _offlineCompletionFallback(
       SharedPreferences prefs) async {
     final todayStr = DateTime.now().toIso8601String().split('T').first;
-    await prefs.setString(_pendingCompletionKey, todayStr);
+    await _addPendingDate(prefs, todayStr);
     unawaited(
       AnalyticsService.instance.logEvent(
         'devotional_completed',
@@ -384,33 +410,92 @@ class ApiClient {
     );
   }
 
-  /// Sincroniza pendências ao iniciar (chamar no getTodayDevotional por exemplo)
+  /// Fila durável de conclusões feitas offline (uma data local por dia lido).
+  /// Cada data é enviada com `completed_date`, então a virada do dia ou vários
+  /// dias sem rede não perdem registros; o servidor é idempotente por data.
+  bool _syncingCompletions = false;
+
   Future<void> syncPendingCompletions() async {
-    final prefs = await SharedPreferences.getInstance();
-    final pendingDate = prefs.getString(_pendingCompletionKey);
-    if (pendingDate != null) {
-      final todayStr = DateTime.now().toIso8601String().split('T').first;
-      if (pendingDate != todayStr) {
-        await prefs.remove(_pendingCompletionKey);
-        return;
+    if (_syncingCompletions) {
+      return;
+    }
+    _syncingCompletions = true;
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      for (final date in await _readPendingDates(prefs)) {
+        try {
+          final response = await _client
+              .post(
+                Uri.parse('$baseUrl/devotional/complete')
+                    .replace(queryParameters: {'completed_date': date}),
+                headers: _headers,
+              )
+              .timeout(const Duration(seconds: 10));
+          final ok = response.statusCode >= 200 && response.statusCode < 300;
+          // 400/404 nunca vão passar; os demais erros (401, 422 de data
+          // "futura" por diferença de fuso, 5xx) são tentados de novo depois.
+          final permanent =
+              response.statusCode == 400 || response.statusCode == 404;
+          if (!ok && !permanent) {
+            break;
+          }
+          await _removePendingDate(prefs, date);
+        } catch (_) {
+          break; // Sem rede: tenta de novo na próxima sincronização.
+        }
       }
-      try {
-        await http.post(
-          Uri.parse('$baseUrl/devotional/complete'),
-          headers: _headers,
-        );
-        await prefs.remove(_pendingCompletionKey);
-      } catch (_) {
-        // Falhou na sincronização em background, ignora e tenta depois
-      }
+    } finally {
+      _syncingCompletions = false;
     }
   }
 
-  String get _pendingCompletionKey =>
+  String _localDateString() =>
+      DateTime.now().toIso8601String().split('T').first;
+
+  String get _pendingCompletionsKey =>
+      'pending_completions_${authStore.cacheOwnerKey}';
+
+  // Formato antigo: uma única data. Migrado para a lista na primeira leitura.
+  String get _legacyPendingCompletionKey =>
       'pending_completion_${authStore.cacheOwnerKey}';
 
+  Future<List<String>> _readPendingDates(SharedPreferences prefs) async {
+    final dates = <String>{
+      ...(prefs.getStringList(_pendingCompletionsKey) ?? const <String>[]),
+    };
+    final legacy = prefs.getString(_legacyPendingCompletionKey);
+    if (legacy != null) {
+      dates.add(legacy);
+      await prefs.remove(_legacyPendingCompletionKey);
+      await _writePendingDates(prefs, dates);
+    }
+    return dates.toList()..sort();
+  }
+
+  Future<void> _writePendingDates(
+    SharedPreferences prefs,
+    Iterable<String> dates,
+  ) async {
+    final list = dates.toSet().toList()..sort();
+    if (list.isEmpty) {
+      await prefs.remove(_pendingCompletionsKey);
+    } else {
+      await prefs.setStringList(_pendingCompletionsKey, list);
+    }
+  }
+
+  Future<void> _addPendingDate(SharedPreferences prefs, String date) async {
+    final dates = await _readPendingDates(prefs);
+    await _writePendingDates(prefs, [...dates, date]);
+  }
+
+  Future<void> _removePendingDate(SharedPreferences prefs, String date) async {
+    final dates = await _readPendingDates(prefs);
+    await _writePendingDates(prefs, dates.where((item) => item != date));
+  }
+
   Future<FavoriteToggleResultModel> toggleFavorite(int devotionalId) async {
-    final response = await http.post(
+    final response = await _client.post(
       Uri.parse('$baseUrl/devotional/$devotionalId/favorite'),
       headers: _headers,
     );
@@ -428,7 +513,7 @@ class ApiClient {
   }
 
   Future<List<AdminDevotional>> getFavorites() async {
-    final response = await http.get(
+    final response = await _client.get(
       Uri.parse('$baseUrl/devotional/favorites'),
       headers: _headers,
     );
@@ -442,7 +527,7 @@ class ApiClient {
 
   Future<NotificationSettingsModel> getNotificationSettings() async {
     try {
-      final response = await http
+      final response = await _client
           .get(
             Uri.parse('$baseUrl/notifications/settings'),
             headers: _headers,
@@ -463,7 +548,7 @@ class ApiClient {
     NotificationSettingsModel settings,
   ) async {
     try {
-      final response = await http
+      final response = await _client
           .put(
             Uri.parse('$baseUrl/notifications/settings'),
             headers: _headers,
@@ -493,7 +578,7 @@ class ApiClient {
   }
 
   Future<List<DueNotificationModel>> listDueNotifications() async {
-    final response = await http.get(
+    final response = await _client.get(
       Uri.parse('$baseUrl/notifications/admin/due'),
       headers: _headers,
     );
@@ -507,7 +592,7 @@ class ApiClient {
   }
 
   Future<List<NotificationDispatchItemModel>> dispatchDueNotifications() async {
-    final response = await http.post(
+    final response = await _client.post(
       Uri.parse('$baseUrl/notifications/admin/dispatch'),
       headers: _headers,
     );
@@ -524,7 +609,7 @@ class ApiClient {
   }
 
   Future<List<NotificationDeliveryModel>> listNotificationDeliveries() async {
-    final response = await http.get(
+    final response = await _client.get(
       Uri.parse('$baseUrl/notifications/admin/deliveries'),
       headers: _headers,
     );
@@ -541,7 +626,7 @@ class ApiClient {
   }
 
   Future<List<AdminDevotional>> listAdminDevotionals() async {
-    final response = await http.get(
+    final response = await _client.get(
       Uri.parse('$baseUrl/devotional/admin'),
       headers: _headers,
     );
@@ -558,7 +643,7 @@ class ApiClient {
     required String content,
     required String date,
   }) async {
-    final response = await http.post(
+    final response = await _client.post(
       Uri.parse('$baseUrl/devotional/admin'),
       headers: _headers,
       body: jsonEncode({
@@ -576,7 +661,7 @@ class ApiClient {
     required String content,
     required String date,
   }) async {
-    final response = await http.put(
+    final response = await _client.put(
       Uri.parse('$baseUrl/devotional/admin/$devotionalId'),
       headers: _headers,
       body: jsonEncode({
@@ -589,7 +674,7 @@ class ApiClient {
   }
 
   Future<void> deleteAdminDevotional(int devotionalId) async {
-    final response = await http.delete(
+    final response = await _client.delete(
       Uri.parse('$baseUrl/devotional/admin/$devotionalId'),
       headers: _headers,
     );

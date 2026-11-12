@@ -105,6 +105,17 @@ class LoginResponse(BaseModel):
     user: User
     message: str
     access_token: str
+    refresh_token: Optional[str] = None
+    token_type: str = "bearer"
+
+
+class RefreshRequest(BaseModel):
+    refresh_token: str = Field(min_length=20, max_length=512)
+
+
+class TokenRefreshResponse(BaseModel):
+    access_token: str
+    refresh_token: str
     token_type: str = "bearer"
 
 

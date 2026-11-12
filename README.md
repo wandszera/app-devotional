@@ -116,6 +116,8 @@ The table below details all current routes and authorization rules:
 | `POST` | `/auth/register` | ❌ | ❌ | Registers a new user and returns an access token. |
 | `POST` | `/auth/login` | ❌ | ❌ | Authenticates a user and returns a JWT access token. |
 | `POST` | `/auth/google` | ❌ | ❌ | Exchanges a verified Firebase Google ID token for an app access token; creates or links the local account. |
+| `POST` | `/auth/refresh` | ❌ | ❌ | Rotates a refresh token and returns a new access/refresh pair (reusing an old refresh token revokes the session). |
+| `POST` | `/auth/logout` | ❌ | ❌ | Revokes the given refresh token. |
 | `GET` | `/auth/me` | 🔒 Bearer | ❌ | Returns the authenticated user's profile details. |
 | `GET` | `/devotional/today` | 🔒 Bearer | ❌ | Gets the available devotional for the current day. |
 | `GET` | `/devotional/calendar` | 🔒 Bearer | ❌ | Lists published liturgical entries (optional `start_date`/`end_date`); placeholders are hidden. |
