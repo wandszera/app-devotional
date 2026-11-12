@@ -171,6 +171,9 @@ class ApiClient {
   Future<DevotionalCardModel> _applyBundledGospel(
     DevotionalCardModel devotional,
   ) async {
+    // A API é a fonte canônica (ADR CONTENT-001): o catálogo empacotado só
+    // preenche datas sem conteúdo publicado (placeholder sem referência).
+    if (devotional.gospelReference.isNotEmpty) return devotional;
     final bundled = await BundledGospelCatalogue.instance.findByDate(
       devotional.date,
     );
@@ -187,6 +190,22 @@ class ApiClient {
       isFavorited: devotional.isFavorited,
       guidance: devotional.guidance,
     );
+  }
+
+  /// Conteúdo litúrgico publicado pela API (fonte canônica do calendário).
+  Future<List<AdminDevotional>> getGospelCalendar() async {
+    final response = await http
+        .get(
+          Uri.parse('$baseUrl/devotional/calendar'),
+          headers: _headers,
+        )
+        .timeout(const Duration(seconds: 10));
+    return _decode(response, (json) {
+      final items = json['devotionals'] as List<dynamic>? ?? [];
+      return items
+          .map((item) => AdminDevotional.fromJson(item as Map<String, dynamic>))
+          .toList();
+    });
   }
 
   Future<StreakModel> getStreak() async {

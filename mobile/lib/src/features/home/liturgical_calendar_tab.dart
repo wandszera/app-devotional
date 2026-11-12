@@ -1,18 +1,21 @@
 import 'package:flutter/material.dart';
 
 import '../../models/gospel_models.dart';
+import '../../services/api_client.dart';
 import '../../services/gospel_store.dart';
 import 'gospel_reader_page.dart';
 import 'home_state_widgets.dart';
 
 class LiturgicalCalendarTab extends StatefulWidget {
   const LiturgicalCalendarTab({
+    this.apiClient,
     this.store,
     this.month,
     this.today,
     super.key,
   });
 
+  final ApiClient? apiClient;
   final GospelLibraryRepository? store;
   final DateTime? month;
   final DateTime? today;
@@ -22,8 +25,12 @@ class LiturgicalCalendarTab extends StatefulWidget {
 }
 
 class _LiturgicalCalendarTabState extends State<LiturgicalCalendarTab> {
-  late final GospelLibraryRepository _store =
-      widget.store ?? GospelLibraryStore();
+  late final GospelLibraryRepository _store = widget.store ??
+      GospelLibraryStore(
+        catalogSource: widget.apiClient == null
+            ? null
+            : ApiGospelCatalogSource(apiClient: widget.apiClient!),
+      );
   List<GospelCalendarEntry> _entries = const [];
   bool _loading = true;
   String? _errorMessage;

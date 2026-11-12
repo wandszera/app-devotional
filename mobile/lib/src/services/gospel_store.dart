@@ -1,4 +1,5 @@
 import '../models/gospel_models.dart';
+import 'api_client.dart';
 import 'bundled_gospel_catalogue.dart';
 import 'catalog_source.dart';
 import 'local_db_service.dart';
@@ -25,6 +26,44 @@ class BundledGospelCatalogSource implements CatalogSource<GospelModel> {
           )
           .toList(),
     );
+  }
+}
+
+/// Fonte canônica (ADR CONTENT-001): o calendário vem da API. O catálogo
+/// empacotado só é usado quando a API não responde ou não tem conteúdo publicado.
+class ApiGospelCatalogSource implements CatalogSource<GospelModel> {
+  ApiGospelCatalogSource({
+    required this.apiClient,
+    this.fallback = const BundledGospelCatalogSource(),
+  });
+
+  final ApiClient apiClient;
+  final CatalogSource<GospelModel> fallback;
+
+  @override
+  Future<VersionedCatalog<GospelModel>> load() async {
+    try {
+      final published = await apiClient.getGospelCalendar();
+      if (published.isNotEmpty) {
+        return VersionedCatalog(
+          version: 'api',
+          items: published
+              .map(
+                (item) => GospelModel(
+                  date: item.date,
+                  title: item.liturgicalTitle,
+                  reference: item.gospelReference,
+                  text: item.content,
+                  sourceUrl: item.sourceUrl,
+                ),
+              )
+              .toList(),
+        );
+      }
+    } catch (_) {
+      // Offline, timeout ou erro da API: cai no catálogo empacotado.
+    }
+    return fallback.load();
   }
 }
 

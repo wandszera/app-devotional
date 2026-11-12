@@ -38,9 +38,9 @@ List<HomeTabDefinition> buildHomeTabDefinitions({
         label: 'Hoje',
       ),
     ),
-    const HomeTabDefinition(
-      builder: LiturgicalCalendarTab.new,
-      destination: NavigationDestination(
+    HomeTabDefinition(
+      builder: () => LiturgicalCalendarTab(apiClient: apiClient),
+      destination: const NavigationDestination(
         icon: Icon(Icons.calendar_month_outlined),
         selectedIcon: Icon(Icons.calendar_month),
         label: 'Calendário',

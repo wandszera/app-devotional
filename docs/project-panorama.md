@@ -44,6 +44,11 @@ Monorepo com API FastAPI + SQLAlchemy + Alembic + SQLite (~2.300 linhas, 23 test
 6. Android beta: identidade e assinatura definitivas, permissão de internet, teste em aparelho, trilha de teste interno.
 7. Conta e privacidade: exclusão, recuperação de senha, política.
 
+## Progresso
+
+- 11/11: passo 1 (CI com gate mobile, `firebase_options.dart.example`, checkpoint).
+- 12/11: passo 2 — decisão registrada (API como fonte canônica), `GET /devotional/calendar`, `scripts/import_catalogue.py` e Flutter sem sobrescrita pelo bundle. Falta importar o conteúdo no banco de produção e produzir o conteúdo editorial de outubro em diante.
+
 ## Decisões pendentes (humanas)
 
 - Fonte canônica do conteúdo (recomendação: API como fonte, bundle só como fallback offline).

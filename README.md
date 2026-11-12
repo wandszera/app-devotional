@@ -118,6 +118,7 @@ The table below details all current routes and authorization rules:
 | `POST` | `/auth/google` | ❌ | ❌ | Exchanges a verified Firebase Google ID token for an app access token; creates or links the local account. |
 | `GET` | `/auth/me` | 🔒 Bearer | ❌ | Returns the authenticated user's profile details. |
 | `GET` | `/devotional/today` | 🔒 Bearer | ❌ | Gets the available devotional for the current day. |
+| `GET` | `/devotional/calendar` | 🔒 Bearer | ❌ | Lists published liturgical entries (optional `start_date`/`end_date`); placeholders are hidden. |
 | `POST` | `/devotional/complete` | 🔒 Bearer | ❌ | Marks today's devotional as read and updates the streak. |
 | `GET` | `/devotional/admin` | 🔒 Bearer |  Admin | Lists all devotionals (for administrative purposes). |
 | `POST` | `/devotional/admin` | 🔒 Bearer |  Admin | Creates a new devotional. |
@@ -162,6 +163,16 @@ The table below details all current routes and authorization rules:
 6. **Access the interactive documentation**:
    - Swagger UI: [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs)
    - Redoc: [http://127.0.0.1:8000/redoc](http://127.0.0.1:8000/redoc)
+
+### Publicar conteúdo litúrgico
+
+A API é a fonte canônica do conteúdo (ver `docs/adr/CONTENT-001A-liturgical-content-sources.md`). Para publicar o catálogo editorial (`mobile/assets/liturgy/gospel_catalogue.json`) no banco:
+
+```bash
+python scripts/import_catalogue.py --dry-run   # simula
+python scripts/import_catalogue.py             # cria datas ausentes e preenche placeholders
+python scripts/import_catalogue.py --overwrite # também sobrescreve edições do admin
+```
 
 ### How to Run Tests
 
