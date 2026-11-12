@@ -3,7 +3,7 @@ import 'package:flutter/foundation.dart';
 
 import 'push_sdk_bridge.dart';
 
-class FirebasePushSdkBridge implements PushSdkBridge {
+class FirebasePushSdkBridge implements PushSdkBridge, PushTokenRefreshSource {
   FirebasePushSdkBridge() {
     _initFirebaseMessaging();
   }
@@ -13,6 +13,16 @@ class FirebasePushSdkBridge implements PushSdkBridge {
 
     // Opcional: configurar handler em background se necessario futuramente
     // FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+  }
+
+  @override
+  Stream<String> get onTokenRefresh {
+    if (kIsWeb ||
+        (defaultTargetPlatform != TargetPlatform.android &&
+            defaultTargetPlatform != TargetPlatform.iOS)) {
+      return const Stream<String>.empty();
+    }
+    return FirebaseMessaging.instance.onTokenRefresh;
   }
 
   @override

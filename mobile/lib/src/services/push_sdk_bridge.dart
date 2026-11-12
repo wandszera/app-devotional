@@ -34,6 +34,11 @@ abstract class PushSdkBridge {
   Future<PushSdkState> requestPermission();
 }
 
+/// Implementada pelas pontes que sabem avisar quando o token do aparelho muda.
+abstract class PushTokenRefreshSource {
+  Stream<String> get onTokenRefresh;
+}
+
 class PlatformPushSdkBridge implements PushSdkBridge {
   const PlatformPushSdkBridge({
     this.platformOverride,

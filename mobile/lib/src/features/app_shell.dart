@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../services/api_client.dart';
 import '../services/auth_store.dart';
 import '../services/push_sdk_bridge.dart';
+import '../services/push_token_sync.dart';
 import 'auth/login_page.dart';
 import 'home/home_page.dart';
 import 'onboarding/notification_prompt_page.dart';
@@ -25,6 +26,36 @@ class AppShell extends StatefulWidget {
 }
 
 class _AppShellState extends State<AppShell> {
+  PushTokenSync? _pushTokenSync;
+
+  @override
+  void initState() {
+    super.initState();
+    widget.authStore.addListener(_syncPushTokenIfNeeded);
+    _syncPushTokenIfNeeded();
+  }
+
+  @override
+  void dispose() {
+    widget.authStore.removeListener(_syncPushTokenIfNeeded);
+    _pushTokenSync?.stop();
+    super.dispose();
+  }
+
+  void _syncPushTokenIfNeeded() {
+    if (widget.authStore.isAuthenticated) {
+      if (_pushTokenSync == null) {
+        _pushTokenSync = PushTokenSync(
+          apiClient: widget.apiClient,
+          bridge: widget.pushSdkBridge,
+        )..start();
+      }
+    } else {
+      _pushTokenSync?.stop();
+      _pushTokenSync = null;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return ListenableBuilder(
