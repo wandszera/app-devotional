@@ -171,6 +171,11 @@ class NotificationService:
             if result.status == "sent":
                 settings.last_sent_at = now_utc
                 session.add(settings)
+            elif result.status == "invalid_token":
+                # Stop retrying a dead token on every scheduler run; the app
+                # registers a fresh one on next launch.
+                settings.push_token = ""
+                session.add(settings)
 
             session.commit()
             session.refresh(delivery)

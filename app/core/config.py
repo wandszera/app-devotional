@@ -14,6 +14,7 @@ class Settings:
         for email in os.getenv("APP_ADMIN_EMAILS", "").split(",")
         if email.strip()
     }
+    dispatch_token: str = os.getenv("NOTIFICATION_DISPATCH_TOKEN", "").strip()
     firebase_service_account_path: str = os.getenv(
         "FIREBASE_SERVICE_ACCOUNT_PATH",
         "",

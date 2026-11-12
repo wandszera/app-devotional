@@ -130,6 +130,7 @@ The table below details all current routes and authorization rules:
 | `PUT` | `/notifications/settings` | 🔒 Bearer | ❌ | Updates notification time and timezone settings. |
 | `GET` | `/notifications/admin/due` | 🔒 Bearer |  Admin | Queries pending notifications to be sent. |
 | `POST` | `/notifications/admin/dispatch` | 🔒 Bearer |  Admin | Triggers batch sending of scheduled notifications. |
+| `POST` | `/notifications/internal/dispatch` | Header `X-Dispatch-Token` | Cron | Disparo agendado de lembretes (segredo `NOTIFICATION_DISPATCH_TOKEN`; desativado se vazio). Tokens FCM invalidos sao limpos. |
 | `GET` | `/notifications/admin/deliveries` | 🔒 Bearer |  Admin | Displays the notification delivery history. |
 | `POST` | `/notifications/admin/{user_id}/mark-sent` | 🔒 Bearer |  Admin | Records manual notification delivery for a specific user. |
 | `GET` | `/streak` | 🔒 Bearer | ❌ | Returns the user's current and longest streak status. |
