@@ -8,7 +8,7 @@ if not exist lib\firebase_options.dart copy lib\firebase_options.dart.example li
 echo === inicio %DATE% %TIME% === > "%LOG%"
 call flutter pub get >> "%LOG%" 2>&1
 echo === analyze === >> "%LOG%"
-call flutter analyze --no-fatal-infos >> "%LOG%" 2>&1
+call flutter analyze >> "%LOG%" 2>&1
 echo === analyze codigo %ERRORLEVEL% === >> "%LOG%"
 echo === test === >> "%LOG%"
 call flutter test --reporter expanded >> "%LOG%" 2>&1
