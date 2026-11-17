@@ -19,7 +19,7 @@ class ProgressHistoryListItem extends StatelessWidget {
       ),
       leading: Icon(
         completed ? Icons.check_circle : Icons.circle_outlined,
-        color: const Color(0xFF7A4B2A),
+        color: const Color(0xFF2B4C7E),
       ),
       title: Text(date),
       subtitle: const Text('Devocional marcado como concluido'),

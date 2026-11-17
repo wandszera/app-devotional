@@ -76,6 +76,19 @@ def get_user_favorites(
     return DevotionalListResponse(devotionals=favorites)
 
 
+@router.get("/calendar", response_model=DevotionalListResponse)
+def get_calendar(
+    start_date: date | None = None,
+    end_date: date | None = None,
+    current_user: User = Depends(get_current_user),
+    session: Session = Depends(get_db),
+) -> DevotionalListResponse:
+    del current_user
+    return DevotionalListResponse(
+        devotionals=devotional_service.list_calendar(session, start_date, end_date)
+    )
+
+
 @router.get("/admin", response_model=DevotionalListResponse)
 def list_devotionals(
     start_date: date | None = None,

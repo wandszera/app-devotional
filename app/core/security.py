@@ -58,6 +58,15 @@ def decode_access_token(token: str) -> dict[str, object] | None:
         return None
 
 
+def generate_refresh_token() -> str:
+    return secrets.token_urlsafe(48)
+
+
+def hash_refresh_token(token: str) -> str:
+    # Token opaco de alta entropia: SHA-256 basta; o valor em claro nunca é salvo.
+    return hashlib.sha256(token.encode("utf-8")).hexdigest()
+
+
 def hash_password(password: str) -> str:
     salt = secrets.token_bytes(16)
     digest = hashlib.pbkdf2_hmac("sha256", password.encode("utf-8"), salt, 100000)

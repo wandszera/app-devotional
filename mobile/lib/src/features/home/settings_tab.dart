@@ -106,6 +106,7 @@ class _SettingsTabState extends State<SettingsTab> {
   }
 
   Future<void> _logout() async {
+    await widget.apiClient.logout();
     await widget.authStore.clear();
     widget.onLogout();
   }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../theme/app_theme.dart';
 import 'home_form_widgets.dart';
 
 class SettingsAccountCard extends StatelessWidget {
@@ -28,10 +29,10 @@ class SettingsAccountCard extends StatelessWidget {
 
     return Card(
       elevation: 0,
-      color: Colors.white,
+      color: AppColors.surface,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(16),
-        side: const BorderSide(color: Color(0xFFEBE0D6)),
+        side: const BorderSide(color: Color(0xFFE6DCC8)),
       ),
       child: Padding(
         padding: const EdgeInsets.all(16),
@@ -41,7 +42,7 @@ class SettingsAccountCard extends StatelessWidget {
               children: [
                 CircleAvatar(
                   radius: 30,
-                  backgroundColor: const Color(0xFF6E4B2E),
+                  backgroundColor: const Color(0xFF2B4C7E),
                   child: Text(
                     initial,
                     style: const TextStyle(
@@ -61,7 +62,7 @@ class SettingsAccountCard extends StatelessWidget {
                         style: const TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.w700,
-                          color: Color(0xFF4D341F),
+                          color: Color(0xFF1A2F52),
                         ),
                       ),
                       const SizedBox(height: 4),
@@ -92,7 +93,7 @@ class SettingsAccountCard extends StatelessWidget {
                 FilledButton(
                   onPressed: onEditProfile,
                   style: FilledButton.styleFrom(
-                    backgroundColor: const Color(0xFF6E4B2E),
+                    backgroundColor: const Color(0xFF2B4C7E),
                   ),
                   child: const Text('Editar Perfil'),
                 ),

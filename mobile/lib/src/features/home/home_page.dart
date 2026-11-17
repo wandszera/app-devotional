@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+
+import '../../widgets/cross_ornament.dart';
 import 'package:animations/animations.dart';
 
 import '../../services/api_client.dart';
@@ -56,8 +58,14 @@ class _HomePageState extends State<HomePage> {
 
         return Scaffold(
           appBar: AppBar(
-            title: const Text('App Devocional'),
-            backgroundColor: Colors.transparent,
+            title: const Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                CrossMark(size: 20),
+                SizedBox(width: 10),
+                Text('App Devocional'),
+              ],
+            ),
           ),
           body: PageTransitionSwitcher(
             transitionBuilder: (child, animation, secondaryAnimation) {

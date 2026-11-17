@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends, HTTPException, Response, status
 from sqlalchemy.orm import Session
 
 from app.api.deps import get_current_user, get_db
@@ -7,6 +7,8 @@ from app.models.schemas import (
     GoogleLoginRequest,
     LoginRequest,
     LoginResponse,
+    RefreshRequest,
+    TokenRefreshResponse,
     RegisterRequest,
     User,
     UserProfileUpdateRequest,
@@ -24,6 +26,7 @@ def register(payload: RegisterRequest, session: Session = Depends(get_db)) -> Lo
         user=user,
         message="user created",
         access_token=user_service.create_token(user),
+        refresh_token=user_service.issue_refresh_token(session, user.id),
     )
 
 
@@ -34,6 +37,7 @@ def login(payload: LoginRequest, session: Session = Depends(get_db)) -> LoginRes
         user=user,
         message="user authenticated",
         access_token=user_service.create_token(user),
+        refresh_token=user_service.issue_refresh_token(session, user.id),
     )
 
 
@@ -47,7 +51,25 @@ def login_with_google(
         user=user,
         message="user authenticated with Google",
         access_token=user_service.create_token(user),
+        refresh_token=user_service.issue_refresh_token(session, user.id),
     )
+
+
+@router.post("/refresh", response_model=TokenRefreshResponse)
+def refresh_session(
+    payload: RefreshRequest,
+    session: Session = Depends(get_db),
+) -> TokenRefreshResponse:
+    _, access_token, refresh_token = user_service.rotate_refresh_token(
+        session, payload.refresh_token
+    )
+    return TokenRefreshResponse(access_token=access_token, refresh_token=refresh_token)
+
+
+@router.post("/logout", status_code=status.HTTP_204_NO_CONTENT)
+def logout(payload: RefreshRequest, session: Session = Depends(get_db)) -> Response:
+    user_service.revoke_refresh_token(session, payload.refresh_token)
+    return Response(status_code=status.HTTP_204_NO_CONTENT)
 
 
 @router.get("/me", response_model=AuthenticatedUserResponse)

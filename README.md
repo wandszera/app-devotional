@@ -116,8 +116,11 @@ The table below details all current routes and authorization rules:
 | `POST` | `/auth/register` | ❌ | ❌ | Registers a new user and returns an access token. |
 | `POST` | `/auth/login` | ❌ | ❌ | Authenticates a user and returns a JWT access token. |
 | `POST` | `/auth/google` | ❌ | ❌ | Exchanges a verified Firebase Google ID token for an app access token; creates or links the local account. |
+| `POST` | `/auth/refresh` | ❌ | ❌ | Rotates a refresh token and returns a new access/refresh pair (reusing an old refresh token revokes the session). |
+| `POST` | `/auth/logout` | ❌ | ❌ | Revokes the given refresh token. |
 | `GET` | `/auth/me` | 🔒 Bearer | ❌ | Returns the authenticated user's profile details. |
 | `GET` | `/devotional/today` | 🔒 Bearer | ❌ | Gets the available devotional for the current day. |
+| `GET` | `/devotional/calendar` | 🔒 Bearer | ❌ | Lists published liturgical entries (optional `start_date`/`end_date`); placeholders are hidden. |
 | `POST` | `/devotional/complete` | 🔒 Bearer | ❌ | Marks today's devotional as read and updates the streak. |
 | `GET` | `/devotional/admin` | 🔒 Bearer |  Admin | Lists all devotionals (for administrative purposes). |
 | `POST` | `/devotional/admin` | 🔒 Bearer |  Admin | Creates a new devotional. |
@@ -127,6 +130,7 @@ The table below details all current routes and authorization rules:
 | `PUT` | `/notifications/settings` | 🔒 Bearer | ❌ | Updates notification time and timezone settings. |
 | `GET` | `/notifications/admin/due` | 🔒 Bearer |  Admin | Queries pending notifications to be sent. |
 | `POST` | `/notifications/admin/dispatch` | 🔒 Bearer |  Admin | Triggers batch sending of scheduled notifications. |
+| `POST` | `/notifications/internal/dispatch` | Header `X-Dispatch-Token` | Cron | Disparo agendado de lembretes (segredo `NOTIFICATION_DISPATCH_TOKEN`; desativado se vazio). Tokens FCM invalidos sao limpos. |
 | `GET` | `/notifications/admin/deliveries` | 🔒 Bearer |  Admin | Displays the notification delivery history. |
 | `POST` | `/notifications/admin/{user_id}/mark-sent` | 🔒 Bearer |  Admin | Records manual notification delivery for a specific user. |
 | `GET` | `/streak` | 🔒 Bearer | ❌ | Returns the user's current and longest streak status. |
@@ -162,6 +166,16 @@ The table below details all current routes and authorization rules:
 6. **Access the interactive documentation**:
    - Swagger UI: [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs)
    - Redoc: [http://127.0.0.1:8000/redoc](http://127.0.0.1:8000/redoc)
+
+### Publicar conteúdo litúrgico
+
+A API é a fonte canônica do conteúdo (ver `docs/adr/CONTENT-001A-liturgical-content-sources.md`). Para publicar o catálogo editorial (`mobile/assets/liturgy/gospel_catalogue.json`) no banco:
+
+```bash
+python scripts/import_catalogue.py --dry-run   # simula
+python scripts/import_catalogue.py             # cria datas ausentes e preenche placeholders
+python scripts/import_catalogue.py --overwrite # também sobrescreve edições do admin
+```
 
 ### How to Run Tests
 
@@ -229,6 +243,13 @@ The mobile app is built in Flutter and designed to work perfectly responsively. 
    ```
 
 ---
+
+### Atalhos no Windows
+
+- `rodar_app.bat`: sobe o backend em `http://127.0.0.1:8000` e o app no Chrome (porta 5000) apontando para ele.
+- `verificar_mobile.bat`: roda `flutter pub get`, `flutter analyze` e `flutter test` e grava tudo em `mobile_check.log`.
+
+Os dois esperam o Flutter em `%USERPROFILE%\flutter\bin` (ou no PATH) e o ambiente Python em `.env\`.
 
 ## 🎯 Engagement Loop & Streak Rules
 

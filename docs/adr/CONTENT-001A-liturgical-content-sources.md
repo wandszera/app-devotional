@@ -2,7 +2,21 @@
 
 ## Status
 
-Proposed / Undecided
+Accepted em 12/11/2026 (decisão CONTENT-001, ver "Decisão" abaixo). O diagnóstico a seguir descreve o comportamento *anterior* à decisão.
+
+## Decisão (CONTENT-001)
+
+**A API/banco é a fonte canônica do conteúdo litúrgico.** O catálogo empacotado deixa de sobrescrever a API e passa a ser apenas fallback offline.
+
+Precedência:
+
+1. Resposta da API para a data (`/devotional/today`) e para o calendário (`GET /devotional/calendar`, que só devolve entradas com referência do Evangelho).
+2. Cache local, que é cópia derivada da API e nunca é autoridade editorial.
+3. Catálogo empacotado, usado somente quando a API está inacessível sem cache, **ou** quando a API não tem conteúdo publicado para a data (placeholder sem `gospel_reference`; no calendário, lista vazia).
+
+Publicação: `python scripts/import_catalogue.py` copia o JSON editorial para o banco (idempotente; preenche datas ausentes e placeholders; só sobrescreve edições do admin com `--overwrite`; aceita `--dry-run`). O script não gera nem altera texto.
+
+Consequências: correções editoriais passam a valer sem novo build; meses novos exigem importar/cadastrar no banco; o bundle continua necessário como rede de segurança offline. Pendências: remover o seed duplicado de `init_db` quando o startup for separado das migrações, e carregar o calendário por intervalo de datas quando o volume crescer.
 
 ## Contexto e problema
 

@@ -96,14 +96,14 @@ class _PrayersTabState extends State<PrayersTab> {
             'Orações publicadas',
             style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                   fontWeight: FontWeight.w800,
-                  color: const Color(0xFF382315),
+                  color: const Color(0xFF26211C),
                 ),
           ),
           const SizedBox(height: 8),
           Text(
             'Catálogo editorial incluído nesta versão do app. Seus favoritos ficam apenas neste dispositivo.',
             style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                  color: const Color(0xFF6E5A47),
+                  color: const Color(0xFF5E584E),
                 ),
           ),
           const SizedBox(height: 20),

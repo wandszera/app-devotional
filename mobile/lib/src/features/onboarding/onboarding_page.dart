@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+import '../../theme/app_theme.dart';
+import '../../widgets/cross_ornament.dart';
+
 class OnboardingPage extends StatefulWidget {
   const OnboardingPage({
     required this.onFinished,
@@ -55,8 +58,8 @@ class _OnboardingPageState extends State<OnboardingPage> {
         decoration: const BoxDecoration(
           gradient: LinearGradient(
             colors: [
-              Color(0xFFF5E8D4),
-              Color(0xFFE8D6B6),
+              AppColors.ivory,
+              AppColors.goldSoft,
             ],
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
@@ -89,25 +92,38 @@ class _OnboardingPageState extends State<OnboardingPage> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Container(
-                            width: 100,
-                            height: 100,
+                            width: 112,
+                            height: 112,
                             decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(28),
+                              color: AppColors.surface,
+                              shape: BoxShape.circle,
+                              border: Border.all(
+                                color: AppColors.gold.withValues(alpha: 0.6),
+                                width: 1.5,
+                              ),
+                              boxShadow: [
+                                BoxShadow(
+                                  color:
+                                      AppColors.blueDeep.withValues(alpha: 0.10),
+                                  blurRadius: 24,
+                                  offset: const Offset(0, 10),
+                                ),
+                              ],
                             ),
                             child: Icon(
                               item.icon,
-                              size: 46,
-                              color: const Color(0xFF7A4B2A),
+                              size: 48,
+                              color: AppColors.blue,
                             ),
                           ),
-                          const SizedBox(height: 28),
+                          const SizedBox(height: 20),
+                          const OrnamentDivider(),
+                          const SizedBox(height: 24),
                           Text(
                             item.title,
                             textAlign: TextAlign.center,
                             style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                                  fontWeight: FontWeight.w800,
-                                  color: const Color(0xFF4B3320),
+                                  fontSize: 32,
                                 ),
                           ),
                           const SizedBox(height: 14),
@@ -116,7 +132,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
                             textAlign: TextAlign.center,
                             style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                                   height: 1.6,
-                                  color: const Color(0xFF5F4B39),
+                                  color: AppColors.muted,
                                 ),
                           ),
                         ],
@@ -135,8 +151,8 @@ class _OnboardingPageState extends State<OnboardingPage> {
                       height: 8,
                       decoration: BoxDecoration(
                         color: pageIndex == index
-                            ? const Color(0xFF7A4B2A)
-                            : const Color(0xFFCDB89A),
+                            ? AppColors.gold
+                            : AppColors.sandDeep,
                         borderRadius: BorderRadius.circular(99),
                       ),
                     ),

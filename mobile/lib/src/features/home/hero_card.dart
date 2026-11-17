@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+import '../../theme/app_theme.dart';
+import '../../widgets/cross_ornament.dart';
+
 class HeroCard extends StatelessWidget {
   const HeroCard({
     required this.title,
@@ -19,14 +22,19 @@ class HeroCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(24),
+      padding: const EdgeInsets.fromLTRB(24, 22, 24, 26),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(28),
+        border: Border.all(color: AppColors.gold.withValues(alpha: 0.55)),
+        boxShadow: [
+          BoxShadow(
+            color: AppColors.blueDeep.withValues(alpha: 0.22),
+            blurRadius: 24,
+            offset: const Offset(0, 10),
+          ),
+        ],
         gradient: const LinearGradient(
-          colors: [
-            Color(0xFF8B5E34),
-            Color(0xFFC79052),
-          ],
+          colors: [AppColors.blueDeep, AppColors.blue],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
@@ -37,9 +45,20 @@ class HeroCard extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
-                date,
-                style: const TextStyle(color: Colors.white70),
+              Row(
+                children: [
+                  const CrossMark(size: 18),
+                  const SizedBox(width: 10),
+                  Text(
+                    date.toUpperCase(),
+                    style: const TextStyle(
+                      color: AppColors.goldLight,
+                      fontSize: 12,
+                      letterSpacing: 1.4,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ],
               ),
               if (onToggleFavorite != null)
                 IconButton(
@@ -49,21 +68,23 @@ class HeroCard extends StatelessWidget {
                   },
                   icon: Icon(
                     isFavorited ? Icons.favorite : Icons.favorite_border,
-                    color: isFavorited ? Colors.redAccent : Colors.white70,
+                    color: isFavorited ? AppColors.goldLight : Colors.white70,
                   ),
                   padding: EdgeInsets.zero,
                   constraints: const BoxConstraints(),
                 ),
             ],
           ),
-          const SizedBox(height: 12),
+          const SizedBox(height: 14),
           Text(
             title,
             style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                   color: Colors.white,
-                  fontWeight: FontWeight.w700,
+                  fontSize: 30,
                 ),
           ),
+          const SizedBox(height: 14),
+          const OrnamentDivider(),
           const SizedBox(height: 16),
           Text(
             body,

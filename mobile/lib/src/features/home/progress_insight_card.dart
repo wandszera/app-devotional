@@ -27,8 +27,8 @@ class ProgressInsightCard extends StatelessWidget {
       decoration: BoxDecoration(
         gradient: const LinearGradient(
           colors: [
-            Color(0xFFF4E6D4),
-            Color(0xFFEBD8BD),
+            Color(0xFFF4EEE2),
+            Color(0xFFE6DCC8),
           ],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
@@ -47,7 +47,7 @@ class ProgressInsightCard extends StatelessWidget {
             child: Text(
               accentLabel,
               style: Theme.of(context).textTheme.labelMedium?.copyWith(
-                    color: const Color(0xFF7A4B2A),
+                    color: const Color(0xFF2B4C7E),
                     fontWeight: FontWeight.w700,
                   ),
             ),
@@ -56,7 +56,7 @@ class ProgressInsightCard extends StatelessWidget {
           Text(
             title,
             style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                  color: const Color(0xFF4D341F),
+                  color: const Color(0xFF1A2F52),
                   fontWeight: FontWeight.w800,
                 ),
           ),
@@ -64,7 +64,7 @@ class ProgressInsightCard extends StatelessWidget {
           Text(
             body,
             style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                  color: const Color(0xFF5F4B39),
+                  color: const Color(0xFF5E584E),
                   height: 1.45,
                 ),
           ),

@@ -27,17 +27,17 @@ class ToneBadge extends StatelessWidget {
   (Color, Color) _tonePalette(String value) {
     switch (value) {
       case 'starter':
-        return (const Color(0xFFEAF4FF), const Color(0xFF2F5E88));
+        return (const Color(0xFFEAF4FF), const Color(0xFF2B4C7E));
       case 'building':
-        return (const Color(0xFFFFF0DD), const Color(0xFF8A572A));
+        return (const Color(0xFFF9F1DF), const Color(0xFF2B4C7E));
       case 'milestone':
-        return (const Color(0xFFFFE7D9), const Color(0xFF9C4A1A));
+        return (const Color(0xFFF6EBD0), const Color(0xFF7A2E3A));
       case 'strong_streak':
         return (const Color(0xFFE8F7EC), const Color(0xFF2D6C45));
       case 'restart':
-        return (const Color(0xFFFFECE8), const Color(0xFF9D4338));
+        return (const Color(0xFFF6E3E4), const Color(0xFF7A2E3A));
       default:
-        return (const Color(0xFFF0ECE6), const Color(0xFF5F4B39));
+        return (const Color(0xFFF4EEE2), const Color(0xFF5E584E));
     }
   }
 
@@ -74,18 +74,18 @@ class MetaPill extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
       decoration: BoxDecoration(
-        color: const Color(0xFFF6EFE5),
+        color: const Color(0xFFF4EEE2),
         borderRadius: BorderRadius.circular(999),
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(icon, size: 16, color: const Color(0xFF7A4B2A)),
+          Icon(icon, size: 16, color: const Color(0xFF2B4C7E)),
           const SizedBox(width: 6),
           Text(
             label,
             style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                  color: const Color(0xFF5F4B39),
+                  color: const Color(0xFF5E584E),
                   fontWeight: FontWeight.w600,
                 ),
           ),

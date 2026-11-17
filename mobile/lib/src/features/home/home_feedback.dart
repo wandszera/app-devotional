@@ -13,7 +13,7 @@ class HomeFeedback {
     _show(
       context,
       message,
-      backgroundColor: const Color(0xFF9C3D36),
+      backgroundColor: const Color(0xFF7A2E3A),
     );
   }
 

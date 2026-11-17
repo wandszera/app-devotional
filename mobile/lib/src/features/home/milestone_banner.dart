@@ -18,7 +18,7 @@ class MilestoneBanner extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(18),
       decoration: BoxDecoration(
-        color: const Color(0xFFFFF4E7),
+        color: const Color(0xFFF9F1DF),
         borderRadius: BorderRadius.circular(22),
       ),
       child: Column(
@@ -28,7 +28,7 @@ class MilestoneBanner extends StatelessWidget {
             'Proximo marco: $nextMilestone dias',
             style: Theme.of(context).textTheme.titleMedium?.copyWith(
                   fontWeight: FontWeight.w700,
-                  color: const Color(0xFF7A4B2A),
+                  color: const Color(0xFF2B4C7E),
                 ),
           ),
           const SizedBox(height: 6),
@@ -43,8 +43,8 @@ class MilestoneBanner extends StatelessWidget {
             child: LinearProgressIndicator(
               value: progress.clamp(0, 1),
               minHeight: 10,
-              backgroundColor: const Color(0xFFEBDDC9),
-              valueColor: const AlwaysStoppedAnimation(Color(0xFFC79052)),
+              backgroundColor: const Color(0xFFE6DCC8),
+              valueColor: const AlwaysStoppedAnimation(Color(0xFFB8893B)),
             ),
           ),
         ],

@@ -3,7 +3,7 @@ import 'package:flutter/foundation.dart';
 
 import 'push_sdk_bridge.dart';
 
-class FirebasePushSdkBridge implements PushSdkBridge {
+class FirebasePushSdkBridge implements PushSdkBridge, PushTokenRefreshSource {
   FirebasePushSdkBridge() {
     _initFirebaseMessaging();
   }
@@ -13,6 +13,19 @@ class FirebasePushSdkBridge implements PushSdkBridge {
 
     // Opcional: configurar handler em background se necessario futuramente
     // FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+  }
+
+  @override
+  Stream<String> get onTokenRefresh {
+    if (kIsWeb ||
+        (defaultTargetPlatform != TargetPlatform.android &&
+            defaultTargetPlatform != TargetPlatform.iOS)) {
+      return const Stream<String>.empty();
+    }
+    // O firebase_messaging 17 substitui o token por um ID de instalacao (FID)
+    // via onRegistered; o backend ainda envia por token. Migrar junto.
+    // ignore: deprecated_member_use
+    return FirebaseMessaging.instance.onTokenRefresh;
   }
 
   @override
@@ -65,6 +78,8 @@ class FirebasePushSdkBridge implements PushSdkBridge {
     String? token;
     if (permissionStatus == PushPermissionStatus.granted) {
       try {
+        // Ver nota em onTokenRefresh sobre a migracao para register().
+        // ignore: deprecated_member_use
         token = await FirebaseMessaging.instance.getToken();
       } catch (error) {
         debugPrint('Erro ao capturar push token: $error');

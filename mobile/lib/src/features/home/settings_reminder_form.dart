@@ -64,7 +64,7 @@ class SettingsReminderForm extends StatelessWidget {
         Text(
           'Sem SDK nativo, este campo permite testar dispatch manualmente pelo backend.',
           style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                color: const Color(0xFF5F4B39),
+                color: const Color(0xFF5E584E),
               ),
         ),
         const SizedBox(height: 20),

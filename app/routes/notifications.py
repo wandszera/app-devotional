@@ -2,9 +2,12 @@ from __future__ import annotations
 
 from datetime import UTC, datetime
 
-from fastapi import APIRouter, Depends, HTTPException
+import hmac
+
+from fastapi import APIRouter, Depends, Header, HTTPException
 from sqlalchemy.orm import Session
 
+from app.core.config import settings
 from app.api.deps import get_current_user, get_db, require_admin
 from app.models.schemas import (
     DueNotificationsResponse,
@@ -102,3 +105,21 @@ def mark_notification_sent(
     if settings is None:
         raise HTTPException(status_code=404, detail="notification settings not found")
     return settings
+
+
+@router.post("/internal/dispatch", response_model=NotificationDispatchResponse)
+def scheduled_dispatch(
+    x_dispatch_token: str = Header(default=""),
+    session: Session = Depends(get_db),
+) -> NotificationDispatchResponse:
+    """Endpoint for an external cron (every ~5 min). Auth by shared secret."""
+    expected = settings.dispatch_token
+    if not expected or not hmac.compare_digest(x_dispatch_token, expected):
+        raise HTTPException(status_code=403, detail="invalid dispatch token")
+    dispatched_at = datetime.now(UTC)
+    deliveries = notification_service.dispatch_due_notifications(session, dispatched_at)
+    return NotificationDispatchResponse(
+        dispatched_at=dispatched_at,
+        processed=len(deliveries),
+        deliveries=deliveries,
+    )

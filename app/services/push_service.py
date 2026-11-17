@@ -50,6 +50,15 @@ class PushService:
                 provider="firebase",
                 provider_message_id=response,
             )
+        except (messaging.UnregisteredError, messaging.SenderIdMismatchError) as e:
+            # Token is permanently dead (app uninstalled / token rotated).
+            logger.warning(f"Token FCM invalido: {e}")
+            return PushSendResult(
+                status="invalid_token",
+                provider="firebase",
+                provider_message_id="",
+                error_message=str(e),
+            )
         except Exception as e:
             logger.error(f"Erro ao enviar FCM: {e}")
             return PushSendResult(

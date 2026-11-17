@@ -2,6 +2,8 @@ from __future__ import annotations
 
 import secrets
 
+from datetime import UTC, datetime, timedelta
+
 from fastapi import HTTPException, status
 from sqlalchemy.orm import Session
 
@@ -11,8 +13,19 @@ from app.core.firebase import (
     InvalidFirebaseTokenError,
     verify_google_id_token,
 )
-from app.core.security import create_access_token, hash_password, verify_password
-from app.db.models import NotificationSettingsModel, UserModel, UserStreakModel
+from app.core.security import (
+    create_access_token,
+    generate_refresh_token,
+    hash_password,
+    hash_refresh_token,
+    verify_password,
+)
+from app.db.models import (
+    NotificationSettingsModel,
+    RefreshTokenModel,
+    UserModel,
+    UserStreakModel,
+)
 from app.models.schemas import User
 
 
@@ -131,6 +144,79 @@ class UserService:
 
     def create_token(self, user: User) -> str:
         return create_access_token(str(user.id))
+
+    @staticmethod
+    def _now() -> datetime:
+        return datetime.now(UTC).replace(tzinfo=None)
+
+    def issue_refresh_token(self, session: Session, user_id: int) -> str:
+        token = generate_refresh_token()
+        now = self._now()
+        session.add(
+            RefreshTokenModel(
+                user_id=user_id,
+                token_hash=hash_refresh_token(token),
+                created_at=now,
+                expires_at=now + timedelta(days=settings.refresh_token_expire_days),
+            )
+        )
+        session.commit()
+        return token
+
+    def rotate_refresh_token(self, session: Session, token: str) -> tuple[User, str, str]:
+        """Troca um refresh token válido por um novo par (rotação).
+
+        Reapresentar um token já usado indica vazamento: todas as sessões do
+        usuário são revogadas.
+        """
+        invalid = HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="invalid or expired refresh token",
+        )
+        record = (
+            session.query(RefreshTokenModel)
+            .filter(RefreshTokenModel.token_hash == hash_refresh_token(token))
+            .first()
+        )
+        if record is None:
+            raise invalid
+
+        now = self._now()
+        if record.revoked_at is not None:
+            self._revoke_all(session, record.user_id, now)
+            session.commit()
+            raise invalid
+        if record.expires_at < now:
+            raise invalid
+
+        user = session.get(UserModel, record.user_id)
+        if user is None:
+            raise invalid
+
+        record.revoked_at = now
+        session.commit()
+        schema_user = User.model_validate(user)
+        return (
+            schema_user,
+            self.create_token(schema_user),
+            self.issue_refresh_token(session, user.id),
+        )
+
+    def revoke_refresh_token(self, session: Session, token: str) -> None:
+        record = (
+            session.query(RefreshTokenModel)
+            .filter(RefreshTokenModel.token_hash == hash_refresh_token(token))
+            .first()
+        )
+        if record is not None and record.revoked_at is None:
+            record.revoked_at = self._now()
+            session.commit()
+
+    def _revoke_all(self, session: Session, user_id: int, now: datetime) -> None:
+        session.query(RefreshTokenModel).filter(
+            RefreshTokenModel.user_id == user_id,
+            RefreshTokenModel.revoked_at.is_(None),
+        ).update({"revoked_at": now}, synchronize_session=False)
 
 
 user_service = UserService()

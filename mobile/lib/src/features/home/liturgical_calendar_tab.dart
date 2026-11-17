@@ -1,18 +1,21 @@
 import 'package:flutter/material.dart';
 
 import '../../models/gospel_models.dart';
+import '../../services/api_client.dart';
 import '../../services/gospel_store.dart';
 import 'gospel_reader_page.dart';
 import 'home_state_widgets.dart';
 
 class LiturgicalCalendarTab extends StatefulWidget {
   const LiturgicalCalendarTab({
+    this.apiClient,
     this.store,
     this.month,
     this.today,
     super.key,
   });
 
+  final ApiClient? apiClient;
   final GospelLibraryRepository? store;
   final DateTime? month;
   final DateTime? today;
@@ -22,8 +25,12 @@ class LiturgicalCalendarTab extends StatefulWidget {
 }
 
 class _LiturgicalCalendarTabState extends State<LiturgicalCalendarTab> {
-  late final GospelLibraryRepository _store =
-      widget.store ?? GospelLibraryStore();
+  late final GospelLibraryRepository _store = widget.store ??
+      GospelLibraryStore(
+        catalogSource: widget.apiClient == null
+            ? null
+            : ApiGospelCatalogSource(apiClient: widget.apiClient!),
+      );
   List<GospelCalendarEntry> _entries = const [];
   bool _loading = true;
   String? _errorMessage;
@@ -97,21 +104,21 @@ class _LiturgicalCalendarTabState extends State<LiturgicalCalendarTab> {
             'Calendário litúrgico',
             style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                   fontWeight: FontWeight.w800,
-                  color: const Color(0xFF382315),
+                  color: const Color(0xFF26211C),
                 ),
           ),
           const SizedBox(height: 4),
           Text(
             'Setembro de 2026',
             style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                  color: const Color(0xFF6E4B2E),
+                  color: const Color(0xFF2B4C7E),
                 ),
           ),
           const SizedBox(height: 8),
           Text(
             'Toque em uma data publicada para abrir o Evangelho. Coração e anotação indicam dados privados deste dispositivo.',
             style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                  color: const Color(0xFF6E5A47),
+                  color: const Color(0xFF5E584E),
                 ),
           ),
           const SizedBox(height: 20),
@@ -213,7 +220,7 @@ class _CalendarDay extends StatelessWidget {
           ? 'Dia $day, Evangelho disponível'
           : 'Dia $day, Evangelho ainda não publicado',
       child: Material(
-        color: hasGospel ? Colors.white : const Color(0xFFF0EAE2),
+        color: hasGospel ? Colors.white : const Color(0xFFF4EEE2),
         borderRadius: BorderRadius.circular(12),
         child: InkWell(
           onTap: onTap,
@@ -222,7 +229,7 @@ class _CalendarDay extends StatelessWidget {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(12),
               border: Border.all(
-                color: isToday ? const Color(0xFFB88645) : const Color(0xFFE6DACE),
+                color: isToday ? const Color(0xFFB8893B) : const Color(0xFFE6DCC8),
                 width: isToday ? 2 : 1,
               ),
             ),
