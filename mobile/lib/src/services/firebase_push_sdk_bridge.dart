@@ -22,6 +22,9 @@ class FirebasePushSdkBridge implements PushSdkBridge, PushTokenRefreshSource {
             defaultTargetPlatform != TargetPlatform.iOS)) {
       return const Stream<String>.empty();
     }
+    // O firebase_messaging 17 substitui o token por um ID de instalacao (FID)
+    // via onRegistered; o backend ainda envia por token. Migrar junto.
+    // ignore: deprecated_member_use
     return FirebaseMessaging.instance.onTokenRefresh;
   }
 
@@ -75,6 +78,8 @@ class FirebasePushSdkBridge implements PushSdkBridge, PushTokenRefreshSource {
     String? token;
     if (permissionStatus == PushPermissionStatus.granted) {
       try {
+        // Ver nota em onTokenRefresh sobre a migracao para register().
+        // ignore: deprecated_member_use
         token = await FirebaseMessaging.instance.getToken();
       } catch (error) {
         debugPrint('Erro ao capturar push token: $error');
