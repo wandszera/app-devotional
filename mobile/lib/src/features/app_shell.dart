@@ -44,12 +44,15 @@ class _AppShellState extends State<AppShell> {
 
   void _syncPushTokenIfNeeded() {
     if (widget.authStore.isAuthenticated) {
-      if (_pushTokenSync == null) {
-        _pushTokenSync = PushTokenSync(
-          apiClient: widget.apiClient,
-          bridge: widget.pushSdkBridge,
-        )..start();
+      if (_pushTokenSync != null) {
+        return;
       }
+      final sync = PushTokenSync(
+        apiClient: widget.apiClient,
+        bridge: widget.pushSdkBridge,
+      );
+      _pushTokenSync = sync;
+      sync.start();
     } else {
       _pushTokenSync?.stop();
       _pushTokenSync = null;

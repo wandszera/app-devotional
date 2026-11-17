@@ -23,7 +23,8 @@ class PushTokenSync {
   void start() {
     final source = bridge;
     if (_subscription == null && source is PushTokenRefreshSource) {
-      _subscription = source.onTokenRefresh.listen(
+      // `is` não promove entre tipos não relacionados; o cast é explícito.
+      _subscription = (source as PushTokenRefreshSource).onTokenRefresh.listen(
         (token) => unawaited(sync(knownToken: token)),
         onError: (Object _) {},
       );

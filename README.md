@@ -244,6 +244,13 @@ The mobile app is built in Flutter and designed to work perfectly responsively. 
 
 ---
 
+### Atalhos no Windows
+
+- `rodar_app.bat`: sobe o backend em `http://127.0.0.1:8000` e o app no Chrome (porta 5000) apontando para ele.
+- `verificar_mobile.bat`: roda `flutter pub get`, `flutter analyze` e `flutter test` e grava tudo em `mobile_check.log`.
+
+Os dois esperam o Flutter em `%USERPROFILE%\flutter\bin` (ou no PATH) e o ambiente Python em `.env\`.
+
 ## 🎯 Engagement Loop & Streak Rules
 
 The success of the application is measured based on the user's constant return. The core engagement loop consists of:
