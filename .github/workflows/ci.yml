@@ -33,6 +33,9 @@ jobs:
       - uses: subosito/flutter-action@v2
         with:
           channel: stable
+          # Mesma versão usada no desenvolvimento local. Subir as duas juntas:
+          # o stable 3.47+ deprecia package:flutter/material.dart.
+          flutter-version: 3.41.9
           cache: true
       # Credenciais reais não são versionadas; o modelo basta para compilar.
       - name: Preparar firebase_options (placeholder)
