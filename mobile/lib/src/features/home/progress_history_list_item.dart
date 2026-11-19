@@ -12,17 +12,22 @@ class ProgressHistoryListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      tileColor: Colors.white,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(18),
+    // Material próprio: a cor do tile e o splash ficam visíveis mesmo
+    // quando há um fundo colorido entre o ListTile e o Material da tela.
+    return Material(
+      type: MaterialType.transparency,
+      child: ListTile(
+        tileColor: Colors.white,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(18),
+        ),
+        leading: Icon(
+          completed ? Icons.check_circle : Icons.circle_outlined,
+          color: const Color(0xFF3E6B52),
+        ),
+        title: Text(date),
+        subtitle: const Text('Devocional marcado como concluido'),
       ),
-      leading: Icon(
-        completed ? Icons.check_circle : Icons.circle_outlined,
-        color: const Color(0xFF3E6B52),
-      ),
-      title: Text(date),
-      subtitle: const Text('Devocional marcado como concluido'),
     );
   }
 }

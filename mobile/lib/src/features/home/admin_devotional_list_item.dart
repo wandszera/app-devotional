@@ -16,33 +16,38 @@ class AdminDevotionalListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      tileColor: Colors.white,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(18),
-      ),
-      title: Text(devotional.title),
-      subtitle: Text('${devotional.date}\n${devotional.content}'),
-      isThreeLine: true,
-      trailing: PopupMenuButton<String>(
-        onSelected: (value) {
-          if (value == 'edit') {
-            onEdit();
-          }
-          if (value == 'delete') {
-            onDelete();
-          }
-        },
-        itemBuilder: (context) => const [
-          PopupMenuItem(
-            value: 'edit',
-            child: Text('Editar'),
-          ),
-          PopupMenuItem(
-            value: 'delete',
-            child: Text('Excluir'),
-          ),
-        ],
+    // Material próprio: a cor do tile e o splash ficam visíveis mesmo
+    // quando há um fundo colorido entre o ListTile e o Material da tela.
+    return Material(
+      type: MaterialType.transparency,
+      child: ListTile(
+        tileColor: Colors.white,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(18),
+        ),
+        title: Text(devotional.title),
+        subtitle: Text('${devotional.date}\n${devotional.content}'),
+        isThreeLine: true,
+        trailing: PopupMenuButton<String>(
+          onSelected: (value) {
+            if (value == 'edit') {
+              onEdit();
+            }
+            if (value == 'delete') {
+              onDelete();
+            }
+          },
+          itemBuilder: (context) => const [
+            PopupMenuItem(
+              value: 'edit',
+              child: Text('Editar'),
+            ),
+            PopupMenuItem(
+              value: 'delete',
+              child: Text('Excluir'),
+            ),
+          ],
+        ),
       ),
     );
   }

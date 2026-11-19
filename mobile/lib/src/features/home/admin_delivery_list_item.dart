@@ -12,20 +12,25 @@ class AdminDeliveryListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      tileColor: Colors.white,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(18),
+    // Material próprio: a cor do tile e o splash ficam visíveis mesmo
+    // quando há um fundo colorido entre o ListTile e o Material da tela.
+    return Material(
+      type: MaterialType.transparency,
+      child: ListTile(
+        tileColor: Colors.white,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(18),
+        ),
+        leading: Icon(
+          item.status == 'sent' ? Icons.check_circle : Icons.error,
+          color: item.status == 'sent' ? Colors.green : Colors.red,
+        ),
+        title: Text(item.title),
+        subtitle: Text(
+          'Usuario ${item.userId} â€¢ ${item.status}\n${item.scheduledFor}',
+        ),
+        isThreeLine: true,
       ),
-      leading: Icon(
-        item.status == 'sent' ? Icons.check_circle : Icons.error,
-        color: item.status == 'sent' ? Colors.green : Colors.red,
-      ),
-      title: Text(item.title),
-      subtitle: Text(
-        'Usuario ${item.userId} â€¢ ${item.status}\n${item.scheduledFor}',
-      ),
-      isThreeLine: true,
     );
   }
 }
