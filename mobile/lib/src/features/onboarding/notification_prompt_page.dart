@@ -185,7 +185,7 @@ class _NotificationPromptPageState extends State<NotificationPromptPage> {
                 child: const Icon(
                   Icons.notifications_active_outlined,
                   size: 42,
-                  color: Color(0xFF2B4C7E),
+                  color: Color(0xFF3E6B52),
                 ),
               ),
               const SizedBox(height: 24),
@@ -193,7 +193,7 @@ class _NotificationPromptPageState extends State<NotificationPromptPage> {
                 'Escolha seu lembrete diario',
                 style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                       fontWeight: FontWeight.w800,
-                      color: const Color(0xFF1A2F52),
+                      color: const Color(0xFF1F3A2C),
                     ),
               ),
               const SizedBox(height: 12),
@@ -218,7 +218,7 @@ class _NotificationPromptPageState extends State<NotificationPromptPage> {
                       'Primeira meta sugerida',
                       style: TextStyle(
                         fontWeight: FontWeight.w700,
-                        color: Color(0xFF2B4C7E),
+                        color: Color(0xFF3E6B52),
                       ),
                     ),
                     SizedBox(height: 6),
@@ -365,7 +365,7 @@ class _PushSdkStatusCard extends StatelessWidget {
                   currentState.statusMessage,
                   style: Theme.of(context).textTheme.titleSmall?.copyWith(
                         fontWeight: FontWeight.w700,
-                        color: const Color(0xFF2B4C7E),
+                        color: const Color(0xFF3E6B52),
                       ),
                 ),
                 const SizedBox(height: 8),

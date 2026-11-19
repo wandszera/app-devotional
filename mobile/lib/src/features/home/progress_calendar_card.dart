@@ -80,7 +80,7 @@ class ProgressCalendarCard extends StatelessWidget {
               return Container(
                 decoration: BoxDecoration(
                   color: isCompleted
-                      ? const Color(0xFF2B4C7E)
+                      ? const Color(0xFF3E6B52)
                       : const Color(0xFFF4EEE2),
                   borderRadius: BorderRadius.circular(14),
                   border: isToday

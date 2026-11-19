@@ -71,6 +71,7 @@ class SettingsTabContent extends StatelessWidget {
                   builder: (_) => ProfilePage(
                     apiClient: apiClient,
                     authStore: authStore,
+                    onAccountDeleted: onLogout,
                   ),
                 ),
               );

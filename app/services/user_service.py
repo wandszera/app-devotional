@@ -21,9 +21,12 @@ from app.core.security import (
     verify_password,
 )
 from app.db.models import (
+    NotificationDeliveryModel,
     NotificationSettingsModel,
     RefreshTokenModel,
+    UserFavoriteModel,
     UserModel,
+    UserProgressModel,
     UserStreakModel,
 )
 from app.models.schemas import User
@@ -211,6 +214,76 @@ class UserService:
         if record is not None and record.revoked_at is None:
             record.revoked_at = self._now()
             session.commit()
+
+    def delete_account(
+        self,
+        session: Session,
+        user_id: int,
+        *,
+        password: str | None = None,
+        id_token: str | None = None,
+    ) -> None:
+        """Exclui a conta e todos os dados do usuário (exigência da Play Store/LGPD).
+
+        Reautentica: conta local exige a senha; conta Google exige um id_token
+        válido do mesmo uid Firebase.
+        """
+        user = session.get(UserModel, user_id)
+        if user is None:
+            raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="user not found")
+
+        if user.auth_provider == "google":
+            if not id_token:
+                raise HTTPException(
+                    status_code=status.HTTP_400_BAD_REQUEST,
+                    detail="id_token required to delete a Google account",
+                )
+            try:
+                identity = verify_google_id_token(id_token)
+            except FirebaseAuthUnavailableError as exc:
+                raise HTTPException(
+                    status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+                    detail="google sign-in is not configured on the server",
+                ) from exc
+            except InvalidFirebaseTokenError as exc:
+                raise HTTPException(
+                    status_code=status.HTTP_401_UNAUTHORIZED,
+                    detail="invalid Google sign-in token",
+                ) from exc
+            if identity.uid != user.firebase_uid:
+                raise HTTPException(
+                    status_code=status.HTTP_403_FORBIDDEN,
+                    detail="token does not belong to this account",
+                )
+        else:
+            if not password:
+                raise HTTPException(
+                    status_code=status.HTTP_400_BAD_REQUEST,
+                    detail="password required to delete the account",
+                )
+            if not verify_password(password, user.password_hash):
+                raise HTTPException(
+                    status_code=status.HTTP_403_FORBIDDEN,
+                    detail="invalid password",
+                )
+
+        session.query(NotificationDeliveryModel).filter(
+            NotificationDeliveryModel.user_id == user_id
+        ).delete(synchronize_session=False)
+        session.query(NotificationSettingsModel).filter(
+            NotificationSettingsModel.user_id == user_id
+        ).delete(synchronize_session=False)
+        for model in (UserProgressModel, UserFavoriteModel, RefreshTokenModel):
+            session.query(model).filter(model.user_id == user_id).delete(
+                synchronize_session=False
+            )
+        session.query(UserStreakModel).filter(UserStreakModel.user_id == user_id).delete(
+            synchronize_session=False
+        )
+        session.query(UserModel).filter(UserModel.id == user_id).delete(
+            synchronize_session=False
+        )
+        session.commit()
 
     def _revoke_all(self, session: Session, user_id: int, now: datetime) -> None:
         session.query(RefreshTokenModel).filter(

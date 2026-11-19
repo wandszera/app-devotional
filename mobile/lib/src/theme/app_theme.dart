@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-/// Paleta inspirada na tradição visual católica: azul mariano, ouro litúrgico,
+/// Paleta inspirada na tradição visual católica: verde-semente, ouro litúrgico,
 /// vinho (vermelho dos mártires) sobre marfim de pergaminho.
 abstract final class AppColors {
   static const ivory = Color(0xFFFAF6EE); // fundo
@@ -10,9 +10,9 @@ abstract final class AppColors {
   static const sandDeep = Color(0xFFD8C9A8);
   static const parchment = Color(0xFFF4EEE2); // superfícies suaves
 
-  static const blue = Color(0xFF2B4C7E); // azul mariano
-  static const blueDeep = Color(0xFF1A2F52);
-  static const blueSoft = Color(0xFFE4ECF7);
+  static const blue = Color(0xFF3E6B52); // verde-semente
+  static const blueDeep = Color(0xFF1F3A2C);
+  static const blueSoft = Color(0xFFE3EEE5);
 
   static const gold = Color(0xFFB8893B); // ouro litúrgico
   static const goldLight = Color(0xFFE7D3A3);
@@ -120,10 +120,17 @@ abstract final class AppTheme {
         margin: EdgeInsets.zero,
         surfaceTintColor: Colors.transparent,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(20),
-          side: const BorderSide(color: AppColors.sand),
+          borderRadius: BorderRadius.circular(22),
+          side: BorderSide(color: AppColors.sand.withValues(alpha: 0.8)),
         ),
       ),
+      pageTransitionsTheme: const PageTransitionsTheme(
+        builders: {
+          TargetPlatform.android: FadeForwardsPageTransitionsBuilder(),
+          TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
+        },
+      ),
+      splashFactory: InkSparkle.splashFactory,
       dividerTheme: const DividerThemeData(
         color: AppColors.sand,
         thickness: 1,
@@ -133,7 +140,7 @@ abstract final class AppTheme {
         backgroundColor: AppColors.surface,
         surfaceTintColor: Colors.transparent,
         elevation: 0,
-        height: 68,
+        height: 72,
         indicatorColor: AppColors.blueSoft,
         indicatorShape: const StadiumBorder(),
         iconTheme: WidgetStateProperty.resolveWith((states) {
@@ -156,13 +163,15 @@ abstract final class AppTheme {
         style: FilledButton.styleFrom(
           backgroundColor: AppColors.blue,
           foregroundColor: Colors.white,
-          minimumSize: const Size(64, 52),
+          minimumSize: const Size(64, 54),
+          elevation: 0,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(16),
+            borderRadius: BorderRadius.circular(18),
           ),
           textStyle: GoogleFonts.inter(
             fontSize: 16,
             fontWeight: FontWeight.w600,
+            letterSpacing: 0.2,
           ),
         ),
       ),
@@ -200,6 +209,7 @@ abstract final class AppTheme {
       chipTheme: ChipThemeData(
         backgroundColor: AppColors.parchment,
         selectedColor: AppColors.blueSoft,
+        labelStyle: GoogleFonts.inter(fontSize: 13, color: AppColors.ink),
         side: const BorderSide(color: AppColors.sand),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(99)),
       ),

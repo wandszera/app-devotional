@@ -42,3 +42,7 @@ flutter_web.out.log
 Thumbs.db
 .agentops/runtime/
 .worktrees/
+
+# Limpeza local
+_to_delete/
+mobile_check.log

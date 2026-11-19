@@ -5,6 +5,7 @@ from fastapi.testclient import TestClient
 from app.core.config import settings
 from app.core.firebase import GoogleIdentity
 from app.db.models import (
+    RefreshTokenModel,
     NotificationSettingsModel,
     UserModel,
     UserProgressModel,
@@ -649,3 +650,76 @@ def test_due_notifications_encourage_restart_after_gap() -> None:
     item = due_response.json()["due_notifications"][0]
     assert item["tone"] == "restart"
     assert "Recomece hoje" in item["message"]
+
+
+def _delete_account(token: str, body: dict):
+    return client.request(
+        "DELETE", "/auth/me", headers={"Authorization": f"Bearer {token}"}, json=body
+    )
+
+
+def test_delete_account_removes_user_and_all_related_data() -> None:
+    reg = client.post(
+        "/auth/register", json={"email": "bye@example.com", "password": "password123"}
+    ).json()
+    token = reg["access_token"]
+    other = client.post(
+        "/auth/register", json={"email": "stay@example.com", "password": "password123"}
+    ).json()
+
+    response = _delete_account(token, {"password": "password123"})
+    assert response.status_code == 204
+
+    session = SessionLocal()
+    try:
+        assert session.query(UserModel).filter(UserModel.email == "bye@example.com").count() == 0
+        assert session.query(UserModel).filter(UserModel.email == "stay@example.com").count() == 1
+        uid = reg["user"]["id"]
+        assert session.get(UserStreakModel, uid) is None
+        assert session.get(NotificationSettingsModel, uid) is None
+        assert session.query(RefreshTokenModel).filter(RefreshTokenModel.user_id == uid).count() == 0
+        assert session.query(RefreshTokenModel).filter(
+            RefreshTokenModel.user_id == other["user"]["id"]
+        ).count() == 1
+    finally:
+        session.close()
+
+    assert client.get("/auth/me", headers={"Authorization": f"Bearer {token}"}).status_code == 401
+    assert client.post(
+        "/auth/login", json={"email": "bye@example.com", "password": "password123"}
+    ).status_code == 401
+
+
+def test_delete_account_requires_correct_password() -> None:
+    token = client.post(
+        "/auth/register", json={"email": "keep@example.com", "password": "password123"}
+    ).json()["access_token"]
+
+    assert _delete_account(token, {}).status_code == 400
+    assert _delete_account(token, {"password": "wrong-password"}).status_code == 403
+    assert client.get("/auth/me", headers={"Authorization": f"Bearer {token}"}).status_code == 200
+
+
+def test_delete_account_requires_authentication() -> None:
+    assert client.request("DELETE", "/auth/me", json={"password": "password123"}).status_code == 401
+
+
+def test_delete_google_account_requires_matching_id_token(monkeypatch) -> None:
+    identity = GoogleIdentity(uid="uid-del-1", email="gdel@example.com", name="G")
+    monkeypatch.setattr(
+        "app.services.user_service.verify_google_id_token", lambda _t: identity
+    )
+    token = client.post("/auth/google", json={"id_token": "a" * 32}).json()["access_token"]
+
+    assert _delete_account(token, {"password": "password123"}).status_code == 400
+
+    monkeypatch.setattr(
+        "app.services.user_service.verify_google_id_token",
+        lambda _t: GoogleIdentity(uid="other-uid", email="x@example.com", name="X"),
+    )
+    assert _delete_account(token, {"id_token": "b" * 32}).status_code == 403
+
+    monkeypatch.setattr(
+        "app.services.user_service.verify_google_id_token", lambda _t: identity
+    )
+    assert _delete_account(token, {"id_token": "b" * 32}).status_code == 204

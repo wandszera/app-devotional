@@ -92,29 +92,29 @@ class HabitCoachCard extends StatelessWidget {
         return (
           const Color(0xFFF4EEE2),
           const Color(0xFFF4EEE2),
-          const Color(0xFF2B4C7E),
-          const Color(0xFF1A2F52),
+          const Color(0xFF3E6B52),
+          const Color(0xFF1F3A2C),
         );
       case 'milestone':
         return (
           const Color(0xFFF6EBD0),
           const Color(0xFFF6EBD0),
           const Color(0xFF7A2E3A),
-          const Color(0xFF1A2F52),
+          const Color(0xFF1F3A2C),
         );
       case 'strong':
         return (
-          const Color(0xFFE8F1FF),
-          const Color(0xFFD9E7FF),
-          const Color(0xFF2B4C7E),
-          const Color(0xFF1A2F52),
+          const Color(0xFFE6F0E8),
+          const Color(0xFFD3E4D8),
+          const Color(0xFF3E6B52),
+          const Color(0xFF1F3A2C),
         );
       default:
         return (
           const Color(0xFFF4EEE2),
           const Color(0xFFF4EEE2),
-          const Color(0xFF2B4C7E),
-          const Color(0xFF1A2F52),
+          const Color(0xFF3E6B52),
+          const Color(0xFF1F3A2C),
         );
     }
   }

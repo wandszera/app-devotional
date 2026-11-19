@@ -82,25 +82,25 @@ class HabitStatusCard extends StatelessWidget {
         return (
           const Color(0xFFF9F1DF),
           const Color(0xFF7A2E3A),
-          const Color(0xFF1A2F52),
+          const Color(0xFF1F3A2C),
         );
       case 'strong':
         return (
-          const Color(0xFFEAF2FF),
-          const Color(0xFF2B4C7E),
-          const Color(0xFF1A2F52),
+          const Color(0xFFEAF3EC),
+          const Color(0xFF3E6B52),
+          const Color(0xFF1F3A2C),
         );
       case 'starter':
         return (
           const Color(0xFFF4EEE2),
-          const Color(0xFF2B4C7E),
-          const Color(0xFF1A2F52),
+          const Color(0xFF3E6B52),
+          const Color(0xFF1F3A2C),
         );
       default:
         return (
           const Color(0xFFF4EEE2),
-          const Color(0xFF2B4C7E),
-          const Color(0xFF1A2F52),
+          const Color(0xFF3E6B52),
+          const Color(0xFF1F3A2C),
         );
     }
   }

@@ -47,7 +47,7 @@ class ProgressInsightCard extends StatelessWidget {
             child: Text(
               accentLabel,
               style: Theme.of(context).textTheme.labelMedium?.copyWith(
-                    color: const Color(0xFF2B4C7E),
+                    color: const Color(0xFF3E6B52),
                     fontWeight: FontWeight.w700,
                   ),
             ),
@@ -56,7 +56,7 @@ class ProgressInsightCard extends StatelessWidget {
           Text(
             title,
             style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                  color: const Color(0xFF1A2F52),
+                  color: const Color(0xFF1F3A2C),
                   fontWeight: FontWeight.w800,
                 ),
           ),

@@ -13,7 +13,7 @@ class WeekdayLabel extends StatelessWidget {
         label,
         textAlign: TextAlign.center,
         style: Theme.of(context).textTheme.bodySmall?.copyWith(
-              color: const Color(0xFF2B4C7E),
+              color: const Color(0xFF3E6B52),
               fontWeight: FontWeight.w700,
             ),
       ),

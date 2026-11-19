@@ -1,0 +1,122 @@
+date,weekday,season,liturgical_title,gospel_reference,reflection,status
+2026-12-01,ter,Advento,1ª Semana do Advento,"Lucas 10,21-24",,ref_cnbb_ok
+2026-12-02,qua,Advento,1ª Semana do Advento,"Mateus 15,29-37",,ref_cnbb_ok
+2026-12-03,qui,Advento,1ª Semana do Advento,"Mateus 7,21.24-27",,ref_cnbb_ok
+2026-12-04,sex,Advento,1ª Semana do Advento,"Mateus 9,27-31",,ref_cnbb_ok
+2026-12-05,sáb,Advento,1ª Semana do Advento,"Mateus 9,35-10,1.6-8",,ref_cnbb_ok
+2026-12-06,dom,Advento,"2º Domingo do Advento, Ano B","Marcos 1,1-8",,ref_cnbb_ok
+2026-12-07,seg,Advento,2ª Semana do Advento,"Lucas 5,17-26",,ref_cnbb_ok
+2026-12-08,ter,Advento,"Imaculada Conceição de Nossa Senhora, Solenidade","Lucas 1,26-38",,ref_cnbb_ok
+2026-12-09,qua,Advento,2ª Semana do Advento,"Mateus 11,28-30",,ref_cnbb_ok
+2026-12-10,qui,Advento,2ª Semana do Advento,"Mateus 11,11-15",,ref_cnbb_ok
+2026-12-11,sex,Advento,2ª Semana do Advento,"Mateus 11,16-19",,ref_cnbb_ok
+2026-12-12,sáb,Advento,2ª Semana do Advento,"Lucas 1,39-47",,ref_cnbb_ok
+2026-12-13,dom,Advento,"3º Domingo do Advento, Ano B","João 1,6-8.19-28",,ref_cnbb_ok
+2026-12-14,seg,Advento,3ª Semana do Advento,"Mateus 21,23-27",,ref_cnbb_ok
+2026-12-15,ter,Advento,3ª Semana do Advento,"Mateus 21,28-32",,ref_cnbb_ok
+2026-12-16,qua,Advento,3ª Semana do Advento,"Lucas 7,19-23",,ref_cnbb_ok
+2026-12-17,qui,Advento,3ª Semana do Advento,"Mateus 1,1-17",,ref_cnbb_ok
+2026-12-18,sex,Advento,3ª Semana do Advento,"Mateus 1,18-24",,ref_cnbb_ok
+2026-12-19,sáb,Advento,3ª Semana do Advento,"Lucas 1,5-25",,ref_cnbb_ok
+2026-12-20,dom,Advento,"4º Domingo do Advento, Ano B","Lucas 1,26-38",,ref_cnbb_ok
+2026-12-21,seg,Advento,4ª Semana do Advento,"Lucas 1,39-45",,ref_cnbb_ok
+2026-12-22,ter,Advento,4ª Semana do Advento,"Lucas 1,46-56",,ref_cnbb_ok
+2026-12-23,qua,Advento,4ª Semana do Advento,"Lucas 1,57-66",,ref_cnbb_ok
+2026-12-24,qui,Advento,4ª Semana do Advento,"Lucas 1,67-79 (manhã); Lucas 2,1-14 (Missa da Noite)",,ref_cnbb_ok
+2026-12-25,sex,Natal,"Natividade do Senhor, Solenidade","João 1,1-18 (Missa do Dia); Lucas 2,15-20 (Missa da Aurora)",,ref_cnbb_ok
+2026-12-26,sáb,Natal,Tempo do Natal,"Mateus 10,17-22",,ref_cnbb_ok
+2026-12-27,dom,Natal,"Sagrada Família: Jesus, Maria e José, Festa","Lucas 2,22-40",,ref_cnbb_ok
+2026-12-28,seg,Natal,Tempo do Natal,"Mateus 2,13-18",,ref_cnbb_ok
+2026-12-29,ter,Natal,Tempo do Natal,"Lucas 2,22-35",,ref_cnbb_ok
+2026-12-30,qua,Natal,Tempo do Natal,"Lucas 2,36-40",,ref_cnbb_ok
+2026-12-31,qui,Natal,Tempo do Natal,"João 1,1-18",,ref_cnbb_ok
+2027-01-01,sex,Natal,"Santa Maria, Mãe de Deus, Solenidade","Lucas 2,16-21",,ref_cnbb_ok
+2027-01-02,sáb,Natal,Tempo do Natal,"João 1,19-28",,ref_cnbb_ok
+2027-01-03,dom,Natal,"Epifania do Senhor, Solenidade","Mateus 2,1-12",,ref_cnbb_ok
+2027-01-04,seg,Natal,Tempo do Natal,"Mateus 4,12-17.23-25",,ref_cnbb_ok
+2027-01-05,ter,Natal,Tempo do Natal,"Marcos 6,34-44",,ref_cnbb_ok
+2027-01-06,qua,Natal,Tempo do Natal,"Marcos 6,45-52",,ref_cnbb_ok
+2027-01-07,qui,Natal,Tempo do Natal,"Lucas 4,14-22a",,ref_cnbb_ok
+2027-01-08,sex,Natal,Tempo do Natal,"Lucas 5,12-16",,ref_cnbb_ok
+2027-01-09,sáb,Natal,Tempo do Natal,"João 3,22-30",,ref_cnbb_ok
+2027-01-10,dom,Natal,"Batismo do Senhor, Festa","Marcos 1,7-11",,ref_cnbb_ok
+2027-01-11,seg,Tempo Comum,1ª Semana do Tempo Comum,"Marcos 1,14-20",,ref_cnbb_ok
+2027-01-12,ter,Tempo Comum,1ª Semana do Tempo Comum,"Marcos 1,21b-28",,ref_cnbb_ok
+2027-01-13,qua,Tempo Comum,1ª Semana do Tempo Comum,"Marcos 1,29-39",,ref_cnbb_ok
+2027-01-14,qui,Tempo Comum,1ª Semana do Tempo Comum,"Marcos 1,40-45",,ref_cnbb_ok
+2027-01-15,sex,Tempo Comum,1ª Semana do Tempo Comum,"Marcos 2,1-12",,ref_cnbb_ok
+2027-01-16,sáb,Tempo Comum,1ª Semana do Tempo Comum,"Marcos 2,13-17",,ref_cnbb_ok
+2027-01-17,dom,Tempo Comum,"2º Domingo do Tempo Comum, Ano B","João 1,35-42",,ref_cnbb_ok
+2027-01-18,seg,Tempo Comum,2ª Semana do Tempo Comum,"Marcos 2,18-22",,ref_cnbb_ok
+2027-01-19,ter,Tempo Comum,2ª Semana do Tempo Comum,"Marcos 2,23-28",,ref_cnbb_ok
+2027-01-20,qua,Tempo Comum,2ª Semana do Tempo Comum,"Marcos 3,1-6",,ref_cnbb_ok
+2027-01-21,qui,Tempo Comum,2ª Semana do Tempo Comum,"Marcos 3,7-12",,ref_cnbb_ok
+2027-01-22,sex,Tempo Comum,2ª Semana do Tempo Comum,"Marcos 3,13-19",,ref_cnbb_ok
+2027-01-23,sáb,Tempo Comum,2ª Semana do Tempo Comum,"Marcos 3,20-21",,ref_cnbb_ok
+2027-01-24,dom,Tempo Comum,"3º Domingo do Tempo Comum, Ano B","Marcos 1,14-20",,ref_cnbb_ok
+2027-01-25,seg,Tempo Comum,3ª Semana do Tempo Comum,"Marcos 16,15-18",,ref_cnbb_ok
+2027-01-26,ter,Tempo Comum,3ª Semana do Tempo Comum,"Lucas 10,1-9",,ref_cnbb_ok
+2027-01-27,qua,Tempo Comum,3ª Semana do Tempo Comum,"Marcos 4,1-20",,ref_cnbb_ok
+2027-01-28,qui,Tempo Comum,3ª Semana do Tempo Comum,"Marcos 4,21-25",,ref_cnbb_ok
+2027-01-29,sex,Tempo Comum,3ª Semana do Tempo Comum,"Marcos 4,26-34",,ref_cnbb_ok
+2027-01-30,sáb,Tempo Comum,3ª Semana do Tempo Comum,"Marcos 4,35-41",,ref_cnbb_ok
+2027-01-31,dom,Tempo Comum,"4º Domingo do Tempo Comum, Ano B","Marcos 1,21-28",,ref_cnbb_ok
+2027-02-01,seg,Tempo Comum,4ª Semana do Tempo Comum,"Marcos 5,1-20",,ref_cnbb_ok
+2027-02-02,ter,Tempo Comum,"Apresentação do Senhor, Festa","Lucas 2,22-40",,ref_cnbb_ok
+2027-02-03,qua,Tempo Comum,4ª Semana do Tempo Comum,"Marcos 6,1-6",,ref_cnbb_ok
+2027-02-04,qui,Tempo Comum,4ª Semana do Tempo Comum,"Marcos 6,7-13",,ref_cnbb_ok
+2027-02-05,sex,Tempo Comum,4ª Semana do Tempo Comum,"Marcos 6,14-29",,ref_cnbb_ok
+2027-02-06,sáb,Tempo Comum,4ª Semana do Tempo Comum,"Marcos 6,30-34",,ref_cnbb_ok
+2027-02-07,dom,Tempo Comum,"5º Domingo do Tempo Comum, Ano B","Marcos 1,29-39",,ref_cnbb_ok
+2027-02-08,seg,Tempo Comum,5ª Semana do Tempo Comum,"Marcos 6,53-56",,ref_cnbb_ok
+2027-02-09,ter,Tempo Comum,5ª Semana do Tempo Comum,"Marcos 7,1-13",,ref_cnbb_ok
+2027-02-10,qua,Quaresma,Quarta-feira de Cinzas,"Mateus 6,1-6.16-18",,ref_cnbb_ok
+2027-02-11,qui,Quaresma,Quaresma — após as Cinzas,"Lucas 9,22-25",,ref_cnbb_ok
+2027-02-12,sex,Quaresma,Quaresma — após as Cinzas,"Mateus 9,14-15",,ref_cnbb_ok
+2027-02-13,sáb,Quaresma,Quaresma — após as Cinzas,"Lucas 5,27-32",,ref_cnbb_ok
+2027-02-14,dom,Quaresma,"1º Domingo da Quaresma, Ano B","Marcos 1,12-15",,ref_cnbb_ok
+2027-02-15,seg,Quaresma,1ª Semana da Quaresma,"Mateus 25,31-46",,ref_cnbb_ok
+2027-02-16,ter,Quaresma,1ª Semana da Quaresma,"Mateus 6,7-15",,ref_cnbb_ok
+2027-02-17,qua,Quaresma,1ª Semana da Quaresma,"Lucas 11,29-32",,ref_cnbb_ok
+2027-02-18,qui,Quaresma,1ª Semana da Quaresma,"Mateus 7,7-12",,ref_cnbb_ok
+2027-02-19,sex,Quaresma,1ª Semana da Quaresma,"Mateus 5,20-26",,ref_cnbb_ok
+2027-02-20,sáb,Quaresma,1ª Semana da Quaresma,"Mateus 5,43-48",,ref_cnbb_ok
+2027-02-21,dom,Quaresma,"2º Domingo da Quaresma, Ano B","Marcos 9,2-10",,ref_cnbb_ok
+2027-02-22,seg,Quaresma,2ª Semana da Quaresma,"Mateus 16,13-19",,ref_cnbb_ok
+2027-02-23,ter,Quaresma,2ª Semana da Quaresma,"Mateus 23,1-12",,ref_cnbb_ok
+2027-02-24,qua,Quaresma,2ª Semana da Quaresma,"Mateus 20,17-28",,ref_cnbb_ok
+2027-02-25,qui,Quaresma,2ª Semana da Quaresma,"Lucas 16,19-31",,ref_cnbb_ok
+2027-02-26,sex,Quaresma,2ª Semana da Quaresma,"Mateus 21,33-43.45-46",,ref_cnbb_ok
+2027-02-27,sáb,Quaresma,2ª Semana da Quaresma,"Lucas 15,1-3.11-32",,ref_cnbb_ok
+2027-02-28,dom,Quaresma,"3º Domingo da Quaresma, Ano B","João 2,13-25",,ref_cnbb_ok
+2027-03-01,seg,Quaresma,3ª Semana da Quaresma,"Lucas 4,24-30",,ref_cnbb_ok
+2027-03-02,ter,Quaresma,3ª Semana da Quaresma,"Mateus 18,21-35",,ref_cnbb_ok
+2027-03-03,qua,Quaresma,3ª Semana da Quaresma,"Mateus 5,17-19",,ref_cnbb_ok
+2027-03-04,qui,Quaresma,3ª Semana da Quaresma,"Lucas 11,14-23",,ref_cnbb_ok
+2027-03-05,sex,Quaresma,3ª Semana da Quaresma,"Marcos 12,28b-34",,ref_cnbb_ok
+2027-03-06,sáb,Quaresma,3ª Semana da Quaresma,"Lucas 18,9-14",,ref_cnbb_ok
+2027-03-07,dom,Quaresma,"4º Domingo da Quaresma, Ano B","João 3,14-21",,ref_cnbb_ok
+2027-03-08,seg,Quaresma,4ª Semana da Quaresma,"João 4,43-54",,ref_cnbb_ok
+2027-03-09,ter,Quaresma,4ª Semana da Quaresma,"João 5,1-16",,ref_cnbb_ok
+2027-03-10,qua,Quaresma,4ª Semana da Quaresma,"João 5,17-30",,ref_cnbb_ok
+2027-03-11,qui,Quaresma,4ª Semana da Quaresma,"João 5,31-47",,ref_cnbb_ok
+2027-03-12,sex,Quaresma,4ª Semana da Quaresma,"João 7,1-2.10.25-30",,ref_cnbb_ok
+2027-03-13,sáb,Quaresma,4ª Semana da Quaresma,"João 7,40-53",,ref_cnbb_ok
+2027-03-14,dom,Quaresma,"5º Domingo da Quaresma, Ano B","João 12,20-33",,ref_cnbb_ok
+2027-03-15,seg,Quaresma,5ª Semana da Quaresma,"João 8,1-11",,ref_cnbb_ok
+2027-03-16,ter,Quaresma,5ª Semana da Quaresma,"João 8,21-30",,ref_cnbb_ok
+2027-03-17,qua,Quaresma,5ª Semana da Quaresma,"João 8,31-42",,ref_cnbb_ok
+2027-03-18,qui,Quaresma,5ª Semana da Quaresma,"João 8,51-59",,ref_cnbb_ok
+2027-03-19,sex,Quaresma,"São José, esposo da Virgem Maria, Solenidade","Mateus 1,16.18-21.24a",,ref_cnbb_ok
+2027-03-20,sáb,Quaresma,5ª Semana da Quaresma,"João 11,45-56",,ref_cnbb_ok
+2027-03-21,dom,Quaresma,Domingo de Ramos da Paixão do Senhor,"Marcos 11,1-10 (Ramos); João 12,12-16",,ref_cnbb_ok
+2027-03-22,seg,Quaresma,Semana Santa,"João 12,1-11",,ref_cnbb_ok
+2027-03-23,ter,Quaresma,Semana Santa,"João 13,21-33.36-38",,ref_cnbb_ok
+2027-03-24,qua,Quaresma,Semana Santa,"Mateus 26,14-25",,ref_cnbb_ok
+2027-03-25,qui,Tríduo Pascal,Quinta-feira Santa,"João 13,1-15",,ref_cnbb_ok
+2027-03-26,sex,Tríduo Pascal,Sexta-feira da Paixão do Senhor,"João 18,1-19,42",,ref_cnbb_ok
+2027-03-27,sáb,Tríduo Pascal,Sábado Santo — Vigília Pascal,"Marcos 16,1-7",,ref_cnbb_ok
+2027-03-28,dom,Páscoa,"Domingo da Páscoa da Ressurreição do Senhor, Solenidade","João 20,1-9",,ref_cnbb_ok
+2027-03-29,seg,Páscoa,Oitava da Páscoa,"Mateus 28,8-15",,ref_cnbb_ok
+2027-03-30,ter,Páscoa,Oitava da Páscoa,"João 20,11-18",,ref_cnbb_ok
+2027-03-31,qua,Páscoa,Oitava da Páscoa,"Lucas 24,13-35",,ref_cnbb_ok

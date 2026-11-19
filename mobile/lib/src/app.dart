@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'widgets/cross_ornament.dart';
+
 import 'config/app_config.dart';
 import 'features/app_shell.dart';
 import 'services/api_client.dart';
@@ -66,7 +68,18 @@ class _SplashScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return const Scaffold(
       body: Center(
-        child: CircularProgressIndicator(),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            CrossMark(size: 44),
+            SizedBox(height: 24),
+            SizedBox(
+              width: 22,
+              height: 22,
+              child: CircularProgressIndicator(strokeWidth: 2),
+            ),
+          ],
+        ),
       ),
     );
   }

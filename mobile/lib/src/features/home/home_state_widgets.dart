@@ -28,7 +28,7 @@ class HomeErrorView extends StatelessWidget {
           message,
           textAlign: TextAlign.center,
           style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                color: const Color(0xFF2B4C7E),
+                color: const Color(0xFF3E6B52),
               ),
         ),
       ),
@@ -53,7 +53,7 @@ class HomeEmptyView extends StatelessWidget {
           message,
           textAlign: TextAlign.center,
           style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                color: const Color(0xFF2B4C7E),
+                color: const Color(0xFF3E6B52),
               ),
         ),
       ),

@@ -97,6 +97,13 @@ class RegisterRequest(LoginRequest):
     pass
 
 
+class DeleteAccountRequest(BaseModel):
+    """Reautenticação para excluir a conta: senha (conta local) ou id_token (Google)."""
+
+    password: Optional[str] = Field(default=None, max_length=256)
+    id_token: Optional[str] = Field(default=None, min_length=20, max_length=8192)
+
+
 class GoogleLoginRequest(BaseModel):
     id_token: str = Field(min_length=20, max_length=8192)
 

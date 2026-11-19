@@ -25,7 +25,7 @@ class DailyMissionCard extends StatelessWidget {
         children: [
           Icon(
             completed ? Icons.verified : Icons.flag_outlined,
-            color: completed ? Colors.green : const Color(0xFF2B4C7E),
+            color: completed ? Colors.green : const Color(0xFF3E6B52),
           ),
           const SizedBox(width: 12),
           Expanded(
@@ -36,7 +36,7 @@ class DailyMissionCard extends StatelessWidget {
                   title,
                   style: Theme.of(context).textTheme.titleMedium?.copyWith(
                         fontWeight: FontWeight.w700,
-                        color: const Color(0xFF1A2F52),
+                        color: const Color(0xFF1F3A2C),
                       ),
                 ),
                 const SizedBox(height: 6),

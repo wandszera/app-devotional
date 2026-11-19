@@ -188,7 +188,7 @@ class _GospelReaderPageState extends State<GospelReaderPage> {
             Text(
               gospel.reference,
               style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                    color: const Color(0xFF2B4C7E),
+                    color: const Color(0xFF3E6B52),
                   ),
             ),
             const SizedBox(height: 24),

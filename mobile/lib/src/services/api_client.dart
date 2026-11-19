@@ -108,6 +108,51 @@ class ApiClient {
     }
   }
 
+  /// Exclui a conta e os dados no servidor (`DELETE /auth/me`, 204).
+  ///
+  /// Conta local exige [password]; conta Google exige [idToken] recente.
+  /// Em caso de sucesso limpa fila offline, cache local e a sessão.
+  Future<void> deleteAccount({String? password, String? idToken}) async {
+    final body = <String, String>{};
+    if (password != null && password.isNotEmpty) {
+      body['password'] = password;
+    }
+    if (idToken != null && idToken.isNotEmpty) {
+      body['id_token'] = idToken;
+    }
+    final request = http.Request('DELETE', Uri.parse('$baseUrl/auth/me'))
+      ..headers.addAll(_headers)
+      ..body = jsonEncode(body);
+    final response = await http.Response.fromStream(
+      await _client.send(request),
+    );
+    if (response.statusCode == 204 ||
+        (response.statusCode >= 200 && response.statusCode < 300)) {
+      await _clearLocalUserData();
+      await authStore.clear();
+      return;
+    }
+    if (response.statusCode == 403 || response.statusCode == 400) {
+      // Não desloga: senha errada ou dado ausente, o usuário pode tentar de novo.
+      String? detail;
+      try {
+        final data = jsonDecode(response.body) as Map<String, dynamic>;
+        detail = data['detail'] is String ? data['detail'] as String : null;
+      } catch (_) {}
+      throw ApiException(
+        detail ?? 'Não foi possível confirmar sua identidade. Tente de novo.',
+      );
+    }
+    _ensureSuccess(response);
+  }
+
+  Future<void> _clearLocalUserData() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.remove(_pendingCompletionsKey);
+    await prefs.remove(_legacyPendingCompletionKey);
+    await LocalDbService().clearUserData();
+  }
+
   Future<UserProfile> updateProfile({
     required String name,
     required String bio,

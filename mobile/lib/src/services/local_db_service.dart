@@ -96,6 +96,23 @@ class LocalDbService {
     ''');
   }
 
+  /// Apaga todo o cache e dados pessoais locais (exclusão de conta).
+  Future<void> clearUserData() async {
+    _memoryFavoritePrayerIds.clear();
+    _memoryGospelPersonalStates.clear();
+    final db = _db;
+    if (db == null) return;
+    for (final table in const [
+      'devotionals',
+      'app_state',
+      'personal_reflections',
+      'prayer_preferences',
+      'gospel_preferences',
+    ]) {
+      await db.delete(table);
+    }
+  }
+
   String _personalReflectionKey(String ownerKey, String devotionalDate) {
     return '$ownerKey:$devotionalDate';
   }

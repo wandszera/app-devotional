@@ -38,7 +38,7 @@ class MetricCard extends StatelessWidget {
               value,
               key: ValueKey<String>(value),
               style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                    color: const Color(0xFF2B4C7E),
+                    color: const Color(0xFF3E6B52),
                     fontWeight: FontWeight.bold,
                   ),
             ),

@@ -4,6 +4,7 @@ from sqlalchemy.orm import Session
 from app.api.deps import get_current_user, get_db
 from app.models.schemas import (
     AuthenticatedUserResponse,
+    DeleteAccountRequest,
     GoogleLoginRequest,
     LoginRequest,
     LoginResponse,
@@ -75,6 +76,21 @@ def logout(payload: RefreshRequest, session: Session = Depends(get_db)) -> Respo
 @router.get("/me", response_model=AuthenticatedUserResponse)
 def me(current_user: User = Depends(get_current_user)) -> AuthenticatedUserResponse:
     return AuthenticatedUserResponse(user=current_user)
+
+
+@router.delete("/me", status_code=status.HTTP_204_NO_CONTENT)
+def delete_me(
+    payload: DeleteAccountRequest,
+    current_user: User = Depends(get_current_user),
+    session: Session = Depends(get_db),
+) -> Response:
+    user_service.delete_account(
+        session,
+        current_user.id,
+        password=payload.password,
+        id_token=payload.id_token,
+    )
+    return Response(status_code=status.HTTP_204_NO_CONTENT)
 
 
 @router.put("/me", response_model=AuthenticatedUserResponse)

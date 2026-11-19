@@ -111,7 +111,7 @@ class _LiturgicalCalendarTabState extends State<LiturgicalCalendarTab> {
           Text(
             'Setembro de 2026',
             style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                  color: const Color(0xFF2B4C7E),
+                  color: const Color(0xFF3E6B52),
                 ),
           ),
           const SizedBox(height: 8),

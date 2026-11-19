@@ -28,7 +28,7 @@ class MilestoneBanner extends StatelessWidget {
             'Proximo marco: $nextMilestone dias',
             style: Theme.of(context).textTheme.titleMedium?.copyWith(
                   fontWeight: FontWeight.w700,
-                  color: const Color(0xFF2B4C7E),
+                  color: const Color(0xFF3E6B52),
                 ),
           ),
           const SizedBox(height: 6),

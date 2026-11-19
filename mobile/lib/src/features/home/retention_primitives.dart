@@ -27,9 +27,9 @@ class ToneBadge extends StatelessWidget {
   (Color, Color) _tonePalette(String value) {
     switch (value) {
       case 'starter':
-        return (const Color(0xFFEAF4FF), const Color(0xFF2B4C7E));
+        return (const Color(0xFFEAF4FF), const Color(0xFF3E6B52));
       case 'building':
-        return (const Color(0xFFF9F1DF), const Color(0xFF2B4C7E));
+        return (const Color(0xFFF9F1DF), const Color(0xFF3E6B52));
       case 'milestone':
         return (const Color(0xFFF6EBD0), const Color(0xFF7A2E3A));
       case 'strong_streak':
@@ -80,7 +80,7 @@ class MetaPill extends StatelessWidget {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(icon, size: 16, color: const Color(0xFF2B4C7E)),
+          Icon(icon, size: 16, color: const Color(0xFF3E6B52)),
           const SizedBox(width: 6),
           Text(
             label,

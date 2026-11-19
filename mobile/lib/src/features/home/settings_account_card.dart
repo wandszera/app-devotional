@@ -42,7 +42,7 @@ class SettingsAccountCard extends StatelessWidget {
               children: [
                 CircleAvatar(
                   radius: 30,
-                  backgroundColor: const Color(0xFF2B4C7E),
+                  backgroundColor: const Color(0xFF3E6B52),
                   child: Text(
                     initial,
                     style: const TextStyle(
@@ -62,7 +62,7 @@ class SettingsAccountCard extends StatelessWidget {
                         style: const TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.w700,
-                          color: Color(0xFF1A2F52),
+                          color: Color(0xFF1F3A2C),
                         ),
                       ),
                       const SizedBox(height: 4),
@@ -93,7 +93,7 @@ class SettingsAccountCard extends StatelessWidget {
                 FilledButton(
                   onPressed: onEditProfile,
                   style: FilledButton.styleFrom(
-                    backgroundColor: const Color(0xFF2B4C7E),
+                    backgroundColor: const Color(0xFF3E6B52),
                   ),
                   child: const Text('Editar Perfil'),
                 ),

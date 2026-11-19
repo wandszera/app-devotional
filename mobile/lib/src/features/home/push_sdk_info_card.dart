@@ -37,7 +37,7 @@ class PushSdkInfoCard extends StatelessWidget {
             currentState?.statusMessage ?? 'Aguardando leitura do status dos lembretes',
             style: Theme.of(context).textTheme.titleSmall?.copyWith(
                   fontWeight: FontWeight.w700,
-                  color: const Color(0xFF2B4C7E),
+                  color: const Color(0xFF3E6B52),
                 ),
           ),
           const SizedBox(height: 8),
