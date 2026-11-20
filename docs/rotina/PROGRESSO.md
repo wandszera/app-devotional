@@ -4,7 +4,7 @@ Controle da tarefa agendada que roda de hora em hora: cada execução faz **uma*
 marca como concluída e deixa a próxima preparada. Branch de trabalho: `rotina/semente`.
 
 ## Estado
-- Em andamento: (nenhuma)
+- Em andamento: N01 — Nome e oração, iniciada 2026-11-20T12:18Z
 - Última execução: 2026-11-19 ~22:35 UTC — F00 concluída. Branch `rotina/semente` criada a partir de `chore/F06-limpar-repo` (já contém o `main`).
 - CI esperado: verde (pytest 43, `flutter analyze` sem issues, `flutter test` 64 com Flutter 3.41.9).
 
