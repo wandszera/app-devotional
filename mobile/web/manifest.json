@@ -1,11 +1,11 @@
 {
-    "name": "app_devocional_mobile",
-    "short_name": "app_devocional_mobile",
+    "name": "Semente – Catequese Diária",
+    "short_name": "Semente",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
     "theme_color": "#0175C2",
-    "description": "A new Flutter project.",
+    "description": "Semente – Catequese Diária: um hábito espiritual diário.",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [

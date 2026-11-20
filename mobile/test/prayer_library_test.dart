@@ -11,7 +11,7 @@ void main() {
     final catalog = await source.load();
 
     expect(catalog.version, '1');
-    expect(catalog.items, hasLength(2));
+    expect(catalog.items, hasLength(3));
     expect(catalog.items.first.text, contains('Exemplo editorial'));
     expect(catalog.items.map((prayer) => prayer.referenceAuthor), contains(
       contains('Santo Inácio de Loyola'),

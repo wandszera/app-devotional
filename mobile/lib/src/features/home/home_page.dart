@@ -63,7 +63,7 @@ class _HomePageState extends State<HomePage> {
               children: [
                 CrossMark(size: 20),
                 SizedBox(width: 10),
-                Text('App Devocional'),
+                Text('Semente'),
               ],
             ),
           ),

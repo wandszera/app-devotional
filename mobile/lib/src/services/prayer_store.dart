@@ -34,6 +34,17 @@ class BundledPrayerCatalogSource implements CatalogSource<PrayerModel> {
           createdAt: _publishedAt,
           updatedAt: _publishedAt,
         ),
+        PrayerModel(
+          id: 'suscipe-santo-inacio',
+          title: 'Tomai, Senhor, e recebei (Suscipe)',
+          text:
+              'Tomai, Senhor, e recebei toda a minha liberdade, a minha memória, o meu entendimento e toda a minha vontade. Tudo o que tenho e possuo, vós mo destes; a vós, Senhor, o devolvo. Tudo é vosso: disponde de tudo segundo a vossa vontade. Dai-me somente o vosso amor e a vossa graça, que isso me basta.',
+          referenceAuthor: 'Santo Inácio de Loyola (Exercícios, n. 234)',
+          category: 'Entrega',
+          isFavorite: false,
+          createdAt: _publishedAt,
+          updatedAt: _publishedAt,
+        ),
       ],
     );
   }

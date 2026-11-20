@@ -47,7 +47,7 @@ class _DevotionalAppState extends State<DevotionalApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'App Devocional',
+      title: 'Semente – Catequese Diária',
       debugShowCheckedModeBanner: false,
       theme: AppTheme.light(),
       home: initialized
