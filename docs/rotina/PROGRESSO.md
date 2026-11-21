@@ -4,7 +4,7 @@ Controle da tarefa agendada que roda de hora em hora: cada execução faz **uma*
 marca como concluída e deixa a próxima preparada. Branch de trabalho: `rotina/semente`.
 
 ## Estado
-- Em andamento: (nenhuma)
+- Em andamento: U01 — Acentos nas telas (iniciada 2026-11-21 12:18 UTC)
 - Última execução: 2026-11-20 ~12:50 UTC — N01 concluída (nome "Semente" no app, web e Android; Suscipe no catálogo de orações).
 - CI esperado: verde (`flutter analyze` sem issues, `flutter test` 64 passou com Flutter 3.41.9; backend sem mudanças nesta etapa).
 
