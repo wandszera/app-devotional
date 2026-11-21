@@ -44,7 +44,7 @@ class ToneBadge extends StatelessWidget {
   String _toneLabel(String value) {
     switch (value) {
       case 'starter':
-        return 'Inicio';
+        return 'Início';
       case 'building':
         return 'Ritmo';
       case 'milestone':

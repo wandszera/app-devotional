@@ -35,7 +35,7 @@ class DevotionalEditorForm extends StatelessWidget {
             children: [
               TextField(
                 controller: titleController,
-                decoration: const InputDecoration(labelText: 'Titulo'),
+                decoration: const InputDecoration(labelText: 'Título'),
               ),
               const HomeFormFieldSpacing(),
               HomeReadOnlyPickerField(

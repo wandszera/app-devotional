@@ -35,7 +35,7 @@ class RetentionCoaching {
       return HabitCoachingMessage(
         title: 'Ritmo protegido',
         body:
-            'Voce ja concluiu o devocional de hoje. Esse tipo de constancia tranquila e o que faz o habito durar.',
+            'Você já concluiu o devocional de hoje. Esse tipo de constância tranquila é o que faz o hábito durar.',
         badgeLabel: 'Hoje contado',
         tone: 'success',
       );
@@ -45,7 +45,7 @@ class RetentionCoaching {
       return HabitCoachingMessage(
         title: 'Primeiro passo',
         body:
-            'O mais importante agora nao e velocidade. E voltar hoje e criar um ponto de partida real.',
+            'O mais importante agora não é velocidade. É voltar hoje e criar um ponto de partida real.',
         badgeLabel: 'Comece com poucos minutos',
         tone: 'starter',
       );
@@ -53,9 +53,9 @@ class RetentionCoaching {
 
     if (nextMilestoneValue != null && nextMilestoneValue - streakValue == 1) {
       return HabitCoachingMessage(
-        title: 'Marco proximo',
+        title: 'Marco próximo',
         body:
-            'Falta so hoje para voce chegar a $nextMilestoneValue dias seguidos. Vale a pena proteger esse ritmo.',
+            'Falta só hoje para você chegar a $nextMilestoneValue dias seguidos. Vale a pena proteger esse ritmo.',
         badgeLabel: 'Meta curta e clara',
         tone: 'milestone',
       );
@@ -65,7 +65,7 @@ class RetentionCoaching {
       return HabitCoachingMessage(
         title: 'Ritmo forte',
         body:
-            'Seu habito ja ganhou corpo. O foco de hoje e manter a consistencia sem complicar a rotina.',
+            'Seu hábito já ganhou corpo. O foco de hoje é manter a consistência sem complicar a rotina.',
         badgeLabel: 'Streak atual de $streakValue dias',
         tone: 'strong',
       );
@@ -74,9 +74,9 @@ class RetentionCoaching {
     return HabitCoachingMessage(
       title: 'Habito em construcao',
       body:
-          'Voce ja tem $streakValue dias seguidos. Continue simples hoje para transformar repeticao em estabilidade.',
+          'Você já tem $streakValue dias seguidos. Continue simples hoje para transformar repetição em estabilidade.',
       badgeLabel: nextMilestoneValue != null
-          ? 'Proximo marco: $nextMilestoneValue dias'
+          ? 'Próximo marco: $nextMilestoneValue dias'
           : 'Continue no ritmo',
       tone: 'building',
     );

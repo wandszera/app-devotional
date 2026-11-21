@@ -43,7 +43,7 @@ class PushSdkInfoCard extends StatelessWidget {
           const SizedBox(height: 8),
           Text(
             currentState?.helpMessage ??
-                'Esta area acompanha como o app vai tratar lembretes e futuras integracoes nativas.',
+                'Esta área acompanha como o app vai tratar lembretes e futuras integrações nativas.',
             style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                   color: const Color(0xFF5E584E),
                 ),

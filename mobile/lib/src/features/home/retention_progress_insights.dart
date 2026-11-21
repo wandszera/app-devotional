@@ -17,7 +17,7 @@ class RetentionProgressInsights {
       return (
         title: 'Seu ritmo vai aparecer aqui',
         body:
-            'Assim que voce concluir alguns dias, vamos destacar seus sinais de consistencia.',
+            'Assim que você concluir alguns dias, vamos destacar seus sinais de consistência.',
         accentLabel: 'Comece hoje',
         weekCount: 0,
         inferredStreak: 0,

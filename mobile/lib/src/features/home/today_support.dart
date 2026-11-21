@@ -14,20 +14,20 @@ class TodaySupport {
   }) {
     if (completed) {
       return (
-        'Missao concluida',
-        'Hoje voce ja marcou seu devocional. Aproveite para sustentar esse ritmo amanha tambem.',
+        'Missão concluída',
+        'Hoje você já marcou seu devocional. Aproveite para sustentar esse ritmo amanhã também.',
       );
     }
 
     if (streakValue == 0) {
       return (
-        'Missao do dia',
-        'Separe alguns minutos e conclua seu primeiro passo de consistencia hoje.',
+        'Missão do dia',
+        'Separe alguns minutos e conclua seu primeiro passo de consistência hoje.',
       );
     }
 
     return (
-      'Missao do dia',
+      'Missão do dia',
       'Conclua o devocional de hoje para proteger seu streak atual de $streakValue dias.',
     );
   }

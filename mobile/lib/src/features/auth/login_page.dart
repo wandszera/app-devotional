@@ -173,8 +173,8 @@ class _LoginPageState extends State<LoginPage> {
                         const SizedBox(height: 12),
                         Text(
                           isRegisterMode
-                              ? 'Comece seu ritmo diario com uma conta simples.'
-                              : 'Volte para o seu devocional diario.',
+                              ? 'Comece seu ritmo diário com uma conta simples.'
+                              : 'Volte para o seu devocional diário.',
                           style: Theme.of(context).textTheme.bodyMedium,
                         ),
                         const SizedBox(height: 24),
@@ -192,7 +192,7 @@ class _LoginPageState extends State<LoginPage> {
                               return 'Informe seu email';
                             }
                             if (!email.contains('@') || !email.contains('.')) {
-                              return 'Informe um email valido';
+                              return 'Informe um email válido';
                             }
                             return null;
                           },
@@ -294,8 +294,8 @@ class _LoginPageState extends State<LoginPage> {
                                 },
                           child: Text(
                             isRegisterMode
-                                ? 'Ja tenho conta'
-                                : 'Ainda nao tenho conta',
+                                ? 'Já tenho conta'
+                                : 'Ainda não tenho conta',
                           ),
                         ),
                       ],

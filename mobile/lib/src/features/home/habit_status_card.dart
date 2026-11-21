@@ -56,7 +56,7 @@ class HabitStatusCard extends StatelessWidget {
               if (snapshot.nextMilestone != null)
                 MetaPill(
                   icon: Icons.flag_outlined,
-                  label: 'Proximo ${snapshot.nextMilestone}',
+                  label: 'Próximo ${snapshot.nextMilestone}',
                 ),
               if (snapshot.weekCount > 0)
                 MetaPill(

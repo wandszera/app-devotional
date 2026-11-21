@@ -75,7 +75,7 @@ class PlatformPushSdkBridge implements PushSdkBridge {
         pushToken: null,
         statusMessage: 'Lembretes funcionando sem push nativo',
         helpMessage:
-            'Nesta etapa o app salva apenas o horario do lembrete no backend. O navegador continua sem push nativo configurado.',
+            'Nesta etapa o app salva apenas o horário do lembrete no backend. O navegador continua sem push nativo configurado.',
       );
     }
 
@@ -85,9 +85,9 @@ class PlatformPushSdkBridge implements PushSdkBridge {
         isSupported: false,
         permissionStatus: PushPermissionStatus.notSupported,
         pushToken: null,
-        statusMessage: 'Lembrete diario salvo sem SDK nativo',
+        statusMessage: 'Lembrete diário salvo sem SDK nativo',
         helpMessage:
-            'Android e iOS seguem usando apenas a configuracao de horario no backend. A captura de permissao e token do dispositivo ficou para uma etapa futura.',
+            'Android e iOS seguem usando apenas a configuração de horário no backend. A captura de permissão e token do dispositivo ficou para uma etapa futura.',
       );
     }
 
@@ -98,7 +98,7 @@ class PlatformPushSdkBridge implements PushSdkBridge {
       pushToken: null,
       statusMessage: 'Lembretes sem push nativo nesta plataforma',
       helpMessage:
-          'O app continua permitindo salvar horario e timezone do lembrete, mesmo sem integracao nativa de notificacao.',
+          'O app continua permitindo salvar horário e timezone do lembrete, mesmo sem integração nativa de notificação.',
     );
   }
 }

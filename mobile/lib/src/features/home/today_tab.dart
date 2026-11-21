@@ -105,7 +105,7 @@ class _TodayTabState extends State<TodayTab> {
         final devotionalData = state.devotional;
         final streakData = state.streak;
         if (devotionalData == null || streakData == null) {
-          return const HomeEmptyView(message: 'Nenhum conteudo encontrado.');
+          return const HomeEmptyView(message: 'Nenhum conteúdo encontrado.');
         }
         final nextMilestone =
             RetentionSupport.nextMilestone(streakData.currentStreak);
@@ -131,7 +131,7 @@ class _TodayTabState extends State<TodayTab> {
 
         return TodayTabContent(
           greeting: greeting,
-          focusMessage: 'Seu foco de hoje e voltar com calma e constancia.',
+          focusMessage: 'Seu foco de hoje é voltar com calma e constância.',
           coaching: coaching,
           officialMilestone: streakData.latestMilestone,
           habitStatus: habitStatus,

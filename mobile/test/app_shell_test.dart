@@ -123,7 +123,7 @@ void main() {
 
     expect(find.text('Marco'), findsOneWidget);
     expect(find.textContaining('Streak 2'), findsOneWidget);
-    expect(find.textContaining('Proximo marco 3'), findsOneWidget);
+    expect(find.textContaining('Próximo marco 3'), findsOneWidget);
     expect(find.textContaining('chegar a 3 dias'), findsOneWidget);
   });
 
@@ -149,8 +149,8 @@ void main() {
     await tester.tap(find.text('Progresso'));
     await tester.pumpAndSettle();
 
-    expect(find.text('Status do habito'), findsWidgets);
-    expect(find.textContaining('4 dias na ultima semana'), findsOneWidget);
+    expect(find.text('Status do hábito'), findsWidgets);
+    expect(find.textContaining('4 dias na última semana'), findsOneWidget);
     expect(find.textContaining('Marco 3'), findsOneWidget);
   });
 }

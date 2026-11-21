@@ -47,7 +47,7 @@ class _ProgressTabState extends State<ProgressTab> {
 
         if (state.progress.isEmpty) {
           return const HomeEmptyView(
-            message: 'Seu historico aparecera aqui quando voce concluir dias.',
+            message: 'Seu histórico aparecerá aqui quando você concluir dias.',
           );
         }
         final presentation = ProgressSupport.buildPresentation(

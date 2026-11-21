@@ -190,7 +190,7 @@ class _NotificationPromptPageState extends State<NotificationPromptPage> {
               ),
               const SizedBox(height: 24),
               Text(
-                'Escolha seu lembrete diario',
+                'Escolha seu lembrete diário',
                 style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                       fontWeight: FontWeight.w800,
                       color: const Color(0xFF1F3A2C),
@@ -198,7 +198,7 @@ class _NotificationPromptPageState extends State<NotificationPromptPage> {
               ),
               const SizedBox(height: 12),
               Text(
-                'Esse horario ajuda voce a voltar todos os dias. Escolha um momento simples e realista.',
+                'Esse horário ajuda você a voltar todos os dias. Escolha um momento simples e realista.',
                 style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                       height: 1.6,
                       color: const Color(0xFF5E584E),
@@ -223,7 +223,7 @@ class _NotificationPromptPageState extends State<NotificationPromptPage> {
                     ),
                     SizedBox(height: 6),
                     Text(
-                      'Tente manter 3 dias seguidos. E uma meta curta o bastante para comecar bem e forte o bastante para criar ritmo.',
+                      'Tente manter 3 dias seguidos. É uma meta curta o bastante para começar bem e forte o bastante para criar ritmo.',
                     ),
                   ],
                 ),
@@ -245,8 +245,8 @@ class _NotificationPromptPageState extends State<NotificationPromptPage> {
                         });
                       },
                 contentPadding: EdgeInsets.zero,
-                title: const Text('Ativar lembrete diario'),
-                subtitle: const Text('Voce podera mudar isso depois'),
+                title: const Text('Ativar lembrete diário'),
+                subtitle: const Text('Você poderá mudar isso depois'),
               ),
               const SizedBox(height: 12),
               Wrap(
@@ -267,7 +267,7 @@ class _NotificationPromptPageState extends State<NotificationPromptPage> {
                 readOnly: true,
                 onTap: saving ? null : _pickReminderTime,
                 decoration: const InputDecoration(
-                  labelText: 'Horario',
+                  labelText: 'Horário',
                   suffixIcon: Icon(Icons.access_time),
                 ),
               ),
@@ -292,7 +292,7 @@ class _NotificationPromptPageState extends State<NotificationPromptPage> {
               ),
               const SizedBox(height: 8),
               Text(
-                'Voce pode deixar em branco agora e preencher depois nos ajustes.',
+                'Você pode deixar em branco agora e preencher depois nos ajustes.',
                 style: Theme.of(context).textTheme.bodySmall?.copyWith(
                       color: const Color(0xFF5E584E),
                     ),
@@ -393,7 +393,7 @@ class _PushSdkStatusCard extends StatelessWidget {
                         FilledButton.icon(
                           onPressed: onRequestPermission,
                           icon: const Icon(Icons.notifications_active),
-                          label: const Text('Pedir permissao'),
+                          label: const Text('Pedir permissão'),
                         ),
                     ],
                   ),

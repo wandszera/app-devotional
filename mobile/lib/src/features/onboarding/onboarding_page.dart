@@ -23,19 +23,19 @@ class _OnboardingPageState extends State<OnboardingPage> {
     (
       title: 'Volte um pouco a cada dia',
       body:
-          'O objetivo nao e correr. E voltar todos os dias para construir um ritmo espiritual constante.',
+          'O objetivo não é correr. É voltar todos os dias para construir um ritmo espiritual constante.',
       icon: Icons.wb_twilight_outlined,
     ),
     (
-      title: 'Seu streak mostra consistencia',
+      title: 'Seu streak mostra consistência',
       body:
-          'Cada conclusao fortalece seu habito. Marcos como 3, 7 e 30 dias ajudam a manter o foco.',
+          'Cada conclusão fortalece seu hábito. Marcos como 3, 7 e 30 dias ajudam a manter o foco.',
       icon: Icons.local_fire_department_outlined,
     ),
     (
-      title: 'Ative o lembrete diario',
+      title: 'Ative o lembrete diário',
       body:
-          'Escolha um horario simples e realista. O melhor horario e aquele que voce consegue manter.',
+          'Escolha um horário simples e realista. O melhor horário é aquele que você consegue manter.',
       icon: Icons.notifications_active_outlined,
     ),
   ];

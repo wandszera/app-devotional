@@ -135,7 +135,7 @@ class DevotionalGuidanceModel {
     return DevotionalGuidanceModel(
       title: json['title'] as String? ?? 'Habito em construcao',
       body: json['body'] as String? ??
-          'Continue simples hoje para transformar repeticao em estabilidade.',
+          'Continue simples hoje para transformar repetição em estabilidade.',
       accentLabel: json['accent_label'] as String? ?? 'Continue no ritmo',
       tone: json['tone'] as String? ?? 'building',
       currentStreak: json['current_streak'] as int? ?? 0,
@@ -166,7 +166,7 @@ class DevotionalCompletionFeedbackModel {
   factory DevotionalCompletionFeedbackModel.fromJson(
       Map<String, dynamic> json) {
     return DevotionalCompletionFeedbackModel(
-      title: json['title'] as String? ?? 'Dia concluido',
+      title: json['title'] as String? ?? 'Dia concluído',
       body: json['body'] as String? ??
           'Hoje contou para seu streak. Continue simples e siga no ritmo.',
       tone: json['tone'] as String? ?? 'progress',

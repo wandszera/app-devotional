@@ -25,7 +25,7 @@ class TodayActionButtons extends StatelessWidget {
           onPressed: completed || submitting ? null : onComplete,
           child: Text(
             completed
-                ? 'Concluido hoje'
+                ? 'Concluído hoje'
                 : submitting
                     ? 'Enviando...'
                     : 'Concluir hoje',

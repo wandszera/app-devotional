@@ -79,7 +79,7 @@ class ProgressInsightCard extends StatelessWidget {
               ),
               MetaPill(
                 icon: Icons.local_fire_department_outlined,
-                label: 'Sequencia $inferredStreak',
+                label: 'Sequência $inferredStreak',
               ),
               if (latestMilestone != null)
                 MetaPill(

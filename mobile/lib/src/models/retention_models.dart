@@ -27,10 +27,10 @@ class HabitStatusSnapshot {
   }) {
     if (completedToday) {
       return HabitStatusSnapshot(
-        title: 'Status do habito',
+        title: 'Status do hábito',
         body:
-            'Hoje ja foi contado. O mais importante agora e proteger esse ritmo com leveza amanha tambem.',
-        badgeLabel: 'Hoje concluido',
+            'Hoje já foi contado. O mais importante agora é proteger esse ritmo com leveza amanhã também.',
+        badgeLabel: 'Hoje concluído',
         tone: 'success',
         currentStreak: currentStreak,
         officialMilestone: officialMilestone,
@@ -41,9 +41,9 @@ class HabitStatusSnapshot {
 
     if (currentStreak == 0) {
       return HabitStatusSnapshot(
-        title: 'Status do habito',
+        title: 'Status do hábito',
         body:
-            'Seu habito ainda esta no ponto de partida. O objetivo de hoje e so voltar e registrar um primeiro passo real.',
+            'Seu hábito ainda está no ponto de partida. O objetivo de hoje é só voltar e registrar um primeiro passo real.',
         badgeLabel: 'Ponto de partida',
         tone: 'starter',
         currentStreak: currentStreak,
@@ -55,9 +55,9 @@ class HabitStatusSnapshot {
 
     if (nextMilestone != null && nextMilestone - currentStreak == 1) {
       return HabitStatusSnapshot(
-        title: 'Status do habito',
+        title: 'Status do hábito',
         body:
-            'Voce esta a um passo do proximo marco. Hoje vale como protecao de ritmo e como avancao concreta.',
+            'Você está a um passo do próximo marco. Hoje vale como proteção de ritmo e como avanço concreto.',
         badgeLabel: 'Marco logo adiante',
         tone: 'milestone',
         currentStreak: currentStreak,
@@ -68,9 +68,9 @@ class HabitStatusSnapshot {
     }
 
     return HabitStatusSnapshot(
-      title: 'Status do habito',
+      title: 'Status do hábito',
       body:
-          'Seu ritmo esta ativo. O foco de hoje e manter a sequencia simples o suficiente para continuar amanha.',
+          'Seu ritmo está ativo. O foco de hoje é manter a sequência simples o suficiente para continuar amanhã.',
       badgeLabel: 'Ritmo ativo',
       tone: currentStreak >= 7 ? 'strong' : 'building',
       currentStreak: currentStreak,
@@ -89,10 +89,10 @@ class HabitStatusSnapshot {
   }) {
     if (officialMilestone != null) {
       return HabitStatusSnapshot(
-        title: 'Status do habito',
+        title: 'Status do hábito',
         body:
-            'Seu melhor streak ja confirmou um marco oficial. Agora o foco e sustentar esse patamar no ritmo da semana.',
-        badgeLabel: '$weekCount dias na ultima semana',
+            'Seu melhor streak já confirmou um marco oficial. Agora o foco é sustentar esse patamar no ritmo da semana.',
+        badgeLabel: '$weekCount dias na última semana',
         tone: 'milestone',
         currentStreak: inferredStreak,
         officialMilestone: officialMilestone,
@@ -103,10 +103,10 @@ class HabitStatusSnapshot {
 
     if (weekCount >= 5) {
       return HabitStatusSnapshot(
-        title: 'Status do habito',
+        title: 'Status do hábito',
         body:
-            'Sua frequencia da semana esta forte. Isso mostra aderencia real e sinal de rotina mais estavel.',
-        badgeLabel: '$monthCount dias neste mes',
+            'Sua frequência da semana está forte. Isso mostra aderência real e sinal de rotina mais estável.',
+        badgeLabel: '$monthCount dias neste mês',
         tone: 'strong',
         currentStreak: inferredStreak,
         officialMilestone: officialMilestone,
@@ -116,10 +116,10 @@ class HabitStatusSnapshot {
     }
 
     return HabitStatusSnapshot(
-      title: 'Status do habito',
+      title: 'Status do hábito',
       body:
-          'Seu historico recente mostra movimento. O proximo ganho vem de repetir mais alguns dias em sequencia.',
-      badgeLabel: '$weekCount dias na ultima semana',
+          'Seu histórico recente mostra movimento. O próximo ganho vem de repetir mais alguns dias em sequência.',
+      badgeLabel: '$weekCount dias na última semana',
       tone: inferredStreak >= 2 ? 'building' : 'starter',
       currentStreak: inferredStreak,
       officialMilestone: officialMilestone,

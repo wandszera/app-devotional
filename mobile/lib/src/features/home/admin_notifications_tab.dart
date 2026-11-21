@@ -39,7 +39,7 @@ class _AdminNotificationsTabState extends State<AdminNotificationsTab> {
       }
       HomeFeedback.showSuccess(
         context,
-        '${sent.length} notificacoes processadas',
+        '${sent.length} notificações processadas',
       );
     } on ApiException catch (error) {
       if (!mounted) {

@@ -27,7 +27,7 @@ class AdminDeliveryListItem extends StatelessWidget {
         ),
         title: Text(item.title),
         subtitle: Text(
-          'Usuario ${item.userId} â€¢ ${item.status}\n${item.scheduledFor}',
+          'Usuário ${item.userId} • ${item.status}\n${item.scheduledFor}',
         ),
         isThreeLine: true,
       ),

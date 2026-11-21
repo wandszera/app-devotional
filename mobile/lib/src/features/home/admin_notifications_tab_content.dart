@@ -59,7 +59,7 @@ class AdminNotificationsTabContent extends StatelessWidget {
           const HomeGap12(),
           if (dueNotifications.isEmpty)
             const HomeEmptyCard(
-              message: 'Nenhuma notificacao devida no momento.',
+              message: 'Nenhuma notificação devida no momento.',
             )
           else
             ...dueNotifications.map(

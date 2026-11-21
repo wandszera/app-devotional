@@ -31,13 +31,13 @@ class SettingsReminderForm extends StatelessWidget {
         SwitchListTile(
           value: enabled,
           onChanged: onToggleEnabled,
-          title: const Text('Lembrete diario'),
-          subtitle: const Text('Ativa o envio do devocional diario'),
+          title: const Text('Lembrete diário'),
+          subtitle: const Text('Ativa o envio do devocional diário'),
         ),
         const SizedBox(height: 12),
         HomeReadOnlyPickerField(
           controller: timeController,
-          labelText: 'Horario',
+          labelText: 'Horário',
           hintText: '08:00',
           onTap: onPickReminderTime,
           suffixIcon: const Icon(Icons.access_time),
@@ -57,7 +57,7 @@ class SettingsReminderForm extends StatelessWidget {
           maxLines: 4,
           decoration: const InputDecoration(
             labelText: 'Push token manual (opcional)',
-            hintText: 'Cole aqui um token do provedor, se voce tiver um',
+            hintText: 'Cole aqui um token do provedor, se você tiver um',
           ),
         ),
         const SizedBox(height: 8),

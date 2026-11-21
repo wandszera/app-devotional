@@ -32,7 +32,7 @@ class TodayFlow {
       builder: (context) => AlertDialog(
         title: const Text('Marco alcancado'),
         content: Text(
-          'Voce chegou a $milestone dias seguidos. Continue firme nesse ritmo.',
+          'Você chegou a $milestone dias seguidos. Continue firme nesse ritmo.',
         ),
         actions: [
           TextButton(

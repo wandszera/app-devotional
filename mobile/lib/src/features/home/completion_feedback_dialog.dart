@@ -69,7 +69,7 @@ class CompletionFeedbackDialog {
                 if (feedback.nextMilestone != null)
                   MetaPill(
                     icon: Icons.flag_outlined,
-                    label: 'Proximo ${feedback.nextMilestone}',
+                    label: 'Próximo ${feedback.nextMilestone}',
                   ),
               ],
             ),

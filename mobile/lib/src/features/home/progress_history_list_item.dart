@@ -26,7 +26,7 @@ class ProgressHistoryListItem extends StatelessWidget {
           color: const Color(0xFF3E6B52),
         ),
         title: Text(date),
-        subtitle: const Text('Devocional marcado como concluido'),
+        subtitle: const Text('Devocional marcado como concluído'),
       ),
     );
   }

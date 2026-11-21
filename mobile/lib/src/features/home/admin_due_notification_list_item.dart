@@ -56,14 +56,14 @@ class AdminDueNotificationListItem extends StatelessWidget {
                 if (item.nextMilestone != null)
                   MetaPill(
                     icon: Icons.flag_outlined,
-                    label: 'Proximo marco ${item.nextMilestone}',
+                    label: 'Próximo marco ${item.nextMilestone}',
                   ),
               ],
             ),
           ],
         ),
         subtitle: Text(
-          '${item.email}\n${item.timezone} â€¢ ${item.reminderTime}',
+          '${item.email}\n${item.timezone} • ${item.reminderTime}',
         ),
         isThreeLine: true,
       ),
