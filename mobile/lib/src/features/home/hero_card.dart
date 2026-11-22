@@ -8,6 +8,8 @@ class HeroCard extends StatelessWidget {
     required this.title,
     required this.body,
     required this.date,
+    this.liturgicalTitle = '',
+    this.gospelReference = '',
     this.isFavorited = false,
     this.onToggleFavorite,
     super.key,
@@ -16,6 +18,8 @@ class HeroCard extends StatelessWidget {
   final String title;
   final String body;
   final String date;
+  final String liturgicalTitle;
+  final String gospelReference;
   final bool isFavorited;
   final VoidCallback? onToggleFavorite;
 
@@ -85,6 +89,28 @@ class HeroCard extends StatelessWidget {
           ),
           const SizedBox(height: 14),
           const OrnamentDivider(),
+          if (liturgicalTitle.isNotEmpty) ...[
+            const SizedBox(height: 14),
+            Text(
+              liturgicalTitle,
+              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                    color: AppColors.goldLight,
+                    fontStyle: FontStyle.italic,
+                    height: 1.4,
+                  ),
+            ),
+          ],
+          if (gospelReference.isNotEmpty) ...[
+            const SizedBox(height: 6),
+            Text(
+              'Evangelho: $gospelReference',
+              style: const TextStyle(
+                color: Colors.white70,
+                fontSize: 13,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+          ],
           const SizedBox(height: 16),
           Text(
             body,

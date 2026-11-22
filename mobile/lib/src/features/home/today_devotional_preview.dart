@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../models/devotional_models.dart';
 import 'hero_card.dart';
+import 'today_support.dart';
 
 class TodayDevotionalPreview extends StatelessWidget {
   const TodayDevotionalPreview({
@@ -23,7 +24,9 @@ class TodayDevotionalPreview extends StatelessWidget {
       child: HeroCard(
         title: devotional.title,
         body: devotional.content,
-        date: devotional.date,
+        date: TodaySupport.formatDayPtBr(devotional.date),
+        liturgicalTitle: devotional.liturgicalTitle,
+        gospelReference: devotional.gospelReference,
         isFavorited: devotional.isFavorited,
         onToggleFavorite: onToggleFavorite,
       ),

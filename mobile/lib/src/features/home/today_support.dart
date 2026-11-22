@@ -1,4 +1,27 @@
 class TodaySupport {
+  static const _monthsPtBr = [
+    'janeiro',
+    'fevereiro',
+    'março',
+    'abril',
+    'maio',
+    'junho',
+    'julho',
+    'agosto',
+    'setembro',
+    'outubro',
+    'novembro',
+    'dezembro',
+  ];
+
+  /// Converte "2026-11-19" em "19 de novembro". Se não for uma data ISO válida,
+  /// devolve o texto original.
+  static String formatDayPtBr(String isoDate) {
+    final date = DateTime.tryParse(isoDate);
+    if (date == null) return isoDate;
+    return '${date.day} de ${_monthsPtBr[date.month - 1]}';
+  }
+
   static String greetingForHour(int hour, [String? name]) {
     final period = hour < 12 ? 'Bom dia' : (hour < 18 ? 'Boa tarde' : 'Boa noite');
     if (name != null && name.trim().isNotEmpty) {
