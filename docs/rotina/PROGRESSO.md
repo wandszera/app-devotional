@@ -4,7 +4,7 @@ Controle da tarefa agendada que roda de hora em hora: cada execução faz **uma*
 marca como concluída e deixa a próxima preparada. Branch de trabalho: `rotina/semente`.
 
 ## Estado
-- Em andamento: (nenhuma)
+- Em andamento: U02 — Card "Hoje" (iniciada 2026-11-22 12:18 UTC)
 - Última execução: 2026-11-21 ~12:18–13:00 UTC — U01 concluída (acentos nas telas e mojibake `â€¢` corrigido em mobile/lib).
 - CI esperado: verde (`flutter analyze` sem issues, `flutter test` 64 passou com Flutter 3.41.9; `pytest` 43 passou; backend sem mudanças nesta etapa).
 
