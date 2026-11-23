@@ -4,13 +4,13 @@ Controle da tarefa agendada que roda de hora em hora: cada execução faz **uma*
 marca como concluída e deixa a próxima preparada. Branch de trabalho: `rotina/semente`.
 
 ## Estado
-- Em andamento: C01-L2 (reflexões do Advento, lote 2), iniciada 2026-11-23 12:20 UTC
-- Última execução: 2026-11-22 ~12:18–12:50 UTC — U02 concluída (card Hoje com data em pt-BR, título litúrgico e referência do Evangelho).
-- CI esperado: verde (`flutter analyze` sem issues; `flutter test` 68 passou com Flutter 3.41.9; `pytest` 43 passou; backend sem mudanças nesta etapa).
+- Em andamento: (nenhuma)
+- Última execução: 2026-11-23 ~12:20–12:40 UTC — C01-L2 concluída (rascunho das reflexões do Advento, 08–14/12).
+- CI esperado: verde (nesta etapa só mudou documentação; último `flutter test` 68 passou, `pytest` 43 passou, na U02).
 
 ## Próxima etapa preparada
-**C01-L2 — Reflexões do Advento, lote 2 (08–14/12; 08/12 Imaculada Conceição)** em `docs/reflexoes-rascunho-advento-lote2.md`, mesmo formato do lote 1. Referências conferidas na Liturgia Diária das Edições CNBB (fonte indicada); texto bíblico só como referência (D05); reflexões como rascunho para revisão humana, fora do CSV/catálogo até aprovação.
-Para o Wanderson: revisar a tradução própria do Suscipe (`mobile/lib/src/services/prayer_store.dart`, fonte: Exercícios Espirituais de Santo Inácio, n. 234) antes de ele ir para a loja. Confirmar o nome final "Semente – Catequese Diária" (D01); se mudar, é só trocar as strings de `app.dart`, `home_page.dart`, `web/index.html`, `web/manifest.json` e `AndroidManifest.xml`. Conferir no aparelho o card Hoje (data "19 de novembro", título litúrgico e "Evangelho: …"); o texto vem do backend, nada mudou na API.
+**T01 — Cores para o ColorScheme (parte 1):** migrar cores fixas (`Colors.white`, hex literais, `AppColors.*` const) para `Theme.of(context).colorScheme` nas telas da aba Hoje. Exige Flutter 3.41.9 no ambiente (instalar conforme CLAUDE.md/AGENTS.md) e `flutter analyze` + `flutter test` passando antes do commit. Sem mudança de API.
+Para o Wanderson: revisar as reflexões dos lotes 1 e 2 (`docs/reflexoes-rascunho-advento-lote1.md` e `docs/reflexoes-rascunho-advento-lote2.md`) e decidir D04 (quem revisa) para que os textos possam entrar no CSV. Revisar a tradução própria do Suscipe (`mobile/lib/src/services/prayer_store.dart`, fonte: Exercícios Espirituais de Santo Inácio, n. 234) antes da loja. Confirmar o nome final "Semente – Catequese Diária" (D01). Conferir no aparelho o card Hoje (data "19 de novembro", título litúrgico e "Evangelho: …").
 
 ## Regras rápidas
 - Uma etapa por execução. Etapa "em andamento" há menos de 50 min = outra execução trabalhando: não fazer nada.
@@ -19,12 +19,11 @@ Para o Wanderson: revisar a tradução própria do Suscipe (`mobile/lib/src/serv
 - `pytest` e `flutter analyze` + `flutter test` (mobile/) passando antes de cada commit.
 
 ## Fila (em ordem)
-1. **C01-L2 — Reflexões do Advento, lote 2 (08–14/12; 08/12 Imaculada Conceição)** em `docs/reflexoes-rascunho-advento-lote2.md`, mesmo formato do lote 1, referências conferidas na Liturgia Diária das Edições CNBB.
-2. **T01 — Cores para o ColorScheme (parte 1):** migrar cores fixas (`Colors.white`, hex literais, `AppColors.*` const) para `Theme.of(context).colorScheme` nas telas da aba Hoje.
-3. **T02 — ColorScheme (parte 2):** demais telas (Calendário, Progresso, Orações, Ajustes, Leitor, onboarding, login).
-4. **T03 — Modo escuro:** `AppTheme.dark()` + `themeMode: ThemeMode.system`; conferir contraste (ver `docs/plano-modo-escuro.md`).
-5. **C01-L3..L6 — Reflexões, lotes 3 a 6** (15/12–10/01), um lote por etapa.
-6. **S01 — Assinatura do AAB:** aplicar no gradle a leitura de `key.properties` (sem segredo no repo), seguindo `docs/roteiro-assinatura-aab.md`.
+1. **T01 — Cores para o ColorScheme (parte 1):** migrar cores fixas (`Colors.white`, hex literais, `AppColors.*` const) para `Theme.of(context).colorScheme` nas telas da aba Hoje.
+2. **T02 — ColorScheme (parte 2):** demais telas (Calendário, Progresso, Orações, Ajustes, Leitor, onboarding, login).
+3. **T03 — Modo escuro:** `AppTheme.dark()` + `themeMode: ThemeMode.system`; conferir contraste (ver `docs/plano-modo-escuro.md`).
+4. **C01-L3..L6 — Reflexões, lotes 3 a 6** (15/12–10/01), um lote por etapa.
+5. **S01 — Assinatura do AAB:** aplicar no gradle a leitura de `key.properties` (sem segredo no repo), seguindo `docs/roteiro-assinatura-aab.md`.
 
 ## Bloqueadas (esperando decisão do Wanderson)
 - A02 applicationId e novo app Firebase — D01 (nome final) e D06 (domínio).
@@ -33,6 +32,10 @@ Para o Wanderson: revisar a tradução própria do Suscipe (`mobile/lib/src/serv
 - Texto bíblico completo — D05.
 
 ## Histórico
+- **C01-L2 — Reflexões do Advento, lote 2 (08–14/12)** — concluída 2026-11-23 (UTC).
+  - Arquivos: `docs/reflexoes-rascunho-advento-lote2.md` (novo; 7 textos, 08/12 Imaculada Conceição e 13/12 Gaudete incluídos). Mesmo formato do lote 1: rascunho, sem texto bíblico, cada texto termina com pergunta e passo prático. Referências copiadas do `docs/calendario-editorial-2026-12-a-2027-03.csv` (já conferidas na Liturgia Diária das Edições CNBB no C01). CSV, catálogo e código não mudaram.
+  - Testes: não rodados nesta etapa, pois só um arquivo `.md` novo foi criado (nenhum código, API ou teste tocado).
+  - Pendências: revisão humana (D04) de sensibilidade teológica e tamanho; confirmar as referências do 08/12 e do 13/12 contra a página da CNBB antes de colar no CSV.
 - **U02 — Card "Hoje"** — concluída 2026-11-22 (UTC).
   - Arquivos: `mobile/lib/src/features/home/today_support.dart` (novo `TodaySupport.formatDayPtBr`: "2026-11-19" → "19 de novembro"; devolve o texto original se não for ISO); `hero_card.dart` (campos opcionais `liturgicalTitle` e `gospelReference`, exibidos só quando preenchidos: título litúrgico em itálico dourado e "Evangelho: <referência>" entre o ornamento e o corpo); `today_devotional_preview.dart` (passa a data formatada e os dois campos); `mobile/test/today_devotional_preview_test.dart` (novo, 4 testes).
   - Backend e contrato da API não mudaram (o endpoint já devolvia `liturgical_title` e `gospel_reference`).
