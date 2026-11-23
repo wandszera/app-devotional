@@ -4,7 +4,7 @@ Controle da tarefa agendada que roda de hora em hora: cada execução faz **uma*
 marca como concluída e deixa a próxima preparada. Branch de trabalho: `rotina/semente`.
 
 ## Estado
-- Em andamento: (nenhuma)
+- Em andamento: C01-L2 (reflexões do Advento, lote 2), iniciada 2026-11-23 12:20 UTC
 - Última execução: 2026-11-22 ~12:18–12:50 UTC — U02 concluída (card Hoje com data em pt-BR, título litúrgico e referência do Evangelho).
 - CI esperado: verde (`flutter analyze` sem issues; `flutter test` 68 passou com Flutter 3.41.9; `pytest` 43 passou; backend sem mudanças nesta etapa).
 
