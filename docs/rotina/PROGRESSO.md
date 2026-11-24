@@ -4,13 +4,13 @@ Controle da tarefa agendada que roda de hora em hora: cada execução faz **uma*
 marca como concluída e deixa a próxima preparada. Branch de trabalho: `rotina/semente`.
 
 ## Estado
-- Em andamento: T03 — Modo escuro, parte 1 (iniciada 2026-11-24 13:52 UTC)
-- Última execução: 2026-11-24 12:52–12:59 UTC — T02 concluída (demais telas migradas para o ColorScheme).
-- CI esperado: verde (T02: `flutter analyze` sem issues e `flutter test` 68 passou; backend não tocado).
+- Em andamento: (nenhuma)
+- Última execução: 2026-11-24 13:52–13:58 UTC — T03 concluída (AppPalette criado; tema escuro definido, não ativado).
+- CI esperado: verde (T03: `flutter analyze` sem issues e `flutter test` 71 passou; backend não tocado).
 
 ## Próxima etapa preparada
-**T03 — Modo escuro, parte 1 (AppPalette, sem ativar):** seguindo `docs/plano-modo-escuro.md`, criar `AppPalette extends ThemeExtension<AppPalette>` em `mobile/lib/src/theme/` com os tokens claro/escuro da tabela do plano (os valores claros são os de `AppColors`), a extensão `context.palette` e `AppTheme.dark()` definido mas não usado: `themeMode` continua claro, então o app não muda de aparência. Migrar só o Lote 1 (`app_theme.dart`) e o uso do AppPalette nos widgets que já estão no Lote 1. Sem mudança de API. Exige `flutter analyze` + `flutter test` passando antes do commit.
-Para o Wanderson: aprovar ou ajustar a paleta escura proposta (tabela do plano, ainda não aprovada) antes de a rotina ativar o modo escuro; decidir se Ajustes ganha a opção Claro/Escuro/Sistema. Conferir visualmente Leitor, Calendário, Orações, Progresso, Ajustes e login (a T02 não teve captura de tela). Revisar as reflexões dos lotes 1 e 2 e decidir D04 (revisor) para que os textos possam entrar no CSV. Revisar a tradução própria do Suscipe (`mobile/lib/src/services/prayer_store.dart`, fonte: Exercícios Espirituais, n. 234) antes da loja. Confirmar o nome final "Semente – Catequese Diária" (D01).
+**T04 — Modo escuro, partes 2 e 3 (migrar os lotes do plano):** seguindo `docs/plano-modo-escuro.md`, migrar os usos de cor dos lotes 4, 2, 3 e 5 (Progresso/Ajustes/Perfil, Hoje, Leitor/Orações/Calendário, entrada/admin), trocando `AppColors.x` e literais por `context.palette.x`. Um lote por commit; em cada lote, `flutter analyze` + `flutter test`. Só depois do último lote: `themeMode: ThemeMode.system` em `app.dart` e conferir contraste. Sem mudança de API.
+Para o Wanderson: a paleta escura (`AppPalette.dark`) ainda é proposta; os tokens `goldLight`, `success` e `successSoft` escuros foram escolhidos por analogia e precisam de aprovação. Decidir se Ajustes ganha Claro/Escuro/Sistema. Conferir visualmente Hoje, Leitor, Calendário, Orações, Progresso, Ajustes e login (T01, T02 e T03 não tiveram captura de tela). Revisar as reflexões dos lotes 1 e 2 e decidir D04 (revisor). Revisar a tradução própria do Suscipe antes da loja. Confirmar o nome final "Semente – Catequese Diária" (D01).
 
 ## Regras rápidas
 - Uma etapa por execução. Etapa "em andamento" há menos de 50 min = outra execução trabalhando: não fazer nada.
@@ -19,10 +19,9 @@ Para o Wanderson: aprovar ou ajustar a paleta escura proposta (tabela do plano, 
 - `pytest` e `flutter analyze` + `flutter test` (mobile/) passando antes de cada commit.
 
 ## Fila (em ordem)
-1. **T03 — Modo escuro, parte 1:** AppPalette + `AppTheme.dark()` sem ativar; Lote 1 do plano.
-2. **T04 — Modo escuro, partes 2 e 3:** migrar os demais lotes do plano (Leitor/Orações/Calendário, Progresso/Ajustes, Hoje, entrada), depois `themeMode: ThemeMode.system` e conferir contraste. Uma etapa por lote.
-3. **C01-L3..L6 — Reflexões, lotes 3 a 6** (15/12–10/01), um lote por etapa.
-4. **S01 — Assinatura do AAB:** aplicar no gradle a leitura de `key.properties` (sem segredo no repo), seguindo `docs/roteiro-assinatura-aab.md`.
+1. **T04 — Modo escuro, partes 2 e 3:** migrar os demais lotes do plano (Leitor/Orações/Calendário, Progresso/Ajustes, Hoje, entrada), depois `themeMode: ThemeMode.system` e conferir contraste. Uma etapa por lote.
+2. **C01-L3..L6 — Reflexões, lotes 3 a 6** (15/12–10/01), um lote por etapa.
+3. **S01 — Assinatura do AAB:** aplicar no gradle a leitura de `key.properties` (sem segredo no repo), seguindo `docs/roteiro-assinatura-aab.md`.
 
 ## Bloqueadas (esperando decisão do Wanderson)
 - A02 applicationId e novo app Firebase — D01 (nome final) e D06 (domínio).
@@ -31,6 +30,11 @@ Para o Wanderson: aprovar ou ajustar a paleta escura proposta (tabela do plano, 
 - Texto bíblico completo — D05.
 
 ## Histórico
+- **T03 — Modo escuro, parte 1 (AppPalette, sem ativar)** — concluída 2026-11-24 ({now} UTC).
+  - Arquivos: `mobile/lib/src/theme/app_palette.dart` (novo: `AppPalette extends ThemeExtension` com os 18 tokens do plano, fábricas `light` (valores de `AppColors`) e `dark` (proposta da tabela), `copyWith`, `lerp`, e `context.palette`); `mobile/lib/src/theme/app_theme.dart` (`light()` e `dark()` agora usam um `_build` comum que lê a paleta; `AppPalette` entra em `extensions`; `AppColors` continua ali); `mobile/test/app_theme_test.dart` (novo, 3 testes da paleta).
+  - Visual: `AppTheme.light()` mantém os mesmos valores (a `AppPalette.light` é cópia de `AppColors`); `themeMode` continua claro em `app.dart`, que não foi alterado. `AppTheme.dark()` existe mas não é usado.
+  - Testes: `flutter analyze` sem issues; `flutter test` 71 passou (Flutter 3.41.9). Backend não alterado; pytest não rodado nesta etapa.
+  - Pendências: captura visual não feita. Os testes não montam `AppTheme` porque o Google Fonts tenta baixar fontes pela rede e quebra o teste sem internet; a montagem do tema foi validada só pelo analyze, então confirmar no app (T04 mexe nisso de novo). Tokens escuros `goldLight`, `success` e `successSoft` são palpites por analogia e pedem aprovação.
 - **T02 — ColorScheme (parte 2)** — concluída 2026-11-24 (UTC).
   - Arquivos (17): em `features/home/`: `devotional_reader_page`, `retention_primitives`, `settings_account_card`, `progress_insight_card`, `progress_calendar_card`, `progress_badges_widget`, `liturgical_calendar_tab`, `gospel_reader_page`, `push_sdk_info_card`, `prayer_detail_page`, `prayers_tab`, `progress_history_list_item`, `weekday_label`, `settings_reminder_form`; `features/auth/login_page.dart`; `features/onboarding/onboarding_page.dart` e `notification_prompt_page.dart`. Mesmo critério da T01: só valores que batem exatamente com `AppTheme.light()` viraram role do ColorScheme (`0xFF3E6B52`→`primary`, `0xFF1F3A2C`→`onPrimaryContainer`, `0xFF26211C`→`onSurface`, `0xFF5E584E`→`onSurfaceVariant`, `0xFFB8893B`/`AppColors.gold`→`secondary`, `0xFFF4EEE2`→`surfaceContainerHighest`, `0xFFE6DCC8`/`AppColors.sand`→`outlineVariant`, `AppColors.sandDeep`→`outline`, `0xFFF6EBD0`→`secondaryContainer`, `0xFFF6E3E4`→`tertiaryContainer`, `AppColors.surface`/`0xFFFFFDF8`→`surface`). Onde havia `const`, o `const` do pai foi removido. `_tonePalette` (retention_primitives) passou a receber o ColorScheme. Quatro imports de `app_theme.dart` ficaram sem uso e foram removidos.
   - Sem mudança visual pretendida: os valores são os mesmos da paleta; nenhuma API, widget ou tela mudou de comportamento.
