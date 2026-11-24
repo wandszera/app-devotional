@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'retention_primitives.dart';
+import '../../theme/app_palette.dart';
 
 class ProgressInsightCard extends StatelessWidget {
   const ProgressInsightCard({
@@ -42,7 +43,7 @@ class ProgressInsightCard extends StatelessWidget {
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
             decoration: BoxDecoration(
-              color: Colors.white.withValues(alpha: 0.84),
+              color: context.palette.surface.withValues(alpha: 0.84),
               borderRadius: BorderRadius.circular(999),
             ),
             child: Text(

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../../services/api_client.dart';
 import '../../services/auth_store.dart';
 import '../../services/google_auth_service.dart';
+import '../../theme/app_palette.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({
@@ -154,11 +155,11 @@ class _ProfilePageState extends State<ProfilePage> {
             child: FilledButton(
               onPressed: (_submitting || _deleting) ? null : _save,
               child: _submitting
-                  ? const SizedBox(
+                  ? SizedBox(
                       width: 24,
                       height: 24,
                       child: CircularProgressIndicator(
-                        color: Colors.white,
+                        color: context.palette.onPrimary,
                         strokeWidth: 2,
                       ),
                     )

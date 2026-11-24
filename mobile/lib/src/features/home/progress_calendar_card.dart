@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'home_content_widgets.dart';
+import '../../theme/app_palette.dart';
 
 class ProgressCalendarCard extends StatelessWidget {
   const ProgressCalendarCard({
@@ -94,7 +95,7 @@ class ProgressCalendarCard extends StatelessWidget {
                 child: Text(
                   '$dayNumber',
                   style: TextStyle(
-                    color: isCompleted ? Colors.white : colorScheme.onSurfaceVariant,
+                    color: isCompleted ? context.palette.onPrimary : colorScheme.onSurfaceVariant,
                     fontWeight: FontWeight.w600,
                   ),
                 ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../theme/app_palette.dart';
 
 class ProgressHistoryListItem extends StatelessWidget {
   const ProgressHistoryListItem({
@@ -18,7 +19,7 @@ class ProgressHistoryListItem extends StatelessWidget {
     return Material(
       type: MaterialType.transparency,
       child: ListTile(
-        tileColor: Colors.white,
+        tileColor: context.palette.surface,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(18),
         ),

@@ -163,6 +163,8 @@ class AppPalette extends ThemeExtension<AppPalette> {
 }
 
 extension PaletteX on BuildContext {
-  /// Paleta do tema atual. Exige que o tema tenha `AppPalette` (ver `AppTheme`).
-  AppPalette get palette => Theme.of(this).extension<AppPalette>()!;
+  /// Paleta do tema atual. Sem `AppPalette` no tema (ex.: `ThemeData` cru em
+  /// testes), cai para a paleta clara, que é a mesma de `AppColors`.
+  AppPalette get palette =>
+      Theme.of(this).extension<AppPalette>() ?? AppPalette.light;
 }

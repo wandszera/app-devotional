@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../models/devotional_models.dart';
 import 'home_layout_widgets.dart';
+import '../../theme/app_palette.dart';
 
 class ProgressBadgesWidget extends StatelessWidget {
   const ProgressBadgesWidget({
@@ -93,7 +94,7 @@ class _BadgeItem extends StatelessWidget {
                     end: Alignment.bottomRight,
                   )
                 : null,
-            color: isUnlocked ? null : Colors.grey.shade200,
+            color: isUnlocked ? null : context.palette.surfaceSoft,
             boxShadow: isUnlocked
                 ? [
                     BoxShadow(
@@ -107,7 +108,7 @@ class _BadgeItem extends StatelessWidget {
           child: Center(
             child: Icon(
               isUnlocked ? Icons.emoji_events_rounded : Icons.lock_rounded,
-              color: isUnlocked ? Colors.white : Colors.grey.shade400,
+              color: isUnlocked ? context.palette.onPrimary : context.palette.borderStrong,
               size: 32,
             ),
           ),
@@ -117,7 +118,7 @@ class _BadgeItem extends StatelessWidget {
           '$milestone dias',
           style: Theme.of(context).textTheme.labelMedium?.copyWith(
                 fontWeight: isUnlocked ? FontWeight.bold : FontWeight.normal,
-                color: isUnlocked ? colorScheme.primary : Colors.grey.shade500,
+                color: isUnlocked ? colorScheme.primary : context.palette.muted,
               ),
         ),
       ],

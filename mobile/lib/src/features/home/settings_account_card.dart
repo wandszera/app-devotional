@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'home_form_widgets.dart';
+import '../../theme/app_palette.dart';
 
 class SettingsAccountCard extends StatelessWidget {
   const SettingsAccountCard({
@@ -45,10 +46,10 @@ class SettingsAccountCard extends StatelessWidget {
                   backgroundColor: colorScheme.primary,
                   child: Text(
                     initial,
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontSize: 24,
                       fontWeight: FontWeight.bold,
-                      color: Colors.white,
+                      color: context.palette.onPrimary,
                     ),
                   ),
                 ),
@@ -70,7 +71,7 @@ class SettingsAccountCard extends StatelessWidget {
                         displayBio,
                         style: TextStyle(
                           fontSize: 14,
-                          color: Colors.black.withValues(alpha: 0.6),
+                          color: context.palette.muted,
                         ),
                       ),
                     ],
