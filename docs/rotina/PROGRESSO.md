@@ -4,13 +4,13 @@ Controle da tarefa agendada que roda de hora em hora: cada execução faz **uma*
 marca como concluída e deixa a próxima preparada. Branch de trabalho: `rotina/semente`.
 
 ## Estado
-- Em andamento: T04d — Modo escuro, lote 5 (entrada/admin), iniciada 2026-11-24 17:51 UTC
-- Última execução: 2026-11-24 (UTC) — T04c concluída como auditoria: o lote 3 já estava no ColorScheme desde a T02 e não restaram literais com token exato em `AppPalette`, então não houve mudança de código.
-- CI esperado: verde (nenhum arquivo de código alterado na T04c; último estado validado na T04b: `flutter analyze` sem issues, `flutter test` 71 passou).
+- Em andamento: (nenhuma)
+- Última execução: 2026-11-24 (UTC) — T04d concluída: lote 5 (entrada/admin) migrado só nos literais com token exato. `onboarding_page` e `login_page`: `AppColors.ivory` do gradiente → `context.palette.bg`. `cross_ornament`: `CrossMark.color` virou opcional (padrão `context.palette.gold`) e o filete usa `goldLight` da paleta. `admin_due_notification_list_item`: ícone `primary` e texto `muted`. Commit `b89c6c5`.
+- CI esperado: verde. Validado nesta etapa: `flutter analyze` sem issues; `flutter test` 71 passou (Flutter 3.41.9). Backend não tocado.
 
 ## Próxima etapa preparada
-**T04d — Modo escuro, lote 5 (entrada/admin):** migrar para `context.palette` só os literais com token exato em `AppPalette.light` (ex.: `AppColors.ivory` = `bg` em `onboarding_page` e `login_page`; `AppColors.ivory` aparece também como fundo) e os `admin_*` que tiverem o mesmo critério. `notification_prompt_page` (13): `Colors.white` nos cartões (linhas 183 e 212) e `Colors.red` (311) ficam de fora até decisão; `login_page` (6): `Colors.red` (245) e `Colors.white` (168, texto sobre fundo escuro) idem. `cross_ornament` (2) e `admin_*` (5): aplicar o mesmo critério. Um commit para o lote; `flutter analyze` + `flutter test` antes do commit. Sem mudança de API; não mexer em `themeMode` nem em `app.dart`.
-Para o Wanderson: decidir tokens para (a) vermelhos de erro e logout (`Colors.red`, `redAccent`, `red.shade700`, `0xFF9C3040`); (b) `Colors.redAccent` dos favoritos (`gospel_reader_page`, `prayer_detail_page`, `prayers_tab`, `liturgical_calendar_tab`); (c) `Colors.white` de cartões (`devotional_reader_page` linha 262, `liturgical_calendar_tab` linha 225, `notification_prompt_page`) — hoje é branco puro, a paleta tem `surface` `FFFDF8`; (d) verde do snackbar `4D7C4A` (`home_feedback`) e `Colors.white` default de `home_form_widgets`; (e) pastéis não migrados (`EAF4FF`, `F9F1DF`, `E8F7EC`, `2D6C45`, `E9F7ED`, `E7F6EA`, `D6EEDB`, `2E6B45`, `254C36`, `E6F0E8`, `D3E4D8`, `EAF6EC`, `355640`) — já listados na T04b; (f) tokens escuros `goldLight`, `success`, `successSoft` (palpites); (g) conferir Hoje, Leitor, Calendário, Orações e Progresso visualmente em claro (nenhuma captura foi feita); (h) D01, D04, D05 e a revisão da tradução do Suscipe continuam como estavam.
+**C01-L3 — Reflexões do Advento, lote 3 (15–21/12):** escrever 7 rascunhos no mesmo formato do lote 2 (`docs/reflexoes-rascunho-advento-lote2.md`), em um arquivo novo `docs/reflexoes-rascunho-advento-lote3.md`. Antes de escrever, copiar as referências do `docs/calendario-editorial-2026-12-a-2027-03.csv` e conferi-las na Liturgia Diária das Edições CNBB (liturgiadiaria.edicoescnbb.com.br); a fonte fica indicada. Só referência bíblica, nunca o texto (D05). Cada texto termina com pergunta e passo prático. CSV, catálogo e código não mudam. O lote é `.md`, então não há teste de código a rodar (registrar isso no histórico). Um commit e push para o lote.
+Para o Wanderson: decidir tokens para (a) vermelhos de erro e logout (`Colors.red`, `redAccent`, `red.shade700`, `0xFF9C3040`); (b) `Colors.redAccent` dos favoritos (`gospel_reader_page`, `prayer_detail_page`, `prayers_tab`, `liturgical_calendar_tab`); (c) `Colors.white` de cartões (`devotional_reader_page` linha 262, `liturgical_calendar_tab` linha 225, `notification_prompt_page`) — hoje é branco puro, a paleta tem `surface` `FFFDF8`; (d) verde do snackbar `4D7C4A` (`home_feedback`) e `Colors.white` default de `home_form_widgets`; (e) pastéis não migrados (`EAF4FF`, `F9F1DF`, `E8F7EC`, `2D6C45`, `E9F7ED`, `E7F6EA`, `D6EEDB`, `2E6B45`, `254C36`, `E6F0E8`, `D3E4D8`, `EAF6EC`, `355640`) — já listados na T04b; (f) tokens escuros `goldLight`, `success`, `successSoft` (palpites); (g) conferir Hoje, Leitor, Calendário, Orações e Progresso visualmente em claro (nenhuma captura foi feita); (h) D01, D04, D05 e a revisão da tradução do Suscipe continuam como estavam. (i) T04d: decidir `Colors.white` dos cartões do admin (`tileColor`, 3 arquivos) e de `notification_prompt_page` (183, 212), vermelhos de status do admin e de `login_page` (245) e de `notification_prompt_page` (311), `Colors.white` de `login_page` (168) e `F9F1DF` de `notification_prompt_page` (160); esses ficaram de fora do lote 5. (j) captura visual de login, onboarding e admin em claro e escuro: não feita.
 
 ## Regras rápidas
 - Uma etapa por execução. Etapa "em andamento" há menos de 50 min = outra execução trabalhando: não fazer nada.
@@ -19,8 +19,8 @@ Para o Wanderson: decidir tokens para (a) vermelhos de erro e logout (`Colors.re
 - `pytest` e `flutter analyze` + `flutter test` (mobile/) passando antes de cada commit.
 
 ## Fila (em ordem)
-1. **T04d — Modo escuro, lote 5 (entrada/admin):** lista acima em "Próxima etapa preparada". Erro/sucesso e pastéis dependem de decisão (itens a–e); o restante do lote segue.
-2. **C01-L3..L6 — Reflexões, lotes 3 a 6** (15/12–10/01), um lote por etapa.
+1. **C01-L3 — Reflexões do Advento, lote 3 (15–21/12):** preparada em "Próxima etapa preparada".
+2. **C01-L4..L6 — Reflexões, lotes 4 a 6** (22/12 a 10/01), um lote por etapa.
 3. **S01 — Assinatura do AAB:** aplicar no gradle a leitura de `key.properties` (sem segredo no repo), seguindo `docs/roteiro-assinatura-aab.md`.
 
 ## Bloqueadas (esperando decisão do Wanderson)
@@ -30,6 +30,12 @@ Para o Wanderson: decidir tokens para (a) vermelhos de erro e logout (`Colors.re
 - Texto bíblico completo — D05.
 
 ## Histórico
+- **T04d — Modo escuro, lote 5 (entrada/admin)** — concluída 2026-11-24 (UTC), commit `b89c6c5`.
+  - Arquivos (4): `onboarding_page.dart` e `login_page.dart` (`AppColors.ivory` do gradiente → `context.palette.bg`; import de `app_theme.dart` removido, sem uso restante); `widgets/cross_ornament.dart` (`CrossMark.color` agora opcional, padrão `context.palette.gold`; `OrnamentDivider` usa `context.palette.goldLight`); `admin_due_notification_list_item.dart` (ícone → `palette.primary`, texto → `palette.muted`; `const` removido só nesses dois pontos).
+  - Visual: os valores trocados são exatamente os de `AppPalette.light`, então o tema claro não muda.
+  - Não migrado de propósito (decisão pendente, item (i) acima): `Colors.white` de cartões do admin e de `notification_prompt_page`; `Colors.red`/`Colors.green` do status do admin e de `login_page`/`notification_prompt_page`; `Colors.white` de `login_page` (168); `F9F1DF` de `notification_prompt_page` (160).
+  - Testes: `flutter analyze` sem issues (Flutter 3.41.9, mesmo do CI; antes havia 2 `unused_import` e 2 `prefer_const_constructors`, corrigidos); `flutter test` 71 passou. Backend não tocado; pytest não rodado.
+  - Pendências: captura visual de login, onboarding e admin em claro e escuro (não feita).
 - **T04c — Modo escuro, lote 3 (Leitor/Orações/Calendário)** — concluída 2026-11-24 (UTC), sem mudança de código.
   - Auditoria: `devotional_reader_page`, `gospel_reader_page`, `prayer_detail_page`, `prayers_tab` e `liturgical_calendar_tab` já usam `Theme.of(context).colorScheme` desde a T02, e `AppTheme.dark()` já define esses roles. Não há `AppColors.x` nem literal com token exato em `AppPalette` nesses arquivos.
   - Literais que sobraram e não foram tocados (sem token exato; trocar mudaria o tema claro ou exige decisão): `devotional_reader_page` `F9F1DF` (linha 44), `Colors.white` nos cartões (262) e no botão flutuante (215), `Colors.black87`/`black` nos ícones; `gospel_reader_page`, `prayer_detail_page`, `prayers_tab` e `liturgical_calendar_tab` com `Colors.redAccent` nos favoritos; `liturgical_calendar_tab` `Colors.white` no dia com Evangelho (225). Entram na lista de decisões da T04d.
