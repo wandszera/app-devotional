@@ -4,7 +4,7 @@ Controle da tarefa agendada que roda de hora em hora: cada execução faz **uma*
 marca como concluída e deixa a próxima preparada. Branch de trabalho: `rotina/semente`.
 
 ## Estado
-- Em andamento: (nenhuma)
+- Em andamento: T04 — Modo escuro, partes 2 e 3 (iniciada 2026-11-24 14:52 UTC; execução de 2026-11-24)
 - Última execução: 2026-11-24 13:52–13:58 UTC — T03 concluída (AppPalette criado; tema escuro definido, não ativado).
 - CI esperado: verde (T03: `flutter analyze` sem issues e `flutter test` 71 passou; backend não tocado).
 
@@ -30,7 +30,7 @@ Para o Wanderson: a paleta escura (`AppPalette.dark`) ainda é proposta; os toke
 - Texto bíblico completo — D05.
 
 ## Histórico
-- **T03 — Modo escuro, parte 1 (AppPalette, sem ativar)** — concluída 2026-11-24 ({now} UTC).
+- **T03 — Modo escuro, parte 1 (AppPalette, sem ativar)** — concluída 2026-11-24 (2026-11-24 UTC).
   - Arquivos: `mobile/lib/src/theme/app_palette.dart` (novo: `AppPalette extends ThemeExtension` com os 18 tokens do plano, fábricas `light` (valores de `AppColors`) e `dark` (proposta da tabela), `copyWith`, `lerp`, e `context.palette`); `mobile/lib/src/theme/app_theme.dart` (`light()` e `dark()` agora usam um `_build` comum que lê a paleta; `AppPalette` entra em `extensions`; `AppColors` continua ali); `mobile/test/app_theme_test.dart` (novo, 3 testes da paleta).
   - Visual: `AppTheme.light()` mantém os mesmos valores (a `AppPalette.light` é cópia de `AppColors`); `themeMode` continua claro em `app.dart`, que não foi alterado. `AppTheme.dark()` existe mas não é usado.
   - Testes: `flutter analyze` sem issues; `flutter test` 71 passou (Flutter 3.41.9). Backend não alterado; pytest não rodado nesta etapa.
