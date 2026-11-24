@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../theme/app_theme.dart';
+import '../../theme/app_palette.dart';
 import '../../widgets/cross_ornament.dart';
 
 class OnboardingPage extends StatefulWidget {
@@ -59,7 +59,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
         decoration: BoxDecoration(
           gradient: LinearGradient(
             colors: [
-              AppColors.ivory,
+              context.palette.bg,
               colorScheme.secondaryContainer,
             ],
             begin: Alignment.topCenter,

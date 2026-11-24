@@ -1,19 +1,20 @@
 import 'package:flutter/material.dart';
 
-import '../theme/app_theme.dart';
+import '../theme/app_palette.dart';
 
 /// Cruz latina minimalista desenhada em traço fino.
+/// Sem [color], usa o dourado da paleta do tema atual.
 class CrossMark extends StatelessWidget {
-  const CrossMark({this.size = 28, this.color = AppColors.gold, super.key});
+  const CrossMark({this.size = 28, this.color, super.key});
 
   final double size;
-  final Color color;
+  final Color? color;
 
   @override
   Widget build(BuildContext context) {
     return CustomPaint(
       size: Size(size * 0.62, size),
-      painter: _CrossPainter(color),
+      painter: _CrossPainter(color ?? context.palette.gold),
     );
   }
 }
@@ -48,13 +49,17 @@ class OrnamentDivider extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const line = Expanded(
-      child: Divider(color: AppColors.goldLight, thickness: 1, height: 1),
+    final line = Expanded(
+      child: Divider(
+        color: context.palette.goldLight,
+        thickness: 1,
+        height: 1,
+      ),
     );
-    return const Row(
+    return Row(
       children: [
         line,
-        Padding(
+        const Padding(
           padding: EdgeInsets.symmetric(horizontal: 12),
           child: CrossMark(size: 16),
         ),

@@ -4,7 +4,7 @@ import '../../models/auth_models.dart';
 import '../../services/api_client.dart';
 import '../../services/auth_store.dart';
 import '../../services/google_auth_service.dart';
-import '../../theme/app_theme.dart';
+import '../../theme/app_palette.dart';
 import '../../widgets/cross_ornament.dart';
 
 class LoginPage extends StatefulWidget {
@@ -122,7 +122,7 @@ class _LoginPageState extends State<LoginPage> {
         decoration: BoxDecoration(
           gradient: LinearGradient(
             colors: [
-              AppColors.ivory,
+              context.palette.bg,
               colorScheme.secondaryContainer,
             ],
             begin: Alignment.topCenter,

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../models/notification_models.dart';
+import '../../theme/app_palette.dart';
 import 'retention_primitives.dart';
 
 class AdminDueNotificationListItem extends StatelessWidget {
@@ -22,9 +23,9 @@ class AdminDueNotificationListItem extends StatelessWidget {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(18),
         ),
-        leading: const Icon(
+        leading: Icon(
           Icons.schedule_send,
-          color: Color(0xFF3E6B52),
+          color: context.palette.primary,
         ),
         title: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -40,7 +41,7 @@ class AdminDueNotificationListItem extends StatelessWidget {
             Text(
               item.message,
               style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                    color: const Color(0xFF5E584E),
+                    color: context.palette.muted,
                     height: 1.35,
                   ),
             ),
