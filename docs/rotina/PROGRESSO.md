@@ -4,7 +4,7 @@ Controle da tarefa agendada que roda de hora em hora: cada execução faz **uma*
 marca como concluída e deixa a próxima preparada. Branch de trabalho: `rotina/semente`.
 
 ## Estado
-- Em andamento: (nenhuma)
+- Em andamento: T04b — Modo escuro, lote 2 (Hoje), iniciada 2026-11-24 15:52 UTC
 - Última execução: 2026-11-24 (UTC) — T04 começou com o lote 4 (Progresso/Ajustes/Perfil), concluído; o restante do T04 foi dividido em T04b, T04c e T04d.
 - CI esperado: verde (`flutter analyze` sem issues; `flutter test` 71 passou; backend não tocado).
 
