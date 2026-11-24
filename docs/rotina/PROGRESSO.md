@@ -4,13 +4,13 @@ Controle da tarefa agendada que roda de hora em hora: cada execução faz **uma*
 marca como concluída e deixa a próxima preparada. Branch de trabalho: `rotina/semente`.
 
 ## Estado
-- Em andamento: T04c — Modo escuro, lote 3 (iniciada 2026-11-24 16:52 UTC)
-- Última execução: 2026-11-24 (UTC) — T04b concluída: lote 2 (Hoje) migrado só onde o valor bate com um token de `AppPalette`; os pastéis sem token ficaram de fora e dependem de decisão (ver "Para o Wanderson").
-- CI esperado: verde (`flutter analyze` sem issues; `flutter test` 71 passou; backend não tocado).
+- Em andamento: (nenhuma)
+- Última execução: 2026-11-24 (UTC) — T04c concluída como auditoria: o lote 3 já estava no ColorScheme desde a T02 e não restaram literais com token exato em `AppPalette`, então não houve mudança de código.
+- CI esperado: verde (nenhum arquivo de código alterado na T04c; último estado validado na T04b: `flutter analyze` sem issues, `flutter test` 71 passou).
 
 ## Próxima etapa preparada
-**T04c — Modo escuro, lote 3 (Leitor/Orações/Calendário):** `devotional_reader_page` (12), `gospel_reader_page` (5), `prayer_detail_page` (3), `prayers_tab` (2), `liturgical_calendar_tab` (5). Trocar `AppColors.x` e literais que tenham token exato em `AppPalette` (mesmos valores do tema claro) por `context.palette.x`; onde já houver role de `ColorScheme`, manter. Literais sem token ficam como estão e entram na lista da T04d. Um commit para o lote; `flutter analyze` + `flutter test` em cada passo. Sem mudança de API; não mexer em `themeMode` nem em `app.dart`.
-Para o Wanderson: (a) decidir os tokens dos pastéis que a T04b deixou de fora (`EAF4FF`, `F9F1DF`, `E8F7EC`, `2D6C45`, `E9F7ED`, `E7F6EA`, `D6EEDB`, `2E6B45`, `254C36`, `E6F0E8`, `D3E4D8`, `EAF6EC`, `355640`) e o `Colors.green` do card "Missão do dia" concluída: posso propor tokens claros (valores atuais) e escuros para você aprovar antes de aplicar; (b) conferir visualmente Hoje, Progresso e Ajustes em claro (nenhuma captura foi feita nas T04a e T04b); (c) tema escuro seguir o sistema e Ajustes ganhar Claro/Escuro/Sistema, só depois de aprovar a paleta escura (tokens `goldLight`, `success` e `successSoft` escuros são palpites); (d) D01, D04, D05 e a revisão da tradução do Suscipe continuam como estavam.
+**T04d — Modo escuro, lote 5 (entrada/admin):** migrar para `context.palette` só os literais com token exato em `AppPalette.light` (ex.: `AppColors.ivory` = `bg` em `onboarding_page` e `login_page`; `AppColors.ivory` aparece também como fundo) e os `admin_*` que tiverem o mesmo critério. `notification_prompt_page` (13): `Colors.white` nos cartões (linhas 183 e 212) e `Colors.red` (311) ficam de fora até decisão; `login_page` (6): `Colors.red` (245) e `Colors.white` (168, texto sobre fundo escuro) idem. `cross_ornament` (2) e `admin_*` (5): aplicar o mesmo critério. Um commit para o lote; `flutter analyze` + `flutter test` antes do commit. Sem mudança de API; não mexer em `themeMode` nem em `app.dart`.
+Para o Wanderson: decidir tokens para (a) vermelhos de erro e logout (`Colors.red`, `redAccent`, `red.shade700`, `0xFF9C3040`); (b) `Colors.redAccent` dos favoritos (`gospel_reader_page`, `prayer_detail_page`, `prayers_tab`, `liturgical_calendar_tab`); (c) `Colors.white` de cartões (`devotional_reader_page` linha 262, `liturgical_calendar_tab` linha 225, `notification_prompt_page`) — hoje é branco puro, a paleta tem `surface` `FFFDF8`; (d) verde do snackbar `4D7C4A` (`home_feedback`) e `Colors.white` default de `home_form_widgets`; (e) pastéis não migrados (`EAF4FF`, `F9F1DF`, `E8F7EC`, `2D6C45`, `E9F7ED`, `E7F6EA`, `D6EEDB`, `2E6B45`, `254C36`, `E6F0E8`, `D3E4D8`, `EAF6EC`, `355640`) — já listados na T04b; (f) tokens escuros `goldLight`, `success`, `successSoft` (palpites); (g) conferir Hoje, Leitor, Calendário, Orações e Progresso visualmente em claro (nenhuma captura foi feita); (h) D01, D04, D05 e a revisão da tradução do Suscipe continuam como estavam.
 
 ## Regras rápidas
 - Uma etapa por execução. Etapa "em andamento" há menos de 50 min = outra execução trabalhando: não fazer nada.
@@ -19,10 +19,9 @@ Para o Wanderson: (a) decidir os tokens dos pastéis que a T04b deixou de fora (
 - `pytest` e `flutter analyze` + `flutter test` (mobile/) passando antes de cada commit.
 
 ## Fila (em ordem)
-1. **T04c — Modo escuro, lote 3 (Leitor/Orações/Calendário):** lista acima em "Próxima etapa preparada".
-2. **T04d — Modo escuro, lote 5 (entrada/admin) + erro/sucesso + pastéis:** `onboarding_page` (9), `notification_prompt_page` (13), `login_page` (6), `cross_ornament` (2), `admin_*` (5). Decidir tokens para vermelhos de erro (`Colors.red`, `redAccent`, `red.shade700`), verde do snackbar (`4D7C4A` em `home_feedback`), o `Colors.white` default de `home_form_widgets` e os pastéis da T04b, se o Wanderson aprovar os tokens. `themeMode` continua fora desta etapa.
-3. **C01-L3..L6 — Reflexões, lotes 3 a 6** (15/12–10/01), um lote por etapa.
-4. **S01 — Assinatura do AAB:** aplicar no gradle a leitura de `key.properties` (sem segredo no repo), seguindo `docs/roteiro-assinatura-aab.md`.
+1. **T04d — Modo escuro, lote 5 (entrada/admin):** lista acima em "Próxima etapa preparada". Erro/sucesso e pastéis dependem de decisão (itens a–e); o restante do lote segue.
+2. **C01-L3..L6 — Reflexões, lotes 3 a 6** (15/12–10/01), um lote por etapa.
+3. **S01 — Assinatura do AAB:** aplicar no gradle a leitura de `key.properties` (sem segredo no repo), seguindo `docs/roteiro-assinatura-aab.md`.
 
 ## Bloqueadas (esperando decisão do Wanderson)
 - A02 applicationId e novo app Firebase — D01 (nome final) e D06 (domínio).
@@ -31,6 +30,11 @@ Para o Wanderson: (a) decidir os tokens dos pastéis que a T04b deixou de fora (
 - Texto bíblico completo — D05.
 
 ## Histórico
+- **T04c — Modo escuro, lote 3 (Leitor/Orações/Calendário)** — concluída 2026-11-24 (UTC), sem mudança de código.
+  - Auditoria: `devotional_reader_page`, `gospel_reader_page`, `prayer_detail_page`, `prayers_tab` e `liturgical_calendar_tab` já usam `Theme.of(context).colorScheme` desde a T02, e `AppTheme.dark()` já define esses roles. Não há `AppColors.x` nem literal com token exato em `AppPalette` nesses arquivos.
+  - Literais que sobraram e não foram tocados (sem token exato; trocar mudaria o tema claro ou exige decisão): `devotional_reader_page` `F9F1DF` (linha 44), `Colors.white` nos cartões (262) e no botão flutuante (215), `Colors.black87`/`black` nos ícones; `gospel_reader_page`, `prayer_detail_page`, `prayers_tab` e `liturgical_calendar_tab` com `Colors.redAccent` nos favoritos; `liturgical_calendar_tab` `Colors.white` no dia com Evangelho (225). Entram na lista de decisões da T04d.
+  - Testes: não rodados nesta etapa, porque nenhum arquivo de código mudou. Última validação: T04b (`flutter analyze` sem issues; `flutter test` 71 passou).
+  - Pendências: captura visual do Leitor e do Calendário em claro e escuro (não feita); decisão sobre `Colors.white` de cartões e favoritos.
 - **T04b — Modo escuro, lote 2 (Hoje)** — concluída 2026-11-24 (UTC).
   - Arquivos (4): `hero_card.dart` (`AppColors.gold`/`goldLight` → `context.palette.gold`/`goldLight`; import de `app_theme` trocado por `app_palette`; `const TextStyle` virou `TextStyle`); `habit_coach_card.dart` e `habit_status_card.dart` (`_paletteForTone` recebe `AppPalette`; `0xFFF6EBD0` → `goldSoft`, `0xFFEAF3EC` → `successSoft`); `completion_feedback_dialog.dart` (`_palette` recebe `AppPalette`; `0xFFEAF3EC` → `successSoft`).
   - Não migrado (sem token em `AppPalette`; trocar por um valor aproximado mudaria o tema claro): `retention_primitives` (`EAF4FF`, `F9F1DF`, `E8F7EC`, `2D6C45`), `milestone_banner` (`F9F1DF`), `daily_mission_card` (`E9F7ED`, `Colors.green`), `habit_coach_card` (`E7F6EA`, `D6EEDB`, `2E6B45`, `254C36`, `E6F0E8`, `D3E4D8`), `habit_status_card` (`EAF6EC`, `2E6B45`, `355640`, `F9F1DF`), `completion_feedback_dialog` (`F9F1DF`). `metric_card` já usava só `ColorScheme`: sem mudança.
