@@ -4,13 +4,13 @@ Controle da tarefa agendada que roda de hora em hora: cada execução faz **uma*
 marca como concluída e deixa a próxima preparada. Branch de trabalho: `rotina/semente`.
 
 ## Estado
-- Em andamento: C01-L3 — Reflexões do Advento, lote 3 (iniciada 2026-11-24 18:52 UTC)
-- Última execução: 2026-11-24 (UTC) — T04d concluída: lote 5 (entrada/admin) migrado só nos literais com token exato. `onboarding_page` e `login_page`: `AppColors.ivory` do gradiente → `context.palette.bg`. `cross_ornament`: `CrossMark.color` virou opcional (padrão `context.palette.gold`) e o filete usa `goldLight` da paleta. `admin_due_notification_list_item`: ícone `primary` e texto `muted`. Commit `b89c6c5`.
-- CI esperado: verde. Validado nesta etapa: `flutter analyze` sem issues; `flutter test` 71 passou (Flutter 3.41.9). Backend não tocado.
+- Em andamento: (nenhuma)
+- Última execução: 2026-11-24 (UTC) — C01-L3 concluída: `docs/reflexoes-rascunho-advento-lote3.md` com 7 rascunhos (15/12 a 21/12), mesmo formato do lote 2. Só `.md`; nenhum código, CSV ou catálogo mudou. Referências copiadas do CSV (`ref_cnbb_ok`), mas a releitura na Liturgia Diária CNBB falhou nesta rodada (acesso ao site bloqueado por pedido de permissão sem resposta), então ficou pendente.
+- Testes: não rodados nesta etapa (sem mudança de código). Última validação de código: T04d (`flutter analyze` sem issues; `flutter test` 71 passou). Backend não tocado.
 
 ## Próxima etapa preparada
-**C01-L3 — Reflexões do Advento, lote 3 (15–21/12):** escrever 7 rascunhos no mesmo formato do lote 2 (`docs/reflexoes-rascunho-advento-lote2.md`), em um arquivo novo `docs/reflexoes-rascunho-advento-lote3.md`. Antes de escrever, copiar as referências do `docs/calendario-editorial-2026-12-a-2027-03.csv` e conferi-las na Liturgia Diária das Edições CNBB (liturgiadiaria.edicoescnbb.com.br); a fonte fica indicada. Só referência bíblica, nunca o texto (D05). Cada texto termina com pergunta e passo prático. CSV, catálogo e código não mudam. O lote é `.md`, então não há teste de código a rodar (registrar isso no histórico). Um commit e push para o lote.
-Para o Wanderson: decidir tokens para (a) vermelhos de erro e logout (`Colors.red`, `redAccent`, `red.shade700`, `0xFF9C3040`); (b) `Colors.redAccent` dos favoritos (`gospel_reader_page`, `prayer_detail_page`, `prayers_tab`, `liturgical_calendar_tab`); (c) `Colors.white` de cartões (`devotional_reader_page` linha 262, `liturgical_calendar_tab` linha 225, `notification_prompt_page`) — hoje é branco puro, a paleta tem `surface` `FFFDF8`; (d) verde do snackbar `4D7C4A` (`home_feedback`) e `Colors.white` default de `home_form_widgets`; (e) pastéis não migrados (`EAF4FF`, `F9F1DF`, `E8F7EC`, `2D6C45`, `E9F7ED`, `E7F6EA`, `D6EEDB`, `2E6B45`, `254C36`, `E6F0E8`, `D3E4D8`, `EAF6EC`, `355640`) — já listados na T04b; (f) tokens escuros `goldLight`, `success`, `successSoft` (palpites); (g) conferir Hoje, Leitor, Calendário, Orações e Progresso visualmente em claro (nenhuma captura foi feita); (h) D01, D04, D05 e a revisão da tradução do Suscipe continuam como estavam. (i) T04d: decidir `Colors.white` dos cartões do admin (`tileColor`, 3 arquivos) e de `notification_prompt_page` (183, 212), vermelhos de status do admin e de `login_page` (245) e de `notification_prompt_page` (311), `Colors.white` de `login_page` (168) e `F9F1DF` de `notification_prompt_page` (160); esses ficaram de fora do lote 5. (j) captura visual de login, onboarding e admin em claro e escuro: não feita.
+**C01-L4 — Reflexões do Advento, lote 4 (22/12–28/12):** escrever 7 rascunhos no mesmo formato do lote 3, em `docs/reflexoes-rascunho-advento-lote4.md`. Antes de escrever, copiar as referências das linhas 22/12 a 28/12 de `docs/calendario-editorial-2026-12-a-2027-03.csv` e tentar reconferi-las na Liturgia Diária das Edições CNBB (liturgiadiaria.edicoescnbb.com.br); se o site continuar inacessível, registrar a pendência, sem inventar referência. Só referência bíblica, nunca o texto (D05). Cada texto termina com pergunta e passo prático. CSV, catálogo e código não mudam. Um commit e push para o lote.
+Para o Wanderson: (a) revisar o lote 3 (sensibilidade teológica de Mt 21 e Lc 1; tamanho; viabilidade do passo prático); (b) decidir se 20/12 (Lc 1,26-38, mesmo trecho do 08/12) e 21/12 (Lc 1,39-45, parecido com o 12/12) ficam como estão ou se trocamos o foco; (c) conferir as referências de 15/12 a 21/12 na CNBB, já que nesta rodada o site não pôde ser aberto; (d) D04 (revisor) continua pendente antes de colar qualquer reflexão no CSV.
 
 ## Regras rápidas
 - Uma etapa por execução. Etapa "em andamento" há menos de 50 min = outra execução trabalhando: não fazer nada.
@@ -19,9 +19,8 @@ Para o Wanderson: decidir tokens para (a) vermelhos de erro e logout (`Colors.re
 - `pytest` e `flutter analyze` + `flutter test` (mobile/) passando antes de cada commit.
 
 ## Fila (em ordem)
-1. **C01-L3 — Reflexões do Advento, lote 3 (15–21/12):** preparada em "Próxima etapa preparada".
-2. **C01-L4..L6 — Reflexões, lotes 4 a 6** (22/12 a 10/01), um lote por etapa.
-3. **S01 — Assinatura do AAB:** aplicar no gradle a leitura de `key.properties` (sem segredo no repo), seguindo `docs/roteiro-assinatura-aab.md`.
+1. **C01-L5..L6 — Reflexões, lotes 5 e 6** (29/12 a 10/01), um lote por etapa.
+2. **S01 — Assinatura do AAB:** aplicar no gradle a leitura de `key.properties` (sem segredo no repo), seguindo `docs/roteiro-assinatura-aab.md`.
 
 ## Bloqueadas (esperando decisão do Wanderson)
 - A02 applicationId e novo app Firebase — D01 (nome final) e D06 (domínio).
@@ -30,6 +29,10 @@ Para o Wanderson: decidir tokens para (a) vermelhos de erro e logout (`Colors.re
 - Texto bíblico completo — D05.
 
 ## Histórico
+- **C01-L3 — Reflexões do Advento, lote 3 (15/12–21/12)** — concluída 2026-11-24 (UTC).
+  - Arquivos: `docs/reflexoes-rascunho-advento-lote3.md` (novo; 7 textos: 15/12 Mt 21,28-32; 16/12 Lc 7,19-23; 17/12 Mt 1,1-17; 18/12 Mt 1,18-24; 19/12 Lc 1,5-25; 20/12 Lc 1,26-38; 21/12 Lc 1,39-45). Mesmo formato do lote 2; sem texto bíblico; cada texto termina com pergunta e passo prático. CSV, catálogo e código não mudaram.
+  - Testes: não rodados (só `.md` novo).
+  - Pendências: conferir as 7 referências na Liturgia Diária CNBB (não foi possível abrir o site nesta rodada); revisão humana (D04); decidir sobre a repetição de trechos com o lote 2 (20/12 e 21/12).
 - **T04d — Modo escuro, lote 5 (entrada/admin)** — concluída 2026-11-24 (UTC), commit `b89c6c5`.
   - Arquivos (4): `onboarding_page.dart` e `login_page.dart` (`AppColors.ivory` do gradiente → `context.palette.bg`; import de `app_theme.dart` removido, sem uso restante); `widgets/cross_ornament.dart` (`CrossMark.color` agora opcional, padrão `context.palette.gold`; `OrnamentDivider` usa `context.palette.goldLight`); `admin_due_notification_list_item.dart` (ícone → `palette.primary`, texto → `palette.muted`; `const` removido só nesses dois pontos).
   - Visual: os valores trocados são exatamente os de `AppPalette.light`, então o tema claro não muda.
