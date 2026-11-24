@@ -4,7 +4,7 @@ Controle da tarefa agendada que roda de hora em hora: cada execução faz **uma*
 marca como concluída e deixa a próxima preparada. Branch de trabalho: `rotina/semente`.
 
 ## Estado
-- Em andamento: (nenhuma)
+- Em andamento: T04d — Modo escuro, lote 5 (entrada/admin), iniciada 2026-11-24 17:51 UTC
 - Última execução: 2026-11-24 (UTC) — T04c concluída como auditoria: o lote 3 já estava no ColorScheme desde a T02 e não restaram literais com token exato em `AppPalette`, então não houve mudança de código.
 - CI esperado: verde (nenhum arquivo de código alterado na T04c; último estado validado na T04b: `flutter analyze` sem issues, `flutter test` 71 passou).
 
