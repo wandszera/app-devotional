@@ -4,13 +4,14 @@ Controle da tarefa agendada que roda de hora em hora: cada execução faz **uma*
 marca como concluída e deixa a próxima preparada. Branch de trabalho: `rotina/semente`.
 
 ## Estado
-- Em andamento: C01-L6 (iniciada 2026-11-24 21:52 UTC, execução da rotina horária)
-- Última execução: 2026-11-24 (UTC) — C01-L5 concluída: `docs/reflexoes-rascunho-advento-lote5.md` com 7 rascunhos (29/12 a 04/01), mesmo formato dos lotes 2 a 4. Só `.md`; nenhum código, CSV ou catálogo mudou. Referências copiadas do CSV (`ref_cnbb_ok`). A conferência na Liturgia Diária CNBB ficou pendente, porque o site carrega o conteúdo por JavaScript.
+- Em andamento: (nenhuma)
+- Última execução: 2026-11-24 (UTC) — C01-L6 concluída: `docs/reflexoes-rascunho-advento-lote6.md` com 6 rascunhos (05/01 a 10/01; o 10/01 é a festa do Batismo do Senhor), mesmo formato dos lotes 2 a 5. Só `.md`; nenhum código, CSV ou catálogo mudou. Referências copiadas do CSV (`ref_cnbb_ok`). A conferência na Liturgia Diária CNBB ficou pendente, porque o site carrega o conteúdo por JavaScript.
 - Testes: não rodados nesta etapa (sem mudança de código). Última validação de código: T04d (`flutter analyze` sem issues; `flutter test` 71 passou). Backend não tocado.
 
 ## Próxima etapa preparada
-**C01-L6 — Reflexões do Advento/Natal, lote 6 (05/01 a 10/01, inclui Batismo do Senhor):** escrever 7 rascunhos no mesmo formato, em `docs/reflexoes-rascunho-advento-lote6.md`. Copiar as referências do CSV (linhas 05/01 a 10/01). Não reabrir a CNBB por fetch simples (página é JavaScript); se não der para conferir, registrar a pendência. Só referência bíblica, nunca o texto (D05). Cada texto termina com pergunta e passo prático. CSV, catálogo e código não mudam. Um commit e push para o lote.
-Para o Wanderson: (a) revisar o lote 5 (sobreposição com o lote 4: 31/12 repete Jo 1,1-18 de 25/12, 01/01 fica perto de Lc 2,15-20 de 25/12, 29/12 retoma Lc 2 de 27/12; tamanho ~90 palavras por texto, um pouco acima do planejado; 03/01 é Epifania, e o CSV a põe no domingo, conferir a transferência); (b) revisar o lote 4 (sensibilidade de Mt 2,13-18 em 28/12 e de Mt 10 em 26/12; título de 26/12: o CSV diz "Tempo do Natal", mas o calendário romano traz a memória de Santo Estêvão); (c) decidir se 23/12 e 24/12 (trechos de Lc 1 e Lc 2 já usados nos lotes 2 e 3) ficam como estão; (d) conferir manualmente na CNBB as 21 referências de 15/12 a 04/01 (lotes 3, 4 e 5), porque o site não pode ser lido por aqui; (e) revisar os lotes 1 a 5 com a pendência de D04 (revisor) antes de colar qualquer reflexão no CSV.
+**C01-L7 — Reflexões do Advento/Natal, lote 7 (11/01 a 17/01):** escrever 7 rascunhos no mesmo formato, em `docs/reflexoes-rascunho-advento-lote7.md`. Copiar as referências do CSV (linhas 11/01 a 17/01). Não reabrir a CNBB por fetch simples (página é JavaScript); se não der para conferir, registrar a pendência. Só referência bíblica, nunca o texto (D05). Cada texto termina com pergunta e passo prático. CSV, catálogo e código não mudam. Um commit e push para o lote.
+Para o Wanderson: (a) revisar o lote 6 (10/01 é Batismo do Senhor, domingo; conferir a referência Mc 1,7-11 na CNBB, porque o CSV a marca como festa; 06/01 fala de medo e tempestade, conferir o tom); (b) revisar o lote 5 (sobreposição com o lote 4: 31/12 repete Jo 1,1-18 de 25/12, 01/01 fica perto de Lc 2,15-20 de 25/12; 03/01 é Epifania, e o CSV a põe no domingo, conferir a transferência); (c) revisar o lote 4 (sensibilidade de Mt 2,13-18 em 28/12 e de Mt 10 em 26/12; título de 26/12: o CSV diz "Tempo do Natal", mas o calendário romano traz a memória de Santo Estêvão); (d) decidir se 23/12 e 24/12 (trechos de Lc 1 e Lc 2 já usados nos lotes 2 e 3) ficam como estão; (e) conferir manualmente na CNBB as referências de 15/12 a 10/01 (lotes 3 a 6), porque o site não pode ser lido por aqui; (f) revisar os lotes 1 a 6 com a pendência de D04 (revisor) antes de colar qualquer reflexão no CSV.
+- Execução de 2026-11-24: a ferramenta `add_repo` não estava disponível nesta sessão, então o acesso foi confirmado pelo push direto na branch `rotina/semente` (funcionou).
 
 ## Regras rápidas
 - Uma etapa por execução. Etapa "em andamento" há menos de 50 min = outra execução trabalhando: não fazer nada.
@@ -19,7 +20,7 @@ Para o Wanderson: (a) revisar o lote 5 (sobreposição com o lote 4: 31/12 repet
 - `pytest` e `flutter analyze` + `flutter test` (mobile/) passando antes de cada commit.
 
 ## Fila (em ordem)
-1. **C01-L7 — Reflexões, lote 7** (11/01 a 17/01), um lote por etapa.
+1. **C01-L8 — Reflexões, lote 8** (18/01 a 24/01), um lote por etapa. (Depois de C01-L7.)
 2. **S01 — Assinatura do AAB:** aplicar no gradle a leitura de `key.properties` (sem segredo no repo), seguindo `docs/roteiro-assinatura-aab.md`.
 
 ## Bloqueadas (esperando decisão do Wanderson)
@@ -29,6 +30,10 @@ Para o Wanderson: (a) revisar o lote 5 (sobreposição com o lote 4: 31/12 repet
 - Texto bíblico completo — D05.
 
 ## Histórico
+- **C01-L6 — Reflexões do Advento/Natal, lote 6 (05/01/2027–10/01/2027)** — concluída 2026-11-24 (UTC).
+  - Arquivos: `docs/reflexoes-rascunho-advento-lote6.md` (novo; 6 textos: 05/01 Mc 6,34-44; 06/01 Mc 6,45-52; 07/01 Lc 4,14-22a; 08/01 Lc 5,12-16; 09/01 Jo 3,22-30; 10/01 Mc 1,7-11 · Batismo do Senhor). Mesmo formato dos lotes 2 a 5; sem texto bíblico; cada texto termina com pergunta e passo prático. Referências copiadas do CSV. CSV, catálogo e código não mudaram.
+  - Testes: não rodados (só `.md` novo).
+  - Pendências: conferência CNBB das referências não feita (site carrega por JavaScript); 10/01 é festa e domingo, conferir a referência; revisão humana (D04); tamanho ~90 palavras por texto.
 - **C01-L5 — Reflexões do Advento/Natal, lote 5 (29/12/2026–04/01/2027)** — concluída 2026-11-24 (UTC).
   - Arquivos: `docs/reflexoes-rascunho-advento-lote5.md` (novo; 7 textos: 29/12 Lc 2,22-35; 30/12 Lc 2,36-40; 31/12 Jo 1,1-18; 01/01 Lc 2,16-21 (Santa Maria, Mãe de Deus); 02/01 Jo 1,19-28; 03/01 Mt 2,1-12 (Epifania); 04/01 Mt 4,12-17.23-25). Mesmo formato dos lotes 2 a 4; sem texto bíblico; cada texto termina com pergunta e passo prático. Referências copiadas do CSV. CSV, catálogo e código não mudaram.
   - Testes: não rodados (só `.md` novo).
