@@ -4,13 +4,13 @@ Controle da tarefa agendada que roda de hora em hora: cada execução faz **uma*
 marca como concluída e deixa a próxima preparada. Branch de trabalho: `rotina/semente`.
 
 ## Estado
-- Em andamento: C01-L5 — iniciada 2026-11-24 20:51 UTC
-- Última execução: 2026-11-24 (UTC) — C01-L4 concluída: `docs/reflexoes-rascunho-advento-lote4.md` com 7 rascunhos (22/12 a 28/12), mesmo formato dos lotes 2 e 3. Só `.md`; nenhum código, CSV ou catálogo mudou. Referências copiadas do CSV (`ref_cnbb_ok`). A releitura na Liturgia Diária CNBB não foi possível: a página inicial responde (HTTP 200), mas é uma aplicação que carrega o conteúdo por JavaScript, então a conferência ficou pendente.
+- Em andamento: (nenhuma)
+- Última execução: 2026-11-24 (UTC) — C01-L5 concluída: `docs/reflexoes-rascunho-advento-lote5.md` com 7 rascunhos (29/12 a 04/01), mesmo formato dos lotes 2 a 4. Só `.md`; nenhum código, CSV ou catálogo mudou. Referências copiadas do CSV (`ref_cnbb_ok`). A conferência na Liturgia Diária CNBB ficou pendente, porque o site carrega o conteúdo por JavaScript.
 - Testes: não rodados nesta etapa (sem mudança de código). Última validação de código: T04d (`flutter analyze` sem issues; `flutter test` 71 passou). Backend não tocado.
 
 ## Próxima etapa preparada
-**C01-L5 — Reflexões do Advento/Natal, lote 5 (29/12 a 04/01):** escrever 7 rascunhos no mesmo formato dos lotes 2 a 4, em `docs/reflexoes-rascunho-advento-lote5.md`. Referências a copiar do CSV (linhas 29/12 a 04/01): Lc 2,22-35; Lc 2,36-40; Jo 1,1-18; Lc 2,16-21 (Santa Maria, Mãe de Deus); Jo 1,19-28; Mt 2,1-12 (Epifania); Mt 4,12-17.23-25. Não reabrir a CNBB por fetch simples (página é JavaScript); se não der para conferir, registrar a pendência. Só referência bíblica, nunca o texto (D05). Cada texto termina com pergunta e passo prático. CSV, catálogo e código não mudam. Um commit e push para o lote.
-Para o Wanderson: (a) revisar o lote 4 (sensibilidade de Mt 2,13-18 em 28/12 e de Mt 10 em 26/12; tamanho; viabilidade dos passos); (b) decidir se 23/12 e 24/12 (trechos de Lc 1 e Lc 2 já usados nos lotes 2 e 3) ficam como estão; (c) conferir o título litúrgico de 26/12: o CSV diz "Tempo do Natal", mas o calendário romano traz a memória de Santo Estêvão; (d) conferir as 28 referências de 15/12 a 28/12 na CNBB manualmente, porque o site não pode ser lido por aqui; (e) revisar lotes 3 e 4 com a pendência de D04 (revisor) antes de colar qualquer reflexão no CSV.
+**C01-L6 — Reflexões do Advento/Natal, lote 6 (05/01 a 10/01, inclui Batismo do Senhor):** escrever 7 rascunhos no mesmo formato, em `docs/reflexoes-rascunho-advento-lote6.md`. Copiar as referências do CSV (linhas 05/01 a 10/01). Não reabrir a CNBB por fetch simples (página é JavaScript); se não der para conferir, registrar a pendência. Só referência bíblica, nunca o texto (D05). Cada texto termina com pergunta e passo prático. CSV, catálogo e código não mudam. Um commit e push para o lote.
+Para o Wanderson: (a) revisar o lote 5 (sobreposição com o lote 4: 31/12 repete Jo 1,1-18 de 25/12, 01/01 fica perto de Lc 2,15-20 de 25/12, 29/12 retoma Lc 2 de 27/12; tamanho ~90 palavras por texto, um pouco acima do planejado; 03/01 é Epifania, e o CSV a põe no domingo, conferir a transferência); (b) revisar o lote 4 (sensibilidade de Mt 2,13-18 em 28/12 e de Mt 10 em 26/12; título de 26/12: o CSV diz "Tempo do Natal", mas o calendário romano traz a memória de Santo Estêvão); (c) decidir se 23/12 e 24/12 (trechos de Lc 1 e Lc 2 já usados nos lotes 2 e 3) ficam como estão; (d) conferir manualmente na CNBB as 21 referências de 15/12 a 04/01 (lotes 3, 4 e 5), porque o site não pode ser lido por aqui; (e) revisar os lotes 1 a 5 com a pendência de D04 (revisor) antes de colar qualquer reflexão no CSV.
 
 ## Regras rápidas
 - Uma etapa por execução. Etapa "em andamento" há menos de 50 min = outra execução trabalhando: não fazer nada.
@@ -19,7 +19,7 @@ Para o Wanderson: (a) revisar o lote 4 (sensibilidade de Mt 2,13-18 em 28/12 e d
 - `pytest` e `flutter analyze` + `flutter test` (mobile/) passando antes de cada commit.
 
 ## Fila (em ordem)
-1. **C01-L6 — Reflexões, lote 6** (05/01 a 10/01, inclui Batismo do Senhor), um lote por etapa.
+1. **C01-L7 — Reflexões, lote 7** (11/01 a 17/01), um lote por etapa.
 2. **S01 — Assinatura do AAB:** aplicar no gradle a leitura de `key.properties` (sem segredo no repo), seguindo `docs/roteiro-assinatura-aab.md`.
 
 ## Bloqueadas (esperando decisão do Wanderson)
@@ -29,6 +29,10 @@ Para o Wanderson: (a) revisar o lote 4 (sensibilidade de Mt 2,13-18 em 28/12 e d
 - Texto bíblico completo — D05.
 
 ## Histórico
+- **C01-L5 — Reflexões do Advento/Natal, lote 5 (29/12/2026–04/01/2027)** — concluída 2026-11-24 (UTC).
+  - Arquivos: `docs/reflexoes-rascunho-advento-lote5.md` (novo; 7 textos: 29/12 Lc 2,22-35; 30/12 Lc 2,36-40; 31/12 Jo 1,1-18; 01/01 Lc 2,16-21 (Santa Maria, Mãe de Deus); 02/01 Jo 1,19-28; 03/01 Mt 2,1-12 (Epifania); 04/01 Mt 4,12-17.23-25). Mesmo formato dos lotes 2 a 4; sem texto bíblico; cada texto termina com pergunta e passo prático. Referências copiadas do CSV. CSV, catálogo e código não mudaram.
+  - Testes: não rodados (só `.md` novo).
+  - Pendências: conferência CNBB das referências não feita (site carrega por JavaScript); sobreposição com o lote 4 (31/12 e 01/01); transferência da Epifania para o domingo (03/01); tamanho ~90 palavras por texto; revisão humana (D04).
 - **C01-L4 — Reflexões do Advento/Natal, lote 4 (22/12–28/12)** — concluída 2026-11-24 (UTC).
   - Arquivos: `docs/reflexoes-rascunho-advento-lote4.md` (novo; 7 textos: 22/12 Lc 1,46-56; 23/12 Lc 1,57-66; 24/12 Lc 1,67-79 e Lc 2,1-14; 25/12 Jo 1,1-18 e Lc 2,15-20; 26/12 Mt 10,17-22; 27/12 Lc 2,22-40; 28/12 Mt 2,13-18). Mesmo formato dos lotes 2 e 3; sem texto bíblico; cada texto termina com pergunta e passo prático. CSV, catálogo e código não mudaram.
   - Testes: não rodados (só `.md` novo).
