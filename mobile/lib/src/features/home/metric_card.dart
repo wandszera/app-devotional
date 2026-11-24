@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../theme/app_theme.dart';
-
 class MetricCard extends StatelessWidget {
   const MetricCard({
     required this.label,
@@ -17,9 +15,9 @@ class MetricCard extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(18),
       decoration: BoxDecoration(
-        color: AppColors.surface,
+        color: Theme.of(context).colorScheme.surface,
         borderRadius: BorderRadius.circular(22),
-        border: Border.all(color: AppColors.sand),
+        border: Border.all(color: Theme.of(context).colorScheme.outlineVariant),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -38,7 +36,7 @@ class MetricCard extends StatelessWidget {
               value,
               key: ValueKey<String>(value),
               style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                    color: const Color(0xFF3E6B52),
+                    color: Theme.of(context).colorScheme.primary,
                     fontWeight: FontWeight.bold,
                   ),
             ),

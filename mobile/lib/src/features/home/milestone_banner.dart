@@ -28,7 +28,7 @@ class MilestoneBanner extends StatelessWidget {
             'Próximo marco: $nextMilestone dias',
             style: Theme.of(context).textTheme.titleMedium?.copyWith(
                   fontWeight: FontWeight.w700,
-                  color: const Color(0xFF3E6B52),
+                  color: Theme.of(context).colorScheme.primary,
                 ),
           ),
           const SizedBox(height: 6),
@@ -43,8 +43,9 @@ class MilestoneBanner extends StatelessWidget {
             child: LinearProgressIndicator(
               value: progress.clamp(0, 1),
               minHeight: 10,
-              backgroundColor: const Color(0xFFE6DCC8),
-              valueColor: const AlwaysStoppedAnimation(Color(0xFFB8893B)),
+              backgroundColor: Theme.of(context).colorScheme.outlineVariant,
+              valueColor: AlwaysStoppedAnimation(
+                  Theme.of(context).colorScheme.secondary),
             ),
           ),
         ],

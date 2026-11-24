@@ -20,7 +20,7 @@ class HabitCoachCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final palette = _paletteForTone(tone);
+    final palette = _paletteForTone(Theme.of(context).colorScheme, tone);
     return Container(
       padding: const EdgeInsets.all(18),
       decoration: BoxDecoration(
@@ -40,7 +40,8 @@ class HabitCoachCard extends StatelessWidget {
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
             decoration: BoxDecoration(
-              color: Colors.white.withValues(alpha: 0.82),
+              color:
+                  Theme.of(context).colorScheme.surface.withValues(alpha: 0.82),
               borderRadius: BorderRadius.circular(999),
             ),
             child: Text(
@@ -79,7 +80,8 @@ class HabitCoachCard extends StatelessWidget {
     );
   }
 
-  (Color, Color, Color, Color) _paletteForTone(String value) {
+  (Color, Color, Color, Color) _paletteForTone(
+      ColorScheme scheme, String value) {
     switch (value) {
       case 'success':
         return (
@@ -90,31 +92,31 @@ class HabitCoachCard extends StatelessWidget {
         );
       case 'starter':
         return (
-          const Color(0xFFF4EEE2),
-          const Color(0xFFF4EEE2),
-          const Color(0xFF3E6B52),
-          const Color(0xFF1F3A2C),
+          scheme.surfaceContainerHighest,
+          scheme.surfaceContainerHighest,
+          scheme.primary,
+          scheme.onPrimaryContainer,
         );
       case 'milestone':
         return (
           const Color(0xFFF6EBD0),
           const Color(0xFFF6EBD0),
-          const Color(0xFF7A2E3A),
-          const Color(0xFF1F3A2C),
+          scheme.tertiary,
+          scheme.onPrimaryContainer,
         );
       case 'strong':
         return (
           const Color(0xFFE6F0E8),
           const Color(0xFFD3E4D8),
-          const Color(0xFF3E6B52),
-          const Color(0xFF1F3A2C),
+          scheme.primary,
+          scheme.onPrimaryContainer,
         );
       default:
         return (
-          const Color(0xFFF4EEE2),
-          const Color(0xFFF4EEE2),
-          const Color(0xFF3E6B52),
-          const Color(0xFF1F3A2C),
+          scheme.surfaceContainerHighest,
+          scheme.surfaceContainerHighest,
+          scheme.primary,
+          scheme.onPrimaryContainer,
         );
     }
   }

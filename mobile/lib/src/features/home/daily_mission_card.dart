@@ -17,7 +17,9 @@ class DailyMissionCard extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(18),
       decoration: BoxDecoration(
-        color: completed ? const Color(0xFFE9F7ED) : Colors.white,
+        color: completed
+            ? const Color(0xFFE9F7ED)
+            : Theme.of(context).colorScheme.surface,
         borderRadius: BorderRadius.circular(22),
       ),
       child: Row(
@@ -25,7 +27,9 @@ class DailyMissionCard extends StatelessWidget {
         children: [
           Icon(
             completed ? Icons.verified : Icons.flag_outlined,
-            color: completed ? Colors.green : const Color(0xFF3E6B52),
+            color: completed
+                ? Colors.green
+                : Theme.of(context).colorScheme.primary,
           ),
           const SizedBox(width: 12),
           Expanded(
@@ -36,7 +40,7 @@ class DailyMissionCard extends StatelessWidget {
                   title,
                   style: Theme.of(context).textTheme.titleMedium?.copyWith(
                         fontWeight: FontWeight.w700,
-                        color: const Color(0xFF1F3A2C),
+                        color: Theme.of(context).colorScheme.onPrimaryContainer,
                       ),
                 ),
                 const SizedBox(height: 6),

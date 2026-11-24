@@ -32,13 +32,19 @@ class HeroCard extends StatelessWidget {
         border: Border.all(color: AppColors.gold.withValues(alpha: 0.55)),
         boxShadow: [
           BoxShadow(
-            color: AppColors.blueDeep.withValues(alpha: 0.22),
+            color: Theme.of(context)
+                .colorScheme
+                .onPrimaryContainer
+                .withValues(alpha: 0.22),
             blurRadius: 24,
             offset: const Offset(0, 10),
           ),
         ],
-        gradient: const LinearGradient(
-          colors: [AppColors.blueDeep, AppColors.blue],
+        gradient: LinearGradient(
+          colors: [
+            Theme.of(context).colorScheme.onPrimaryContainer,
+            Theme.of(context).colorScheme.primary
+          ],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
@@ -72,7 +78,12 @@ class HeroCard extends StatelessWidget {
                   },
                   icon: Icon(
                     isFavorited ? Icons.favorite : Icons.favorite_border,
-                    color: isFavorited ? AppColors.goldLight : Colors.white70,
+                    color: isFavorited
+                        ? AppColors.goldLight
+                        : Theme.of(context)
+                            .colorScheme
+                            .onPrimary
+                            .withValues(alpha: 0.7),
                   ),
                   padding: EdgeInsets.zero,
                   constraints: const BoxConstraints(),
@@ -83,7 +94,7 @@ class HeroCard extends StatelessWidget {
           Text(
             title,
             style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                  color: Colors.white,
+                  color: Theme.of(context).colorScheme.onPrimary,
                   fontSize: 30,
                 ),
           ),
@@ -104,8 +115,11 @@ class HeroCard extends StatelessWidget {
             const SizedBox(height: 6),
             Text(
               'Evangelho: $gospelReference',
-              style: const TextStyle(
-                color: Colors.white70,
+              style: TextStyle(
+                color: Theme.of(context)
+                    .colorScheme
+                    .onPrimary
+                    .withValues(alpha: 0.7),
                 fontSize: 13,
                 fontWeight: FontWeight.w600,
               ),
@@ -115,7 +129,7 @@ class HeroCard extends StatelessWidget {
           Text(
             body,
             style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                  color: Colors.white,
+                  color: Theme.of(context).colorScheme.onPrimary,
                   height: 1.5,
                 ),
           ),

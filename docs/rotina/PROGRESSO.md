@@ -4,13 +4,13 @@ Controle da tarefa agendada que roda de hora em hora: cada execução faz **uma*
 marca como concluída e deixa a próxima preparada. Branch de trabalho: `rotina/semente`.
 
 ## Estado
-- Em andamento: T01 — Cores para o ColorScheme (parte 1), iniciada 2026-11-24 ~12:18 UTC
-- Última execução: 2026-11-23 ~12:20–12:40 UTC — C01-L2 concluída (rascunho das reflexões do Advento, 08–14/12).
-- CI esperado: verde (nesta etapa só mudou documentação; último `flutter test` 68 passou, `pytest` 43 passou, na U02).
+- Em andamento: (nenhuma)
+- Última execução: 2026-11-24 ~12:18–12:50 UTC — T01 concluída (cores do card Hoje migradas para o ColorScheme).
+- CI esperado: verde (T01: `flutter analyze` sem issues e `flutter test` 68 passou; backend não tocado).
 
 ## Próxima etapa preparada
-**T01 — Cores para o ColorScheme (parte 1):** migrar cores fixas (`Colors.white`, hex literais, `AppColors.*` const) para `Theme.of(context).colorScheme` nas telas da aba Hoje. Exige Flutter 3.41.9 no ambiente (instalar conforme CLAUDE.md/AGENTS.md) e `flutter analyze` + `flutter test` passando antes do commit. Sem mudança de API.
-Para o Wanderson: revisar as reflexões dos lotes 1 e 2 (`docs/reflexoes-rascunho-advento-lote1.md` e `docs/reflexoes-rascunho-advento-lote2.md`) e decidir D04 (quem revisa) para que os textos possam entrar no CSV. Revisar a tradução própria do Suscipe (`mobile/lib/src/services/prayer_store.dart`, fonte: Exercícios Espirituais de Santo Inácio, n. 234) antes da loja. Confirmar o nome final "Semente – Catequese Diária" (D01). Conferir no aparelho o card Hoje (data "19 de novembro", título litúrgico e "Evangelho: …").
+**T02 — ColorScheme (parte 2):** migrar as cores fixas das demais telas (Calendário, Progresso, Orações, Ajustes, Leitor, onboarding, login) para `Theme.of(context).colorScheme`, usando o mesmo critério da T01: só valores que batem exatamente com a paleta de `AppTheme.light()` viram role do ColorScheme; tons pastel sem equivalente ficam para a T03 (modo escuro). Sem mudança de API. Exige `flutter analyze` + `flutter test` passando antes do commit.
+Para o Wanderson: conferir no aparelho/web o card Hoje depois da T01 (o cartão "Missão do dia" e a pílula do coach passam de branco puro para o creme `surface`, que é o cartão padrão do tema). Continuam fixos e serão tratados na T03: os tons pastel de `habit_status_card`, `habit_coach_card`, `completion_feedback_dialog` e `milestone_banner`, e o dourado claro `AppColors.goldLight` do hero. Revisar as reflexões dos lotes 1 e 2 (`docs/reflexoes-rascunho-advento-lote1.md` e `docs/reflexoes-rascunho-advento-lote2.md`) e decidir D04 (quem revisa) para que os textos possam entrar no CSV. Revisar a tradução própria do Suscipe (`mobile/lib/src/services/prayer_store.dart`, fonte: Exercícios Espirituais de Santo Inácio, n. 234) antes da loja. Confirmar o nome final "Semente – Catequese Diária" (D01).
 
 ## Regras rápidas
 - Uma etapa por execução. Etapa "em andamento" há menos de 50 min = outra execução trabalhando: não fazer nada.
@@ -19,8 +19,7 @@ Para o Wanderson: revisar as reflexões dos lotes 1 e 2 (`docs/reflexoes-rascunh
 - `pytest` e `flutter analyze` + `flutter test` (mobile/) passando antes de cada commit.
 
 ## Fila (em ordem)
-1. **T01 — Cores para o ColorScheme (parte 1)** (em andamento): migrar cores fixas (`Colors.white`, hex literais, `AppColors.*` const) para `Theme.of(context).colorScheme` nas telas da aba Hoje.
-2. **T02 — ColorScheme (parte 2):** demais telas (Calendário, Progresso, Orações, Ajustes, Leitor, onboarding, login).
+1. **T02 — ColorScheme (parte 2):** demais telas (Calendário, Progresso, Orações, Ajustes, Leitor, onboarding, login).
 3. **T03 — Modo escuro:** `AppTheme.dark()` + `themeMode: ThemeMode.system`; conferir contraste (ver `docs/plano-modo-escuro.md`).
 4. **C01-L3..L6 — Reflexões, lotes 3 a 6** (15/12–10/01), um lote por etapa.
 5. **S01 — Assinatura do AAB:** aplicar no gradle a leitura de `key.properties` (sem segredo no repo), seguindo `docs/roteiro-assinatura-aab.md`.
@@ -32,6 +31,12 @@ Para o Wanderson: revisar as reflexões dos lotes 1 e 2 (`docs/reflexoes-rascunh
 - Texto bíblico completo — D05.
 
 ## Histórico
+- **T01 — Cores para o ColorScheme (parte 1)** — concluída 2026-11-24 (UTC).
+  - Arquivos (só `mobile/lib/src/features/home/`): `hero_card.dart`, `daily_mission_card.dart`, `habit_status_card.dart`, `habit_coach_card.dart`, `milestone_banner.dart`, `metric_card.dart`, `home_state_widgets.dart`, `home_feedback.dart` (erro usa `colorScheme.tertiary`), `completion_feedback_dialog.dart`. Nas paletas por tom, as funções `_paletteForTone`/`_palette` recebem `ColorScheme`. Mapeamento: `0xFF3E6B52`→`primary`, `0xFF1F3A2C`→`onPrimaryContainer`, `0xFF7A2E3A`→`tertiary`, `0xFFF4EEE2`→`surfaceContainerHighest`, `0xFFB8893B`→`secondary`, `0xFFE6DCC8`→`outlineVariant`; `Colors.white`→`onPrimary` (texto sobre gradiente) ou `surface` (cartões); `AppColors.surface/sand`→`surface/outlineVariant`. Imports `app_theme.dart` não usados removidos.
+  - Mudança visual intencional e pequena: cartão "Missão do dia" e pílula do coach deixam de ser branco puro e viram o creme `surface` do tema.
+  - Não migrado (sem role equivalente, fica para T03): tons pastel das paletas por tom, `0xFFF9F1DF`, `0xFFE9F7ED`, `0xFF4D7C4A` (snackbar de sucesso), `AppColors.gold/goldLight` do hero.
+  - Testes: `flutter analyze` sem issues; `flutter test` 68 passou (Flutter 3.41.9). Backend não alterado; pytest não rodado nesta etapa.
+  - Pendências: conferência visual do card Hoje (não fiz captura com Playwright nesta rodada).
 - **C01-L2 — Reflexões do Advento, lote 2 (08–14/12)** — concluída 2026-11-23 (UTC).
   - Arquivos: `docs/reflexoes-rascunho-advento-lote2.md` (novo; 7 textos, 08/12 Imaculada Conceição e 13/12 Gaudete incluídos). Mesmo formato do lote 1: rascunho, sem texto bíblico, cada texto termina com pergunta e passo prático. Referências copiadas do `docs/calendario-editorial-2026-12-a-2027-03.csv` (já conferidas na Liturgia Diária das Edições CNBB no C01). CSV, catálogo e código não mudaram.
   - Testes: não rodados nesta etapa, pois só um arquivo `.md` novo foi criado (nenhum código, API ou teste tocado).

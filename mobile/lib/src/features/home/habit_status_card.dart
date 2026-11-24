@@ -10,7 +10,8 @@ class HabitStatusCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final palette = _paletteForTone(snapshot.tone);
+    final palette =
+        _paletteForTone(Theme.of(context).colorScheme, snapshot.tone);
     return Container(
       padding: const EdgeInsets.all(18),
       decoration: BoxDecoration(
@@ -70,7 +71,7 @@ class HabitStatusCard extends StatelessWidget {
     );
   }
 
-  (Color, Color, Color) _paletteForTone(String value) {
+  (Color, Color, Color) _paletteForTone(ColorScheme scheme, String value) {
     switch (value) {
       case 'success':
         return (
@@ -81,26 +82,26 @@ class HabitStatusCard extends StatelessWidget {
       case 'milestone':
         return (
           const Color(0xFFF9F1DF),
-          const Color(0xFF7A2E3A),
-          const Color(0xFF1F3A2C),
+          scheme.tertiary,
+          scheme.onPrimaryContainer,
         );
       case 'strong':
         return (
           const Color(0xFFEAF3EC),
-          const Color(0xFF3E6B52),
-          const Color(0xFF1F3A2C),
+          scheme.primary,
+          scheme.onPrimaryContainer,
         );
       case 'starter':
         return (
-          const Color(0xFFF4EEE2),
-          const Color(0xFF3E6B52),
-          const Color(0xFF1F3A2C),
+          scheme.surfaceContainerHighest,
+          scheme.primary,
+          scheme.onPrimaryContainer,
         );
       default:
         return (
-          const Color(0xFFF4EEE2),
-          const Color(0xFF3E6B52),
-          const Color(0xFF1F3A2C),
+          scheme.surfaceContainerHighest,
+          scheme.primary,
+          scheme.onPrimaryContainer,
         );
     }
   }

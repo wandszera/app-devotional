@@ -11,9 +11,8 @@ class CompletionFeedbackDialog {
     BuildContext context,
     DevotionalCompletionFeedbackModel feedback,
   ) async {
-    final palette = _palette(feedback.tone);
-    final officialMilestone =
-        feedback.milestoneHit ??
+    final palette = _palette(Theme.of(context).colorScheme, feedback.tone);
+    final officialMilestone = feedback.milestoneHit ??
         RetentionSupport.latestMilestone(feedback.longestStreak);
 
     await showDialog<void>(
@@ -88,31 +87,31 @@ class CompletionFeedbackDialog {
     );
   }
 
-  static (Color, Color, Color) _palette(String tone) {
+  static (Color, Color, Color) _palette(ColorScheme scheme, String tone) {
     switch (tone) {
       case 'milestone':
         return (
           const Color(0xFFF9F1DF),
-          const Color(0xFF7A2E3A),
-          const Color(0xFF1F3A2C),
+          scheme.tertiary,
+          scheme.onPrimaryContainer,
         );
       case 'starter':
         return (
-          const Color(0xFFF4EEE2),
-          const Color(0xFF3E6B52),
-          const Color(0xFF1F3A2C),
+          scheme.surfaceContainerHighest,
+          scheme.primary,
+          scheme.onPrimaryContainer,
         );
       case 'strong':
         return (
           const Color(0xFFEAF3EC),
-          const Color(0xFF3E6B52),
-          const Color(0xFF1F3A2C),
+          scheme.primary,
+          scheme.onPrimaryContainer,
         );
       default:
         return (
-          const Color(0xFFF4EEE2),
-          const Color(0xFF3E6B52),
-          const Color(0xFF1F3A2C),
+          scheme.surfaceContainerHighest,
+          scheme.primary,
+          scheme.onPrimaryContainer,
         );
     }
   }

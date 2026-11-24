@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../theme/app_theme.dart';
-
 class HomeLoadingView extends StatelessWidget {
   const HomeLoadingView({super.key});
 
@@ -28,7 +26,7 @@ class HomeErrorView extends StatelessWidget {
           message,
           textAlign: TextAlign.center,
           style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                color: const Color(0xFF3E6B52),
+                color: Theme.of(context).colorScheme.primary,
               ),
         ),
       ),
@@ -53,7 +51,7 @@ class HomeEmptyView extends StatelessWidget {
           message,
           textAlign: TextAlign.center,
           style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                color: const Color(0xFF3E6B52),
+                color: Theme.of(context).colorScheme.primary,
               ),
         ),
       ),
@@ -74,9 +72,9 @@ class HomeEmptyCard extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(18),
       decoration: BoxDecoration(
-        color: AppColors.surface,
+        color: Theme.of(context).colorScheme.surface,
         borderRadius: BorderRadius.circular(22),
-        border: Border.all(color: AppColors.sand),
+        border: Border.all(color: Theme.of(context).colorScheme.outlineVariant),
       ),
       child: Text(message),
     );
