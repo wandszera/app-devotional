@@ -4,7 +4,7 @@ Controle da tarefa agendada que roda de hora em hora: cada execução faz **uma*
 marca como concluída e deixa a próxima preparada. Branch de trabalho: `rotina/semente`.
 
 ## Estado
-- Em andamento: (nenhuma)
+- Em andamento: T01 — Cores para o ColorScheme (parte 1), iniciada 2026-11-24 ~12:18 UTC
 - Última execução: 2026-11-23 ~12:20–12:40 UTC — C01-L2 concluída (rascunho das reflexões do Advento, 08–14/12).
 - CI esperado: verde (nesta etapa só mudou documentação; último `flutter test` 68 passou, `pytest` 43 passou, na U02).
 
@@ -19,7 +19,7 @@ Para o Wanderson: revisar as reflexões dos lotes 1 e 2 (`docs/reflexoes-rascunh
 - `pytest` e `flutter analyze` + `flutter test` (mobile/) passando antes de cada commit.
 
 ## Fila (em ordem)
-1. **T01 — Cores para o ColorScheme (parte 1):** migrar cores fixas (`Colors.white`, hex literais, `AppColors.*` const) para `Theme.of(context).colorScheme` nas telas da aba Hoje.
+1. **T01 — Cores para o ColorScheme (parte 1)** (em andamento): migrar cores fixas (`Colors.white`, hex literais, `AppColors.*` const) para `Theme.of(context).colorScheme` nas telas da aba Hoje.
 2. **T02 — ColorScheme (parte 2):** demais telas (Calendário, Progresso, Orações, Ajustes, Leitor, onboarding, login).
 3. **T03 — Modo escuro:** `AppTheme.dark()` + `themeMode: ThemeMode.system`; conferir contraste (ver `docs/plano-modo-escuro.md`).
 4. **C01-L3..L6 — Reflexões, lotes 3 a 6** (15/12–10/01), um lote por etapa.
