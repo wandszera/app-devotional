@@ -4,7 +4,7 @@ Controle da tarefa agendada que roda de hora em hora: cada execução faz **uma*
 marca como concluída e deixa a próxima preparada. Branch de trabalho: `rotina/semente`.
 
 ## Estado
-- Em andamento: (nenhuma)
+- Em andamento: C01-L3 — Reflexões do Advento, lote 3 (iniciada 2026-11-24 18:52 UTC)
 - Última execução: 2026-11-24 (UTC) — T04d concluída: lote 5 (entrada/admin) migrado só nos literais com token exato. `onboarding_page` e `login_page`: `AppColors.ivory` do gradiente → `context.palette.bg`. `cross_ornament`: `CrossMark.color` virou opcional (padrão `context.palette.gold`) e o filete usa `goldLight` da paleta. `admin_due_notification_list_item`: ícone `primary` e texto `muted`. Commit `b89c6c5`.
 - CI esperado: verde. Validado nesta etapa: `flutter analyze` sem issues; `flutter test` 71 passou (Flutter 3.41.9). Backend não tocado.
 
