@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../theme/app_theme.dart';
+import '../../theme/app_palette.dart';
 import '../../widgets/cross_ornament.dart';
 
 class HeroCard extends StatelessWidget {
@@ -29,7 +29,7 @@ class HeroCard extends StatelessWidget {
       padding: const EdgeInsets.fromLTRB(24, 22, 24, 26),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(28),
-        border: Border.all(color: AppColors.gold.withValues(alpha: 0.55)),
+        border: Border.all(color: context.palette.gold.withValues(alpha: 0.55)),
         boxShadow: [
           BoxShadow(
             color: Theme.of(context)
@@ -61,8 +61,8 @@ class HeroCard extends StatelessWidget {
                   const SizedBox(width: 10),
                   Text(
                     date.toUpperCase(),
-                    style: const TextStyle(
-                      color: AppColors.goldLight,
+                    style: TextStyle(
+                      color: context.palette.goldLight,
                       fontSize: 12,
                       letterSpacing: 1.4,
                       fontWeight: FontWeight.w600,
@@ -79,7 +79,7 @@ class HeroCard extends StatelessWidget {
                   icon: Icon(
                     isFavorited ? Icons.favorite : Icons.favorite_border,
                     color: isFavorited
-                        ? AppColors.goldLight
+                        ? context.palette.goldLight
                         : Theme.of(context)
                             .colorScheme
                             .onPrimary
@@ -105,7 +105,7 @@ class HeroCard extends StatelessWidget {
             Text(
               liturgicalTitle,
               style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                    color: AppColors.goldLight,
+                    color: context.palette.goldLight,
                     fontStyle: FontStyle.italic,
                     height: 1.4,
                   ),

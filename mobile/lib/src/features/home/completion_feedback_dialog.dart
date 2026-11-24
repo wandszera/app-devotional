@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
 import '../../models/devotional_models.dart';
+import '../../theme/app_palette.dart';
 import 'retention_support.dart';
 import 'retention_primitives.dart';
 
@@ -11,7 +12,11 @@ class CompletionFeedbackDialog {
     BuildContext context,
     DevotionalCompletionFeedbackModel feedback,
   ) async {
-    final palette = _palette(Theme.of(context).colorScheme, feedback.tone);
+    final palette = _palette(
+      context.palette,
+      Theme.of(context).colorScheme,
+      feedback.tone,
+    );
     final officialMilestone = feedback.milestoneHit ??
         RetentionSupport.latestMilestone(feedback.longestStreak);
 
@@ -87,7 +92,8 @@ class CompletionFeedbackDialog {
     );
   }
 
-  static (Color, Color, Color) _palette(ColorScheme scheme, String tone) {
+  static (Color, Color, Color) _palette(
+      AppPalette app, ColorScheme scheme, String tone) {
     switch (tone) {
       case 'milestone':
         return (
@@ -103,7 +109,7 @@ class CompletionFeedbackDialog {
         );
       case 'strong':
         return (
-          const Color(0xFFEAF3EC),
+          app.successSoft,
           scheme.primary,
           scheme.onPrimaryContainer,
         );

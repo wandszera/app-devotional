@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../theme/app_palette.dart';
 import 'retention_primitives.dart';
 
 class HabitCoachCard extends StatelessWidget {
@@ -20,7 +21,11 @@ class HabitCoachCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final palette = _paletteForTone(Theme.of(context).colorScheme, tone);
+    final palette = _paletteForTone(
+      context.palette,
+      Theme.of(context).colorScheme,
+      tone,
+    );
     return Container(
       padding: const EdgeInsets.all(18),
       decoration: BoxDecoration(
@@ -81,7 +86,7 @@ class HabitCoachCard extends StatelessWidget {
   }
 
   (Color, Color, Color, Color) _paletteForTone(
-      ColorScheme scheme, String value) {
+      AppPalette app, ColorScheme scheme, String value) {
     switch (value) {
       case 'success':
         return (
@@ -99,8 +104,8 @@ class HabitCoachCard extends StatelessWidget {
         );
       case 'milestone':
         return (
-          const Color(0xFFF6EBD0),
-          const Color(0xFFF6EBD0),
+          app.goldSoft,
+          app.goldSoft,
           scheme.tertiary,
           scheme.onPrimaryContainer,
         );
