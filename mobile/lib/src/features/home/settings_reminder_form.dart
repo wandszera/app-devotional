@@ -26,6 +26,7 @@ class SettingsReminderForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
     return Column(
       children: [
         SwitchListTile(
@@ -64,7 +65,7 @@ class SettingsReminderForm extends StatelessWidget {
         Text(
           'Sem SDK nativo, este campo permite testar dispatch manualmente pelo backend.',
           style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                color: const Color(0xFF5E584E),
+                color: colorScheme.onSurfaceVariant,
               ),
         ),
         const SizedBox(height: 20),

@@ -80,6 +80,7 @@ class _PrayersTabState extends State<PrayersTab> {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
     if (_loading) {
       return const HomeLoadingView();
     }
@@ -96,14 +97,14 @@ class _PrayersTabState extends State<PrayersTab> {
             'Orações publicadas',
             style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                   fontWeight: FontWeight.w800,
-                  color: const Color(0xFF26211C),
+                  color: colorScheme.onSurface,
                 ),
           ),
           const SizedBox(height: 8),
           Text(
             'Catálogo editorial incluído nesta versão do app. Seus favoritos ficam apenas neste dispositivo.',
             style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                  color: const Color(0xFF5E584E),
+                  color: colorScheme.onSurfaceVariant,
                 ),
           ),
           const SizedBox(height: 20),

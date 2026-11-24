@@ -133,6 +133,7 @@ class _GospelReaderPageState extends State<GospelReaderPage> {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
     if (_loading) {
       return const Scaffold(body: HomeLoadingView());
     }
@@ -173,7 +174,7 @@ class _GospelReaderPageState extends State<GospelReaderPage> {
             Text(
               _formatDate(gospel.date),
               style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                    color: const Color(0xFF5E584E),
+                    color: colorScheme.onSurfaceVariant,
                   ),
             ),
             const SizedBox(height: 8),
@@ -181,14 +182,14 @@ class _GospelReaderPageState extends State<GospelReaderPage> {
               gospel.title,
               style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                     fontWeight: FontWeight.w800,
-                    color: const Color(0xFF26211C),
+                    color: colorScheme.onSurface,
                   ),
             ),
             const SizedBox(height: 8),
             Text(
               gospel.reference,
               style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                    color: const Color(0xFF3E6B52),
+                    color: colorScheme.primary,
                   ),
             ),
             const SizedBox(height: 24),
@@ -203,7 +204,7 @@ class _GospelReaderPageState extends State<GospelReaderPage> {
               gospel.text,
               style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                     height: 1.75,
-                    color: const Color(0xFF26211C),
+                    color: colorScheme.onSurface,
                   ),
             ),
             if (gospel.sourceUrl.isNotEmpty) ...[
@@ -211,7 +212,7 @@ class _GospelReaderPageState extends State<GospelReaderPage> {
               Text(
                 'Referência litúrgica: ${gospel.sourceUrl}',
                 style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                      color: const Color(0xFF5E584E),
+                      color: colorScheme.onSurfaceVariant,
                     ),
               ),
             ],

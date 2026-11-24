@@ -5,7 +5,6 @@ import 'package:google_fonts/google_fonts.dart';
 
 import '../../models/devotional_models.dart';
 import '../../services/local_db_service.dart';
-import '../../theme/app_theme.dart';
 import 'content_cards.dart';
 import 'retention_support.dart';
 
@@ -38,12 +37,13 @@ class _GospelReferenceCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
     return Container(
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
         color: const Color(0xFFF9F1DF),
         borderRadius: BorderRadius.circular(18),
-        border: Border.all(color: const Color(0xFFE6DCC8)),
+        border: Border.all(color: colorScheme.outlineVariant),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -86,12 +86,13 @@ class _PersonalReflectionEditor extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
     return Container(
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-        color: AppColors.surface,
+        color: colorScheme.surface,
         borderRadius: BorderRadius.circular(20),
-        border: Border.all(color: AppColors.sand),
+        border: Border.all(color: colorScheme.outlineVariant),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -192,6 +193,7 @@ class _DevotionalReaderPageState extends State<DevotionalReaderPage> {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
     final nextMilestone =
         RetentionSupport.nextMilestone(widget.streak.currentStreak);
 
@@ -223,7 +225,7 @@ class _DevotionalReaderPageState extends State<DevotionalReaderPage> {
             Text(
               widget.devotional.date,
               style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                    color: const Color(0xFF5E584E),
+                    color: colorScheme.onSurfaceVariant,
                     fontWeight: FontWeight.w600,
                     letterSpacing: 1.2,
                   ),
@@ -233,7 +235,7 @@ class _DevotionalReaderPageState extends State<DevotionalReaderPage> {
               widget.devotional.title,
               style: Theme.of(context).textTheme.headlineMedium?.copyWith(
                     fontWeight: FontWeight.w800,
-                    color: const Color(0xFF26211C),
+                    color: colorScheme.onSurface,
                     height: 1.2,
                   ),
             ),
@@ -242,7 +244,7 @@ class _DevotionalReaderPageState extends State<DevotionalReaderPage> {
               Text(
                 widget.devotional.liturgicalTitle,
                 style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                      color: const Color(0xFF5E584E),
+                      color: colorScheme.onSurfaceVariant,
                     ),
               ),
             ],
@@ -284,7 +286,7 @@ class _DevotionalReaderPageState extends State<DevotionalReaderPage> {
                     style: GoogleFonts.lora(
                       fontSize: 18,
                       height: 1.8,
-                      color: const Color(0xFF26211C),
+                      color: colorScheme.onSurface,
                     ),
                   ),
                 ],

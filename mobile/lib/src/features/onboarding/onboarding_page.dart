@@ -52,14 +52,15 @@ class _OnboardingPageState extends State<OnboardingPage> {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
     final isLastPage = pageIndex == items.length - 1;
     return Scaffold(
       body: DecoratedBox(
-        decoration: const BoxDecoration(
+        decoration: BoxDecoration(
           gradient: LinearGradient(
             colors: [
               AppColors.ivory,
-              AppColors.goldSoft,
+              colorScheme.secondaryContainer,
             ],
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
@@ -95,16 +96,16 @@ class _OnboardingPageState extends State<OnboardingPage> {
                             width: 112,
                             height: 112,
                             decoration: BoxDecoration(
-                              color: AppColors.surface,
+                              color: colorScheme.surface,
                               shape: BoxShape.circle,
                               border: Border.all(
-                                color: AppColors.gold.withValues(alpha: 0.6),
+                                color: colorScheme.secondary.withValues(alpha: 0.6),
                                 width: 1.5,
                               ),
                               boxShadow: [
                                 BoxShadow(
                                   color:
-                                      AppColors.blueDeep.withValues(alpha: 0.10),
+                                      colorScheme.onPrimaryContainer.withValues(alpha: 0.10),
                                   blurRadius: 24,
                                   offset: const Offset(0, 10),
                                 ),
@@ -113,7 +114,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
                             child: Icon(
                               item.icon,
                               size: 48,
-                              color: AppColors.blue,
+                              color: colorScheme.primary,
                             ),
                           ),
                           const SizedBox(height: 20),
@@ -132,7 +133,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
                             textAlign: TextAlign.center,
                             style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                                   height: 1.6,
-                                  color: AppColors.muted,
+                                  color: colorScheme.onSurfaceVariant,
                                 ),
                           ),
                         ],
@@ -151,8 +152,8 @@ class _OnboardingPageState extends State<OnboardingPage> {
                       height: 8,
                       decoration: BoxDecoration(
                         color: pageIndex == index
-                            ? AppColors.gold
-                            : AppColors.sandDeep,
+                            ? colorScheme.secondary
+                            : colorScheme.outline,
                         borderRadius: BorderRadius.circular(99),
                       ),
                     ),

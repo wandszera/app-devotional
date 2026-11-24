@@ -82,6 +82,7 @@ class _LiturgicalCalendarTabState extends State<LiturgicalCalendarTab> {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
     if (_loading) {
       return const HomeLoadingView();
     }
@@ -104,21 +105,21 @@ class _LiturgicalCalendarTabState extends State<LiturgicalCalendarTab> {
             'Calendário litúrgico',
             style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                   fontWeight: FontWeight.w800,
-                  color: const Color(0xFF26211C),
+                  color: colorScheme.onSurface,
                 ),
           ),
           const SizedBox(height: 4),
           Text(
             'Setembro de 2026',
             style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                  color: const Color(0xFF3E6B52),
+                  color: colorScheme.primary,
                 ),
           ),
           const SizedBox(height: 8),
           Text(
             'Toque em uma data publicada para abrir o Evangelho. Coração e anotação indicam dados privados deste dispositivo.',
             style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                  color: const Color(0xFF5E584E),
+                  color: colorScheme.onSurfaceVariant,
                 ),
           ),
           const SizedBox(height: 20),
@@ -212,6 +213,7 @@ class _CalendarDay extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
     final hasGospel = entry != null;
     final personal = entry?.personalState;
     return Semantics(
@@ -220,7 +222,7 @@ class _CalendarDay extends StatelessWidget {
           ? 'Dia $day, Evangelho disponível'
           : 'Dia $day, Evangelho ainda não publicado',
       child: Material(
-        color: hasGospel ? Colors.white : const Color(0xFFF4EEE2),
+        color: hasGospel ? Colors.white : colorScheme.surfaceContainerHighest,
         borderRadius: BorderRadius.circular(12),
         child: InkWell(
           onTap: onTap,
@@ -229,7 +231,7 @@ class _CalendarDay extends StatelessWidget {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(12),
               border: Border.all(
-                color: isToday ? const Color(0xFFB8893B) : const Color(0xFFE6DCC8),
+                color: isToday ? colorScheme.secondary : colorScheme.outlineVariant,
                 width: isToday ? 2 : 1,
               ),
             ),

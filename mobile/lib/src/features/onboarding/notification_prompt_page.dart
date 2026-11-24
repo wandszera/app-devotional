@@ -151,13 +151,14 @@ class _NotificationPromptPageState extends State<NotificationPromptPage> {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
     return Scaffold(
       body: DecoratedBox(
-        decoration: const BoxDecoration(
+        decoration: BoxDecoration(
           gradient: LinearGradient(
             colors: [
-              Color(0xFFF9F1DF),
-              Color(0xFFE6DCC8),
+              const Color(0xFFF9F1DF),
+              colorScheme.outlineVariant,
             ],
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
@@ -182,10 +183,10 @@ class _NotificationPromptPageState extends State<NotificationPromptPage> {
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(28),
                 ),
-                child: const Icon(
+                child: Icon(
                   Icons.notifications_active_outlined,
                   size: 42,
-                  color: Color(0xFF3E6B52),
+                  color: colorScheme.primary,
                 ),
               ),
               const SizedBox(height: 24),
@@ -193,7 +194,7 @@ class _NotificationPromptPageState extends State<NotificationPromptPage> {
                 'Escolha seu lembrete diário',
                 style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                       fontWeight: FontWeight.w800,
-                      color: const Color(0xFF1F3A2C),
+                      color: colorScheme.onPrimaryContainer,
                     ),
               ),
               const SizedBox(height: 12),
@@ -201,7 +202,7 @@ class _NotificationPromptPageState extends State<NotificationPromptPage> {
                 'Esse horário ajuda você a voltar todos os dias. Escolha um momento simples e realista.',
                 style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                       height: 1.6,
-                      color: const Color(0xFF5E584E),
+                      color: colorScheme.onSurfaceVariant,
                     ),
               ),
               const SizedBox(height: 28),
@@ -211,18 +212,18 @@ class _NotificationPromptPageState extends State<NotificationPromptPage> {
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(22),
                 ),
-                child: const Column(
+                child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
                       'Primeira meta sugerida',
                       style: TextStyle(
                         fontWeight: FontWeight.w700,
-                        color: Color(0xFF3E6B52),
+                        color: colorScheme.primary,
                       ),
                     ),
-                    SizedBox(height: 6),
-                    Text(
+                    const SizedBox(height: 6),
+                    const Text(
                       'Tente manter 3 dias seguidos. É uma meta curta o bastante para começar bem e forte o bastante para criar ritmo.',
                     ),
                   ],
@@ -294,7 +295,7 @@ class _NotificationPromptPageState extends State<NotificationPromptPage> {
               Text(
                 'Você pode deixar em branco agora e preencher depois nos ajustes.',
                 style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                      color: const Color(0xFF5E584E),
+                      color: colorScheme.onSurfaceVariant,
                     ),
               ),
               if (errorMessage != null) ...[
@@ -302,7 +303,7 @@ class _NotificationPromptPageState extends State<NotificationPromptPage> {
                 Container(
                   padding: const EdgeInsets.all(12),
                   decoration: BoxDecoration(
-                    color: const Color(0xFFF6E3E4),
+                    color: colorScheme.tertiaryContainer,
                     borderRadius: BorderRadius.circular(14),
                   ),
                   child: Text(
@@ -337,11 +338,12 @@ class _PushSdkStatusCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
     final currentState = state;
     return Container(
       padding: const EdgeInsets.all(18),
       decoration: BoxDecoration(
-        color: const Color(0xFFF4EEE2),
+        color: colorScheme.surfaceContainerHighest,
         borderRadius: BorderRadius.circular(22),
       ),
       child: currentState == null
@@ -365,14 +367,14 @@ class _PushSdkStatusCard extends StatelessWidget {
                   currentState.statusMessage,
                   style: Theme.of(context).textTheme.titleSmall?.copyWith(
                         fontWeight: FontWeight.w700,
-                        color: const Color(0xFF3E6B52),
+                        color: colorScheme.primary,
                       ),
                 ),
                 const SizedBox(height: 8),
                 Text(
                   currentState.helpMessage,
                   style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                        color: const Color(0xFF5E584E),
+                        color: colorScheme.onSurfaceVariant,
                       ),
                 ),
                 const SizedBox(height: 12),

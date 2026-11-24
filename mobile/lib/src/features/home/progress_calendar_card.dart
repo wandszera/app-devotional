@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../theme/app_theme.dart';
 import 'home_content_widgets.dart';
 
 class ProgressCalendarCard extends StatelessWidget {
@@ -23,12 +22,13 @@ class ProgressCalendarCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
     return Container(
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-        color: AppColors.surface,
+        color: colorScheme.surface,
         borderRadius: BorderRadius.circular(24),
-        border: Border.all(color: AppColors.sand),
+        border: Border.all(color: colorScheme.outlineVariant),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -80,12 +80,12 @@ class ProgressCalendarCard extends StatelessWidget {
               return Container(
                 decoration: BoxDecoration(
                   color: isCompleted
-                      ? const Color(0xFF3E6B52)
-                      : const Color(0xFFF4EEE2),
+                      ? colorScheme.primary
+                      : colorScheme.surfaceContainerHighest,
                   borderRadius: BorderRadius.circular(14),
                   border: isToday
                       ? Border.all(
-                          color: const Color(0xFFB8893B),
+                          color: colorScheme.secondary,
                           width: 2,
                         )
                       : null,
@@ -94,7 +94,7 @@ class ProgressCalendarCard extends StatelessWidget {
                 child: Text(
                   '$dayNumber',
                   style: TextStyle(
-                    color: isCompleted ? Colors.white : const Color(0xFF5E584E),
+                    color: isCompleted ? Colors.white : colorScheme.onSurfaceVariant,
                     fontWeight: FontWeight.w600,
                   ),
                 ),

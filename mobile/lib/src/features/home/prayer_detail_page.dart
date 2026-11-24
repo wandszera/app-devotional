@@ -46,6 +46,7 @@ class _PrayerDetailPageState extends State<PrayerDetailPage> {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
     final metadata = [
       if (prayer.referenceAuthor?.isNotEmpty ?? false) prayer.referenceAuthor!,
       if (prayer.category?.isNotEmpty ?? false) prayer.category!,
@@ -75,7 +76,7 @@ class _PrayerDetailPageState extends State<PrayerDetailPage> {
               prayer.title,
               style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                     fontWeight: FontWeight.w800,
-                    color: const Color(0xFF26211C),
+                    color: colorScheme.onSurface,
                   ),
             ),
             if (metadata.isNotEmpty) ...[
@@ -93,14 +94,14 @@ class _PrayerDetailPageState extends State<PrayerDetailPage> {
               prayer.text,
               style: Theme.of(context).textTheme.titleMedium?.copyWith(
                     height: 1.75,
-                    color: const Color(0xFF26211C),
+                    color: colorScheme.onSurface,
                   ),
             ),
             const SizedBox(height: 28),
             Text(
               'Texto publicado no catálogo do app. Favoritos são privados e ficam neste dispositivo.',
               style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                    color: const Color(0xFF5E584E),
+                    color: colorScheme.onSurfaceVariant,
                   ),
             ),
           ],

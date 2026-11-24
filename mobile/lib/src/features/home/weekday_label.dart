@@ -7,13 +7,14 @@ class WeekdayLabel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
     return SizedBox(
       width: 28,
       child: Text(
         label,
         textAlign: TextAlign.center,
         style: Theme.of(context).textTheme.bodySmall?.copyWith(
-              color: const Color(0xFF3E6B52),
+              color: colorScheme.primary,
               fontWeight: FontWeight.w700,
             ),
       ),

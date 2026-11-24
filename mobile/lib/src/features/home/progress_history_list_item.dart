@@ -12,6 +12,7 @@ class ProgressHistoryListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
     // Material próprio: a cor do tile e o splash ficam visíveis mesmo
     // quando há um fundo colorido entre o ListTile e o Material da tela.
     return Material(
@@ -23,7 +24,7 @@ class ProgressHistoryListItem extends StatelessWidget {
         ),
         leading: Icon(
           completed ? Icons.check_circle : Icons.circle_outlined,
-          color: const Color(0xFF3E6B52),
+          color: colorScheme.primary,
         ),
         title: Text(date),
         subtitle: const Text('Devocional marcado como concluído'),

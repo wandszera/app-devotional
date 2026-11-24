@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../theme/app_theme.dart';
 import 'home_form_widgets.dart';
 
 class SettingsAccountCard extends StatelessWidget {
@@ -21,6 +20,7 @@ class SettingsAccountCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
     final displayName =
         (name != null && name!.trim().isNotEmpty) ? name! : 'Usuário';
     final displayBio =
@@ -29,10 +29,10 @@ class SettingsAccountCard extends StatelessWidget {
 
     return Card(
       elevation: 0,
-      color: AppColors.surface,
+      color: colorScheme.surface,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(16),
-        side: const BorderSide(color: Color(0xFFE6DCC8)),
+        side: BorderSide(color: colorScheme.outlineVariant),
       ),
       child: Padding(
         padding: const EdgeInsets.all(16),
@@ -42,7 +42,7 @@ class SettingsAccountCard extends StatelessWidget {
               children: [
                 CircleAvatar(
                   radius: 30,
-                  backgroundColor: const Color(0xFF3E6B52),
+                  backgroundColor: colorScheme.primary,
                   child: Text(
                     initial,
                     style: const TextStyle(
@@ -59,10 +59,10 @@ class SettingsAccountCard extends StatelessWidget {
                     children: [
                       Text(
                         displayName,
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.w700,
-                          color: Color(0xFF1F3A2C),
+                          color: colorScheme.onPrimaryContainer,
                         ),
                       ),
                       const SizedBox(height: 4),
@@ -93,7 +93,7 @@ class SettingsAccountCard extends StatelessWidget {
                 FilledButton(
                   onPressed: onEditProfile,
                   style: FilledButton.styleFrom(
-                    backgroundColor: const Color(0xFF3E6B52),
+                    backgroundColor: colorScheme.primary,
                   ),
                   child: const Text('Editar Perfil'),
                 ),

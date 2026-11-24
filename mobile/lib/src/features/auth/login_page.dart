@@ -116,13 +116,14 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
     return Scaffold(
       body: DecoratedBox(
-        decoration: const BoxDecoration(
+        decoration: BoxDecoration(
           gradient: LinearGradient(
             colors: [
               AppColors.ivory,
-              AppColors.goldSoft,
+              colorScheme.secondaryContainer,
             ],
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
@@ -135,7 +136,7 @@ class _LoginPageState extends State<LoginPage> {
               constraints: const BoxConstraints(maxWidth: 420),
               child: Card(
                 elevation: 0,
-                color: AppColors.surface,
+                color: colorScheme.surface,
                 child: Padding(
                   padding: const EdgeInsets.all(24),
                   child: Form(
@@ -149,8 +150,8 @@ class _LoginPageState extends State<LoginPage> {
                             vertical: 18,
                           ),
                           decoration: BoxDecoration(
-                            gradient: const LinearGradient(
-                              colors: [AppColors.blueDeep, AppColors.blue],
+                            gradient: LinearGradient(
+                              colors: [colorScheme.onPrimaryContainer, colorScheme.primary],
                             ),
                             borderRadius: BorderRadius.circular(20),
                           ),
@@ -236,7 +237,7 @@ class _LoginPageState extends State<LoginPage> {
                           Container(
                             padding: const EdgeInsets.all(12),
                             decoration: BoxDecoration(
-                              color: const Color(0xFFF6E3E4),
+                              color: colorScheme.tertiaryContainer,
                               borderRadius: BorderRadius.circular(14),
                             ),
                             child: Text(

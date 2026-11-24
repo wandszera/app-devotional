@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import '../../models/devotional_models.dart';
-import '../../theme/app_theme.dart';
 import 'home_layout_widgets.dart';
 
 class ProgressBadgesWidget extends StatelessWidget {
@@ -16,6 +15,7 @@ class ProgressBadgesWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
@@ -24,9 +24,9 @@ class ProgressBadgesWidget extends StatelessWidget {
         Container(
           padding: const EdgeInsets.all(20),
           decoration: BoxDecoration(
-            color: AppColors.surface,
+            color: colorScheme.surface,
             borderRadius: BorderRadius.circular(24),
-            border: Border.all(color: AppColors.sand),
+            border: Border.all(color: colorScheme.outlineVariant),
             boxShadow: [
               BoxShadow(
                 color: Colors.black.withValues(alpha: 0.03),
