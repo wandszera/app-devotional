@@ -4,7 +4,7 @@ Controle da tarefa agendada que roda de hora em hora: cada execução faz **uma*
 marca como concluída e deixa a próxima preparada. Branch de trabalho: `rotina/semente`.
 
 ## Estado
-- Em andamento: (nenhuma)
+- Em andamento: C01-L4 — Reflexões do Advento, lote 4 (22/12–28/12), iniciada 2026-11-24 19:51 UTC
 - Última execução: 2026-11-24 (UTC) — C01-L3 concluída: `docs/reflexoes-rascunho-advento-lote3.md` com 7 rascunhos (15/12 a 21/12), mesmo formato do lote 2. Só `.md`; nenhum código, CSV ou catálogo mudou. Referências copiadas do CSV (`ref_cnbb_ok`), mas a releitura na Liturgia Diária CNBB falhou nesta rodada (acesso ao site bloqueado por pedido de permissão sem resposta), então ficou pendente.
 - Testes: não rodados nesta etapa (sem mudança de código). Última validação de código: T04d (`flutter analyze` sem issues; `flutter test` 71 passou). Backend não tocado.
 
