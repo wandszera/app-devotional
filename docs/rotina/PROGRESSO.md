@@ -4,13 +4,13 @@ Controle da tarefa agendada que roda de hora em hora: cada execução faz **uma*
 marca como concluída e deixa a próxima preparada. Branch de trabalho: `rotina/semente`.
 
 ## Estado
-- Em andamento: T04 — Modo escuro, partes 2 e 3 (iniciada 2026-11-24 14:52 UTC; execução de 2026-11-24)
-- Última execução: 2026-11-24 13:52–13:58 UTC — T03 concluída (AppPalette criado; tema escuro definido, não ativado).
-- CI esperado: verde (T03: `flutter analyze` sem issues e `flutter test` 71 passou; backend não tocado).
+- Em andamento: (nenhuma)
+- Última execução: 2026-11-24 (UTC) — T04 começou com o lote 4 (Progresso/Ajustes/Perfil), concluído; o restante do T04 foi dividido em T04b, T04c e T04d.
+- CI esperado: verde (`flutter analyze` sem issues; `flutter test` 71 passou; backend não tocado).
 
 ## Próxima etapa preparada
-**T04 — Modo escuro, partes 2 e 3 (migrar os lotes do plano):** seguindo `docs/plano-modo-escuro.md`, migrar os usos de cor dos lotes 4, 2, 3 e 5 (Progresso/Ajustes/Perfil, Hoje, Leitor/Orações/Calendário, entrada/admin), trocando `AppColors.x` e literais por `context.palette.x`. Um lote por commit; em cada lote, `flutter analyze` + `flutter test`. Só depois do último lote: `themeMode: ThemeMode.system` em `app.dart` e conferir contraste. Sem mudança de API.
-Para o Wanderson: a paleta escura (`AppPalette.dark`) ainda é proposta; os tokens `goldLight`, `success` e `successSoft` escuros foram escolhidos por analogia e precisam de aprovação. Decidir se Ajustes ganha Claro/Escuro/Sistema. Conferir visualmente Hoje, Leitor, Calendário, Orações, Progresso, Ajustes e login (T01, T02 e T03 não tiveram captura de tela). Revisar as reflexões dos lotes 1 e 2 e decidir D04 (revisor). Revisar a tradução própria do Suscipe antes da loja. Confirmar o nome final "Semente – Catequese Diária" (D01).
+**T04b — Modo escuro, lote 2 (Hoje):** migrar `habit_coach_card` (21 usos), `habit_status_card` (15), `hero_card` (7), `retention_primitives` (9), `daily_mission_card` (3), `milestone_banner` (4), `completion_feedback_dialog` (12) e `metric_card` (3). Trocar `AppColors.x` e literais por `context.palette.x` quando não houver role de `ColorScheme`; onde já houver role, manter. Um commit para o lote; em cada passo `flutter analyze` + `flutter test`. Não mexer em `themeMode` nem em `app.dart`. Sem mudança de API.
+Para o Wanderson: (a) conferir visualmente Progresso e Ajustes em claro (lote 4 não teve captura de tela; a mudança visual é pequena, só nos cinzas dos selos bloqueados e no texto de bio do perfil); (b) decidir se o tema escuro deve seguir o sistema, e se Ajustes ganha Claro/Escuro/Sistema — isso só faz sentido depois de aprovar a paleta escura, cujos tokens `goldLight`, `success` e `successSoft` escuros são palpites por analogia; (c) D01, D04, D05 e a revisão da tradução do Suscipe continuam como estavam.
 
 ## Regras rápidas
 - Uma etapa por execução. Etapa "em andamento" há menos de 50 min = outra execução trabalhando: não fazer nada.
@@ -19,9 +19,11 @@ Para o Wanderson: a paleta escura (`AppPalette.dark`) ainda é proposta; os toke
 - `pytest` e `flutter analyze` + `flutter test` (mobile/) passando antes de cada commit.
 
 ## Fila (em ordem)
-1. **T04 — Modo escuro, partes 2 e 3:** migrar os demais lotes do plano (Leitor/Orações/Calendário, Progresso/Ajustes, Hoje, entrada), depois `themeMode: ThemeMode.system` e conferir contraste. Uma etapa por lote.
-2. **C01-L3..L6 — Reflexões, lotes 3 a 6** (15/12–10/01), um lote por etapa.
-3. **S01 — Assinatura do AAB:** aplicar no gradle a leitura de `key.properties` (sem segredo no repo), seguindo `docs/roteiro-assinatura-aab.md`.
+1. **T04b — Modo escuro, lote 2 (Hoje):** lista acima em "Próxima etapa preparada".
+2. **T04c — Modo escuro, lote 3 (Leitor/Orações/Calendário):** `devotional_reader_page` (12), `gospel_reader_page` (5), `prayer_detail_page` (3), `prayers_tab` (2), `liturgical_calendar_tab` (5). Um commit para o lote.
+3. **T04d — Modo escuro, lote 5 (entrada/admin) + erro/sucesso:** `onboarding_page` (9), `notification_prompt_page` (13), `login_page` (6), `cross_ornament` (2), `admin_*` (5). Decidir tokens para vermelhos de erro (`Colors.red`, `redAccent`, `red.shade700`), verde do snackbar (`4D7C4A` em `home_feedback`) e o `Colors.white` default de `home_form_widgets`, que ficaram de fora do lote 4. `themeMode` continua fora desta etapa.
+4. **C01-L3..L6 — Reflexões, lotes 3 a 6** (15/12–10/01), um lote por etapa.
+5. **S01 — Assinatura do AAB:** aplicar no gradle a leitura de `key.properties` (sem segredo no repo), seguindo `docs/roteiro-assinatura-aab.md`.
 
 ## Bloqueadas (esperando decisão do Wanderson)
 - A02 applicationId e novo app Firebase — D01 (nome final) e D06 (domínio).
@@ -30,6 +32,12 @@ Para o Wanderson: a paleta escura (`AppPalette.dark`) ainda é proposta; os toke
 - Texto bíblico completo — D05.
 
 ## Histórico
+- **T04a — Modo escuro, lote 4 (Progresso/Ajustes/Perfil)** — concluída 2026-11-24 (UTC). A T04 original foi dividida em T04a (lote 4, feito), T04b, T04c e T04d.
+  - Arquivos: `progress_insight_card.dart` (`Colors.white` 0.84 → `palette.surface` 0.84), `progress_calendar_card.dart` (dia concluído → `palette.onPrimary`), `progress_badges_widget.dart` (selo bloqueado: `grey.shade200/400/500` → `surfaceSoft`/`borderStrong`/`muted`; branco → `onPrimary`; sombra preta mantida), `progress_history_list_item.dart` (`tileColor` → `palette.surface`), `settings_account_card.dart` (inicial do avatar → `onPrimary`; bio `black 0.6` → `muted`), `profile_page.dart` (spinner do botão → `onPrimary`), `mobile/lib/src/theme/app_palette.dart` (`context.palette` agora cai para `AppPalette.light` quando o tema não tem a extensão; antes lançava null-check e quebrava 3 testes de `app_shell_test.dart` que montam `ThemeData` cru).
+  - Visual: claro quase idêntico. Diferenças pequenas: cinzas dos selos bloqueados ficam quentes e mais escuros; bio do perfil e pílula do insight usam tons da paleta.
+  - Mantidos de propósito (sem token ainda): vermelhos de logout e erro (`redAccent`, `red.shade700`, `Colors.red`), verde do snackbar `4D7C4A` (`home_feedback`), default `Colors.white` de `home_form_widgets`. Ficam para a T04d.
+  - Testes: `flutter analyze` sem issues; `flutter test` 71 passou (Flutter 3.41.9, mesmo do CI). Backend não tocado; pytest não rodado nesta etapa.
+  - Pendências: captura visual não feita (Progresso e Ajustes em claro e escuro); não foi adicionado teste específico para o fallback de `context.palette`.
 - **T03 — Modo escuro, parte 1 (AppPalette, sem ativar)** — concluída 2026-11-24 (2026-11-24 UTC).
   - Arquivos: `mobile/lib/src/theme/app_palette.dart` (novo: `AppPalette extends ThemeExtension` com os 18 tokens do plano, fábricas `light` (valores de `AppColors`) e `dark` (proposta da tabela), `copyWith`, `lerp`, e `context.palette`); `mobile/lib/src/theme/app_theme.dart` (`light()` e `dark()` agora usam um `_build` comum que lê a paleta; `AppPalette` entra em `extensions`; `AppColors` continua ali); `mobile/test/app_theme_test.dart` (novo, 3 testes da paleta).
   - Visual: `AppTheme.light()` mantém os mesmos valores (a `AppPalette.light` é cópia de `AppColors`); `themeMode` continua claro em `app.dart`, que não foi alterado. `AppTheme.dark()` existe mas não é usado.
