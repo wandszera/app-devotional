@@ -4,13 +4,13 @@ Controle da tarefa agendada que roda de hora em hora: cada execução faz **uma*
 marca como concluída e deixa a próxima preparada. Branch de trabalho: `rotina/semente`.
 
 ## Estado
-- Em andamento: T04b — Modo escuro, lote 2 (Hoje), iniciada 2026-11-24 15:52 UTC
-- Última execução: 2026-11-24 (UTC) — T04 começou com o lote 4 (Progresso/Ajustes/Perfil), concluído; o restante do T04 foi dividido em T04b, T04c e T04d.
+- Em andamento: (nenhuma)
+- Última execução: 2026-11-24 (UTC) — T04b concluída: lote 2 (Hoje) migrado só onde o valor bate com um token de `AppPalette`; os pastéis sem token ficaram de fora e dependem de decisão (ver "Para o Wanderson").
 - CI esperado: verde (`flutter analyze` sem issues; `flutter test` 71 passou; backend não tocado).
 
 ## Próxima etapa preparada
-**T04b — Modo escuro, lote 2 (Hoje):** migrar `habit_coach_card` (21 usos), `habit_status_card` (15), `hero_card` (7), `retention_primitives` (9), `daily_mission_card` (3), `milestone_banner` (4), `completion_feedback_dialog` (12) e `metric_card` (3). Trocar `AppColors.x` e literais por `context.palette.x` quando não houver role de `ColorScheme`; onde já houver role, manter. Um commit para o lote; em cada passo `flutter analyze` + `flutter test`. Não mexer em `themeMode` nem em `app.dart`. Sem mudança de API.
-Para o Wanderson: (a) conferir visualmente Progresso e Ajustes em claro (lote 4 não teve captura de tela; a mudança visual é pequena, só nos cinzas dos selos bloqueados e no texto de bio do perfil); (b) decidir se o tema escuro deve seguir o sistema, e se Ajustes ganha Claro/Escuro/Sistema — isso só faz sentido depois de aprovar a paleta escura, cujos tokens `goldLight`, `success` e `successSoft` escuros são palpites por analogia; (c) D01, D04, D05 e a revisão da tradução do Suscipe continuam como estavam.
+**T04c — Modo escuro, lote 3 (Leitor/Orações/Calendário):** `devotional_reader_page` (12), `gospel_reader_page` (5), `prayer_detail_page` (3), `prayers_tab` (2), `liturgical_calendar_tab` (5). Trocar `AppColors.x` e literais que tenham token exato em `AppPalette` (mesmos valores do tema claro) por `context.palette.x`; onde já houver role de `ColorScheme`, manter. Literais sem token ficam como estão e entram na lista da T04d. Um commit para o lote; `flutter analyze` + `flutter test` em cada passo. Sem mudança de API; não mexer em `themeMode` nem em `app.dart`.
+Para o Wanderson: (a) decidir os tokens dos pastéis que a T04b deixou de fora (`EAF4FF`, `F9F1DF`, `E8F7EC`, `2D6C45`, `E9F7ED`, `E7F6EA`, `D6EEDB`, `2E6B45`, `254C36`, `E6F0E8`, `D3E4D8`, `EAF6EC`, `355640`) e o `Colors.green` do card "Missão do dia" concluída: posso propor tokens claros (valores atuais) e escuros para você aprovar antes de aplicar; (b) conferir visualmente Hoje, Progresso e Ajustes em claro (nenhuma captura foi feita nas T04a e T04b); (c) tema escuro seguir o sistema e Ajustes ganhar Claro/Escuro/Sistema, só depois de aprovar a paleta escura (tokens `goldLight`, `success` e `successSoft` escuros são palpites); (d) D01, D04, D05 e a revisão da tradução do Suscipe continuam como estavam.
 
 ## Regras rápidas
 - Uma etapa por execução. Etapa "em andamento" há menos de 50 min = outra execução trabalhando: não fazer nada.
@@ -19,11 +19,10 @@ Para o Wanderson: (a) conferir visualmente Progresso e Ajustes em claro (lote 4 
 - `pytest` e `flutter analyze` + `flutter test` (mobile/) passando antes de cada commit.
 
 ## Fila (em ordem)
-1. **T04b — Modo escuro, lote 2 (Hoje):** lista acima em "Próxima etapa preparada".
-2. **T04c — Modo escuro, lote 3 (Leitor/Orações/Calendário):** `devotional_reader_page` (12), `gospel_reader_page` (5), `prayer_detail_page` (3), `prayers_tab` (2), `liturgical_calendar_tab` (5). Um commit para o lote.
-3. **T04d — Modo escuro, lote 5 (entrada/admin) + erro/sucesso:** `onboarding_page` (9), `notification_prompt_page` (13), `login_page` (6), `cross_ornament` (2), `admin_*` (5). Decidir tokens para vermelhos de erro (`Colors.red`, `redAccent`, `red.shade700`), verde do snackbar (`4D7C4A` em `home_feedback`) e o `Colors.white` default de `home_form_widgets`, que ficaram de fora do lote 4. `themeMode` continua fora desta etapa.
-4. **C01-L3..L6 — Reflexões, lotes 3 a 6** (15/12–10/01), um lote por etapa.
-5. **S01 — Assinatura do AAB:** aplicar no gradle a leitura de `key.properties` (sem segredo no repo), seguindo `docs/roteiro-assinatura-aab.md`.
+1. **T04c — Modo escuro, lote 3 (Leitor/Orações/Calendário):** lista acima em "Próxima etapa preparada".
+2. **T04d — Modo escuro, lote 5 (entrada/admin) + erro/sucesso + pastéis:** `onboarding_page` (9), `notification_prompt_page` (13), `login_page` (6), `cross_ornament` (2), `admin_*` (5). Decidir tokens para vermelhos de erro (`Colors.red`, `redAccent`, `red.shade700`), verde do snackbar (`4D7C4A` em `home_feedback`), o `Colors.white` default de `home_form_widgets` e os pastéis da T04b, se o Wanderson aprovar os tokens. `themeMode` continua fora desta etapa.
+3. **C01-L3..L6 — Reflexões, lotes 3 a 6** (15/12–10/01), um lote por etapa.
+4. **S01 — Assinatura do AAB:** aplicar no gradle a leitura de `key.properties` (sem segredo no repo), seguindo `docs/roteiro-assinatura-aab.md`.
 
 ## Bloqueadas (esperando decisão do Wanderson)
 - A02 applicationId e novo app Firebase — D01 (nome final) e D06 (domínio).
@@ -32,6 +31,12 @@ Para o Wanderson: (a) conferir visualmente Progresso e Ajustes em claro (lote 4 
 - Texto bíblico completo — D05.
 
 ## Histórico
+- **T04b — Modo escuro, lote 2 (Hoje)** — concluída 2026-11-24 (UTC).
+  - Arquivos (4): `hero_card.dart` (`AppColors.gold`/`goldLight` → `context.palette.gold`/`goldLight`; import de `app_theme` trocado por `app_palette`; `const TextStyle` virou `TextStyle`); `habit_coach_card.dart` e `habit_status_card.dart` (`_paletteForTone` recebe `AppPalette`; `0xFFF6EBD0` → `goldSoft`, `0xFFEAF3EC` → `successSoft`); `completion_feedback_dialog.dart` (`_palette` recebe `AppPalette`; `0xFFEAF3EC` → `successSoft`).
+  - Não migrado (sem token em `AppPalette`; trocar por um valor aproximado mudaria o tema claro): `retention_primitives` (`EAF4FF`, `F9F1DF`, `E8F7EC`, `2D6C45`), `milestone_banner` (`F9F1DF`), `daily_mission_card` (`E9F7ED`, `Colors.green`), `habit_coach_card` (`E7F6EA`, `D6EEDB`, `2E6B45`, `254C36`, `E6F0E8`, `D3E4D8`), `habit_status_card` (`EAF6EC`, `2E6B45`, `355640`, `F9F1DF`), `completion_feedback_dialog` (`F9F1DF`). `metric_card` já usava só `ColorScheme`: sem mudança.
+  - Visual: claro idêntico (os valores trocados são exatamente os de `AppPalette.light`). Captura visual não feita.
+  - Testes: `flutter analyze` sem issues; `flutter test` 71 passou (Flutter 3.41.9). Backend não tocado; pytest não rodado.
+  - Pendências: decidir tokens para os pastéis não migrados (ver "Para o Wanderson" acima); a etapa original previa migrar os 8 arquivos inteiros, mas só os valores com token exato foram trocados, para não alterar o tema claro.
 - **T04a — Modo escuro, lote 4 (Progresso/Ajustes/Perfil)** — concluída 2026-11-24 (UTC). A T04 original foi dividida em T04a (lote 4, feito), T04b, T04c e T04d.
   - Arquivos: `progress_insight_card.dart` (`Colors.white` 0.84 → `palette.surface` 0.84), `progress_calendar_card.dart` (dia concluído → `palette.onPrimary`), `progress_badges_widget.dart` (selo bloqueado: `grey.shade200/400/500` → `surfaceSoft`/`borderStrong`/`muted`; branco → `onPrimary`; sombra preta mantida), `progress_history_list_item.dart` (`tileColor` → `palette.surface`), `settings_account_card.dart` (inicial do avatar → `onPrimary`; bio `black 0.6` → `muted`), `profile_page.dart` (spinner do botão → `onPrimary`), `mobile/lib/src/theme/app_palette.dart` (`context.palette` agora cai para `AppPalette.light` quando o tema não tem a extensão; antes lançava null-check e quebrava 3 testes de `app_shell_test.dart` que montam `ThemeData` cru).
   - Visual: claro quase idêntico. Diferenças pequenas: cinzas dos selos bloqueados ficam quentes e mais escuros; bio do perfil e pílula do insight usam tons da paleta.
