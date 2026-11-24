@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import 'app_palette.dart';
+
 /// Paleta inspirada na tradição visual católica: verde-semente, ouro litúrgico,
 /// vinho (vermelho dos mártires) sobre marfim de pergaminho.
 abstract final class AppColors {
@@ -27,6 +29,7 @@ abstract final class AppColors {
 }
 
 abstract final class AppTheme {
+  /// Tema claro, em uso pelo app.
   static ThemeData light() {
     const scheme = ColorScheme(
       brightness: Brightness.light,
@@ -52,10 +55,45 @@ abstract final class AppTheme {
       surfaceContainerHighest: AppColors.parchment,
     );
 
+    return _build(scheme, AppPalette.light);
+  }
+
+  /// Tema escuro: definido, mas ainda não usado (`themeMode` continua claro).
+  /// Ativar só depois de aprovar a paleta escura e conferir o contraste.
+  static ThemeData dark() {
+    const scheme = ColorScheme(
+      brightness: Brightness.dark,
+      primary: Color(0xFF7FB08F),
+      onPrimary: Color(0xFF10231A),
+      primaryContainer: Color(0xFF27382E),
+      onPrimaryContainer: Color(0xFFCFE6D5),
+      secondary: Color(0xFFD9AE5F),
+      onSecondary: Color(0xFF2A2110),
+      secondaryContainer: Color(0xFF3A3120),
+      onSecondaryContainer: Color(0xFFF6EBD0),
+      tertiary: Color(0xFFE08A96),
+      onTertiary: Color(0xFF3A1A20),
+      tertiaryContainer: Color(0xFF3C2529),
+      onTertiaryContainer: Color(0xFFE08A96),
+      error: Color(0xFFF2B8BF),
+      onError: Color(0xFF3A0F15),
+      surface: Color(0xFF1C241F),
+      onSurface: Color(0xFFEDE8DC),
+      onSurfaceVariant: Color(0xFFA9B0A5),
+      outline: Color(0xFF44544B),
+      outlineVariant: Color(0xFF33403A),
+      surfaceContainerHighest: Color(0xFF242E28),
+    );
+
+    return _build(scheme, AppPalette.dark);
+  }
+
+  static ThemeData _build(ColorScheme scheme, AppPalette p) {
     final base = ThemeData(
       colorScheme: scheme,
       useMaterial3: true,
-      scaffoldBackgroundColor: AppColors.ivory,
+      scaffoldBackgroundColor: p.bg,
+      extensions: [p],
     );
 
     final body = GoogleFonts.interTextTheme(base.textTheme);
@@ -63,38 +101,38 @@ abstract final class AppTheme {
       displaySmall: GoogleFonts.cormorantGaramond(
         textStyle: body.displaySmall,
         fontWeight: FontWeight.w700,
-        color: AppColors.blueDeep,
+        color: p.primaryDeep,
       ),
       headlineMedium: GoogleFonts.cormorantGaramond(
         textStyle: body.headlineMedium,
         fontWeight: FontWeight.w700,
-        color: AppColors.blueDeep,
+        color: p.primaryDeep,
       ),
       headlineSmall: GoogleFonts.cormorantGaramond(
         textStyle: body.headlineSmall,
         fontSize: 28,
         fontWeight: FontWeight.w700,
         height: 1.15,
-        color: AppColors.blueDeep,
+        color: p.primaryDeep,
       ),
       titleLarge: GoogleFonts.cormorantGaramond(
         textStyle: body.titleLarge,
         fontSize: 24,
         fontWeight: FontWeight.w700,
-        color: AppColors.blueDeep,
+        color: p.primaryDeep,
       ),
       titleMedium: GoogleFonts.cormorantGaramond(
         textStyle: body.titleMedium,
         fontSize: 20,
         fontWeight: FontWeight.w700,
-        color: AppColors.blueDeep,
+        color: p.primaryDeep,
       ),
       // Texto de leitura (evangelho, devocional, orações) em serifa.
       bodyLarge: GoogleFonts.lora(
         textStyle: body.bodyLarge,
         fontSize: 17,
         height: 1.6,
-        color: AppColors.ink,
+        color: p.ink,
       ),
     );
 
@@ -106,22 +144,22 @@ abstract final class AppTheme {
         elevation: 0,
         scrolledUnderElevation: 0,
         centerTitle: true,
-        foregroundColor: AppColors.blueDeep,
+        foregroundColor: p.primaryDeep,
         titleTextStyle: GoogleFonts.cormorantGaramond(
           fontSize: 24,
           fontWeight: FontWeight.w700,
           letterSpacing: 0.4,
-          color: AppColors.blueDeep,
+          color: p.primaryDeep,
         ),
       ),
       cardTheme: CardThemeData(
-        color: AppColors.surface,
+        color: p.surface,
         elevation: 0,
         margin: EdgeInsets.zero,
         surfaceTintColor: Colors.transparent,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(22),
-          side: BorderSide(color: AppColors.sand.withValues(alpha: 0.8)),
+          side: BorderSide(color: p.border.withValues(alpha: 0.8)),
         ),
       ),
       pageTransitionsTheme: const PageTransitionsTheme(
@@ -131,22 +169,22 @@ abstract final class AppTheme {
         },
       ),
       splashFactory: InkSparkle.splashFactory,
-      dividerTheme: const DividerThemeData(
-        color: AppColors.sand,
+      dividerTheme: DividerThemeData(
+        color: p.border,
         thickness: 1,
         space: 24,
       ),
       navigationBarTheme: NavigationBarThemeData(
-        backgroundColor: AppColors.surface,
+        backgroundColor: p.surface,
         surfaceTintColor: Colors.transparent,
         elevation: 0,
         height: 72,
-        indicatorColor: AppColors.blueSoft,
+        indicatorColor: p.primarySoft,
         indicatorShape: const StadiumBorder(),
         iconTheme: WidgetStateProperty.resolveWith((states) {
           final selected = states.contains(WidgetState.selected);
           return IconThemeData(
-            color: selected ? AppColors.blue : AppColors.muted,
+            color: selected ? p.primary : p.muted,
             size: 24,
           );
         }),
@@ -155,14 +193,14 @@ abstract final class AppTheme {
           return GoogleFonts.inter(
             fontSize: 12,
             fontWeight: selected ? FontWeight.w700 : FontWeight.w500,
-            color: selected ? AppColors.blue : AppColors.muted,
+            color: selected ? p.primary : p.muted,
           );
         }),
       ),
       filledButtonTheme: FilledButtonThemeData(
         style: FilledButton.styleFrom(
-          backgroundColor: AppColors.blue,
-          foregroundColor: Colors.white,
+          backgroundColor: p.primary,
+          foregroundColor: p.onPrimary,
           minimumSize: const Size(64, 54),
           elevation: 0,
           shape: RoundedRectangleBorder(
@@ -177,65 +215,63 @@ abstract final class AppTheme {
       ),
       outlinedButtonTheme: OutlinedButtonThemeData(
         style: OutlinedButton.styleFrom(
-          foregroundColor: AppColors.blue,
+          foregroundColor: p.primary,
           minimumSize: const Size(64, 52),
-          side: const BorderSide(color: AppColors.sandDeep),
+          side: BorderSide(color: p.borderStrong),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(16),
           ),
         ),
       ),
       textButtonTheme: TextButtonThemeData(
-        style: TextButton.styleFrom(foregroundColor: AppColors.blue),
+        style: TextButton.styleFrom(foregroundColor: p.primary),
       ),
       inputDecorationTheme: InputDecorationTheme(
         filled: true,
-        fillColor: AppColors.surface,
+        fillColor: p.surface,
         contentPadding:
             const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(14),
-          borderSide: const BorderSide(color: AppColors.sandDeep),
+          borderSide: BorderSide(color: p.borderStrong),
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(14),
-          borderSide: const BorderSide(color: AppColors.sand),
+          borderSide: BorderSide(color: p.border),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(14),
-          borderSide: const BorderSide(color: AppColors.blue, width: 1.6),
+          borderSide: BorderSide(color: p.primary, width: 1.6),
         ),
       ),
       chipTheme: ChipThemeData(
-        backgroundColor: AppColors.parchment,
-        selectedColor: AppColors.blueSoft,
-        labelStyle: GoogleFonts.inter(fontSize: 13, color: AppColors.ink),
-        side: const BorderSide(color: AppColors.sand),
+        backgroundColor: p.surfaceSoft,
+        selectedColor: p.primarySoft,
+        labelStyle: GoogleFonts.inter(fontSize: 13, color: p.ink),
+        side: BorderSide(color: p.border),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(99)),
       ),
       dialogTheme: DialogThemeData(
-        backgroundColor: AppColors.surface,
+        backgroundColor: p.surface,
         surfaceTintColor: Colors.transparent,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
       ),
-      bottomSheetTheme: const BottomSheetThemeData(
-        backgroundColor: AppColors.surface,
+      bottomSheetTheme: BottomSheetThemeData(
+        backgroundColor: p.surface,
         surfaceTintColor: Colors.transparent,
-        shape: RoundedRectangleBorder(
+        shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.vertical(top: Radius.circular(28)),
         ),
       ),
       snackBarTheme: SnackBarThemeData(
-        backgroundColor: AppColors.blueDeep,
-        contentTextStyle: GoogleFonts.inter(color: Colors.white),
+        backgroundColor: p.primaryDeep,
+        contentTextStyle: GoogleFonts.inter(color: p.onPrimary),
         behavior: SnackBarBehavior.floating,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
       ),
       switchTheme: SwitchThemeData(
         trackColor: WidgetStateProperty.resolveWith(
-          (s) => s.contains(WidgetState.selected)
-              ? AppColors.blue
-              : AppColors.sandDeep,
+          (s) => s.contains(WidgetState.selected) ? p.primary : p.borderStrong,
         ),
         thumbColor: const WidgetStatePropertyAll(Colors.white),
       ),
