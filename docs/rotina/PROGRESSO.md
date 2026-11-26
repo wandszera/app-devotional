@@ -4,13 +4,13 @@ Controle da tarefa agendada que roda de hora em hora: cada execução faz **uma*
 marca como concluída e deixa a próxima preparada. Branch de trabalho: `rotina/semente`.
 
 ## Estado
-- Em andamento: C01-L9 (iniciada 2026-11-26 12:52 UTC)
-- Última execução: 2026-11-25 (UTC) — C01-L8 concluída: `docs/reflexoes-rascunho-tempo-comum-lote8.md` com 7 rascunhos (18/01 a 24/01; 24/01 é o 3º domingo do Tempo Comum, Ano B), mesmo formato dos lotes 2 a 7. Só `.md`; nenhum código, CSV ou catálogo mudou. Referências copiadas do CSV (`ref_cnbb_ok`). A conferência na Liturgia Diária CNBB continua pendente, porque o site carrega o conteúdo por JavaScript.
+- Em andamento: (nenhuma)
+- Última execução: 2026-11-26 (UTC) — C01-L9 concluída: `docs/reflexoes-rascunho-tempo-comum-lote9.md` com 7 rascunhos (25/01 a 31/01; 25/01 é a Festa da Conversão de São Paulo; 31/01 é o 4º Domingo, Ano B), mesmo formato dos lotes 2 a 8. Só `.md`; nenhum código, CSV ou catálogo mudou. Referências copiadas do CSV (`ref_cnbb_ok`). A conferência na Liturgia Diária CNBB continua pendente, porque o site carrega o conteúdo por JavaScript.
 - Testes: não rodados nesta etapa (só `.md` novo). Última validação de código: T04d (`flutter analyze` sem issues; `flutter test` 71 passou). Backend não tocado.
 
 ## Próxima etapa preparada
-**C01-L9 — Reflexões do Tempo Comum, lote 9 (25/01/2027 a 31/01/2027):** escrever 7 rascunhos no mesmo formato, em `docs/reflexoes-rascunho-tempo-comum-lote9.md`. Copiar as referências do CSV (linhas 25/01 a 31/01: Mc 16,15-18; Lc 10,1-9; Mc 4,1-20; Mc 4,21-25; Mc 4,26-34; Mc 4,35-41; 31/01 domingo, 4º do Tempo Comum, Ano B, Mc 1,21-28). Atenções: 25/01 é a Conversão de São Paulo (festa), e o CSV põe Mc 16,15-18; 31/01 repete Mc 1,21-28 já usado em 12/01 (lote 7), registrar a repetição como pendência; 27/01 (Mc 4,1-20, semeador) é texto longo, então a reflexão trata do convite e não de toda a explicação. Não reabrir a CNBB por fetch simples (página é JavaScript). Só referência bíblica, nunca o texto (D05). Cada texto termina com pergunta e passo prático. CSV, catálogo e código não mudam. Um commit e push para o lote.
-Para o Wanderson: (a) revisar o lote 8 (D04): tom sobre fariseus e sábado em 18/01 a 20/01, para não caricaturar judeus; 22/01 menciona quem trairá Jesus; 23/01 traz "fora de si", conferir a forma da CNBB; tamanho de ~105 palavras por texto, acima dos ~80 dos lotes anteriores; (b) decidir se 24/01 repete Mc 1,14-20 (também em 11/01, lote 7) ou se o texto de 24/01 muda de referência; (c) revisar o lote 7 (14/01 repete o episódio do leproso de 08/01, lote 6; 17/01 é Ano B, conferir; tom de 12/01 e 15/01); (d) conferir na CNBB as referências de 15/12 a 24/01 (lotes 3 a 8), porque o site não pode ser lido por aqui.
+**C01-L10 — Reflexões do Tempo Comum, lote 10 (01/02/2027 a 07/02/2027):** escrever 7 rascunhos no mesmo formato, em `docs/reflexoes-rascunho-tempo-comum-lote10.md`. Copiar as referências do CSV (01/02 a 07/02: Mc 5,1-20; Lc 2,22-40; Mc 6,1-6; Mc 6,7-13; Mc 6,14-29; Mc 6,30-34; 07/02 domingo, 5º do Tempo Comum, Ano B, Mc 1,29-39). Atenções: 02/02 é a Apresentação do Senhor (festa) e repete Lc 2,22-40, já usado em 27/12 (lote 5); 07/02 repete Mc 1,29-39, já usado em 13/01 (lote 7): registrar a repetição como pendência; 05/02 (Mc 6,14-29, morte de João Batista) tem violência explícita, então o texto trata do cuidado com a verdade e não descreve a cena; 01/02 (Mc 5,1-20) tem a cura do endemoninhado de Gerasa, texto longo: a reflexão trata do convite a pedir a Jesus que nos liberte, sem detalhes. Não reabrir a CNBB por fetch simples (página é JavaScript). Só referência bíblica, nunca o texto (D05). Cada texto termina com pergunta e passo prático. CSV, catálogo e código não mudam. Um commit e push para o lote.
+Para o Wanderson: (a) revisar o lote 9 (D04): 25/01 é festa, e Mc 16,9-20 (final longo de Marcos) aparece na referência do CSV: decidir se o revisor quer nota sobre isso; 26/01 usa "outros discípulos" em vez de "setenta e dois", porque há variação nos manuscritos; 27/01 fala só do convite da parábola; 31/01 repete Mc 1,21-28 de 12/01 (lote 7): decidir se 31/01 ganha outro foco ou se a repetição fica; (b) revisar o tom de 30/01 ("por que ainda não confiavam"); (c) conferir na CNBB as referências de 25/01 a 31/01 e as dos lotes 3 a 8, porque o site não pode ser lido por aqui; (d) decidir sobre as repetições de 02/02 (lote 5) e 07/02 (lote 7) antes de escrever o lote 10, se quiser outro foco.
 
 ## Regras rápidas
 - Uma etapa por execução. Etapa "em andamento" há menos de 50 min = outra execução trabalhando: não fazer nada.
@@ -19,7 +19,7 @@ Para o Wanderson: (a) revisar o lote 8 (D04): tom sobre fariseus e sábado em 18
 - `pytest` e `flutter analyze` + `flutter test` (mobile/) passando antes de cada commit.
 
 ## Fila (em ordem)
-1. **C01-L10 — Reflexões, lote 10** (a partir de 01/02/2027; ler o CSV e fazer 7 textos), um lote por etapa. (Depois de C01-L9.)
+1. **C01-L11 em diante — Reflexões do Tempo Comum, lotes seguintes até o fim do calendário (março de 2027):** um lote por etapa, a partir de 08/02/2027 (ler o CSV e fazer 7 textos).
 2. **S01 — Assinatura do AAB:** aplicar no gradle a leitura de `key.properties` (sem segredo no repo), seguindo `docs/roteiro-assinatura-aab.md`.
 
 ## Bloqueadas (esperando decisão do Wanderson)
@@ -29,6 +29,10 @@ Para o Wanderson: (a) revisar o lote 8 (D04): tom sobre fariseus e sábado em 18
 - Texto bíblico completo — D05.
 
 ## Histórico
+- **C01-L9 — Reflexões do Tempo Comum, lote 9 (25/01/2027–31/01/2027)** — concluída 2026-11-26 (UTC).
+  - Arquivos: `docs/reflexoes-rascunho-tempo-comum-lote9.md` (novo; 7 textos de 84 a 105 palavras: 25/01 Mc 16,15-18 · Festa da Conversão de São Paulo; 26/01 Lc 10,1-9; 27/01 Mc 4,1-20; 28/01 Mc 4,21-25; 29/01 Mc 4,26-34; 30/01 Mc 4,35-41; 31/01 Mc 1,21-28 · 4º Domingo do Tempo Comum, Ano B). Mesmo formato dos lotes 2 a 8; sem texto bíblico; cada texto termina com pergunta e passo prático. Referências copiadas do CSV. CSV, catálogo e código não mudaram.
+  - Testes: não rodados (só `.md` novo).
+  - Pendências: conferência CNBB não feita (site carrega por JavaScript); Mc 16,9-20 (final longo de Marcos) em 25/01; "setenta e dois" x "setenta" em 26/01; 27/01 trata do convite, não da parábola inteira; 31/01 repete Mc 1,21-28 de 12/01 (lote 7); revisão humana (D04).
 - **C01-L8 — Reflexões do Tempo Comum, lote 8 (18/01/2027–24/01/2027)** — concluída 2026-11-25 (UTC).
   - Arquivos: `docs/reflexoes-rascunho-tempo-comum-lote8.md` (novo; 7 textos: 18/01 Mc 2,18-22; 19/01 Mc 2,23-28; 20/01 Mc 3,1-6; 21/01 Mc 3,7-12; 22/01 Mc 3,13-19; 23/01 Mc 3,20-21; 24/01 Mc 1,14-20 · 3º Domingo do Tempo Comum, Ano B). Mesmo formato dos lotes 2 a 7; sem texto bíblico; cada texto termina com pergunta e passo prático. Referências copiadas do CSV. CSV, catálogo e código não mudaram.
   - Testes: não rodados (só `.md` novo).
