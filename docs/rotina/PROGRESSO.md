@@ -4,13 +4,13 @@ Controle da tarefa agendada que roda de hora em hora: cada execução faz **uma*
 marca como concluída e deixa a próxima preparada. Branch de trabalho: `rotina/semente`.
 
 ## Estado
-- Em andamento: C01-L10 — iniciada 2026-11-27 12:52 UTC (rotina)
-- Última execução: 2026-11-26 (UTC) — C01-L9 concluída: `docs/reflexoes-rascunho-tempo-comum-lote9.md` com 7 rascunhos (25/01 a 31/01; 25/01 é a Festa da Conversão de São Paulo; 31/01 é o 4º Domingo, Ano B), mesmo formato dos lotes 2 a 8. Só `.md`; nenhum código, CSV ou catálogo mudou. Referências copiadas do CSV (`ref_cnbb_ok`). A conferência na Liturgia Diária CNBB continua pendente, porque o site carrega o conteúdo por JavaScript.
+- Em andamento: (nenhuma)
+- Última execução: 2026-11-27 (UTC) — C01-L10 concluída: `docs/reflexoes-rascunho-tempo-comum-lote10.md` com 7 rascunhos (01/02 a 07/02; 02/02 é a Apresentação do Senhor; 07/02 é o 5º Domingo, Ano B), mesmo formato dos lotes 2 a 9. Só `.md`; nenhum código, CSV ou catálogo mudou. A conferência na Liturgia Diária CNBB continua pendente, porque o site carrega o conteúdo por JavaScript.
 - Testes: não rodados nesta etapa (só `.md` novo). Última validação de código: T04d (`flutter analyze` sem issues; `flutter test` 71 passou). Backend não tocado.
 
 ## Próxima etapa preparada
-**C01-L10 — Reflexões do Tempo Comum, lote 10 (01/02/2027 a 07/02/2027):** escrever 7 rascunhos no mesmo formato, em `docs/reflexoes-rascunho-tempo-comum-lote10.md`. Copiar as referências do CSV (01/02 a 07/02: Mc 5,1-20; Lc 2,22-40; Mc 6,1-6; Mc 6,7-13; Mc 6,14-29; Mc 6,30-34; 07/02 domingo, 5º do Tempo Comum, Ano B, Mc 1,29-39). Atenções: 02/02 é a Apresentação do Senhor (festa) e repete Lc 2,22-40, já usado em 27/12 (lote 5); 07/02 repete Mc 1,29-39, já usado em 13/01 (lote 7): registrar a repetição como pendência; 05/02 (Mc 6,14-29, morte de João Batista) tem violência explícita, então o texto trata do cuidado com a verdade e não descreve a cena; 01/02 (Mc 5,1-20) tem a cura do endemoninhado de Gerasa, texto longo: a reflexão trata do convite a pedir a Jesus que nos liberte, sem detalhes. Não reabrir a CNBB por fetch simples (página é JavaScript). Só referência bíblica, nunca o texto (D05). Cada texto termina com pergunta e passo prático. CSV, catálogo e código não mudam. Um commit e push para o lote.
-Para o Wanderson: (a) revisar o lote 9 (D04): 25/01 é festa, e Mc 16,9-20 (final longo de Marcos) aparece na referência do CSV: decidir se o revisor quer nota sobre isso; 26/01 usa "outros discípulos" em vez de "setenta e dois", porque há variação nos manuscritos; 27/01 fala só do convite da parábola; 31/01 repete Mc 1,21-28 de 12/01 (lote 7): decidir se 31/01 ganha outro foco ou se a repetição fica; (b) revisar o tom de 30/01 ("por que ainda não confiavam"); (c) conferir na CNBB as referências de 25/01 a 31/01 e as dos lotes 3 a 8, porque o site não pode ser lido por aqui; (d) decidir sobre as repetições de 02/02 (lote 5) e 07/02 (lote 7) antes de escrever o lote 10, se quiser outro foco.
+**C01-L11 — Reflexões do Tempo Comum e início da Quaresma, lote 11 (08/02/2027 a 14/02/2027):** escrever 7 rascunhos no mesmo formato, em `docs/reflexoes-rascunho-tempo-comum-lote11.md`. Referências do CSV: 08/02 Mc 6,53-56; 09/02 Mc 7,1-13; 10/02 Quarta-feira de Cinzas, Mt 6,1-6.16-18; 11/02 Lc 9,22-25; 12/02 Mt 9,14-15; 13/02 Lc 5,27-32; 14/02 1º Domingo da Quaresma, Ano B, Mc 1,12-15. Atenções: antes de escrever, checar no CSV se alguma dessas referências já aparece em lote anterior (Mt 9,14-15 e Lc 5,27-32 são candidatas à repetição); 10/02 abre a Quaresma, então o texto fala de conversão e não traz regra de jejum ou abstinência (sem fonte, não entra); 11/02 a 14/02 já são Quaresma: o tom segue o do lote, salvo decisão diferente do Wanderson. Só referência bíblica, nunca o texto (D05). Cada texto termina com pergunta e passo prático. CSV, catálogo e código não mudam. Um commit e push para o lote.
+Para o Wanderson: (a) revisar os lotes 9 e 10 (D04): repetições em 02/02 (lote 5, Lc 2,22-40), 07/02 (lote 7, Mc 1,29-39) e 31/01 (lote 7, Mc 1,21-28); 25/01 com Mc 16,9-20 (final longo de Marcos); 05/02 trata de violência sem descrever a cena; (b) decidir se a Quaresma (a partir de 10/02) ganha tom e formato próprios, ou se segue o formato do Tempo Comum; (c) decidir se a Quarta-feira de Cinzas fala só de conversão ou também de jejum e esmola; (d) conferir na CNBB as referências dos lotes 3 a 10, porque o site não pode ser lido por aqui.
 
 ## Regras rápidas
 - Uma etapa por execução. Etapa "em andamento" há menos de 50 min = outra execução trabalhando: não fazer nada.
@@ -19,7 +19,7 @@ Para o Wanderson: (a) revisar o lote 9 (D04): 25/01 é festa, e Mc 16,9-20 (fina
 - `pytest` e `flutter analyze` + `flutter test` (mobile/) passando antes de cada commit.
 
 ## Fila (em ordem)
-1. **C01-L11 em diante — Reflexões do Tempo Comum, lotes seguintes até o fim do calendário (março de 2027):** um lote por etapa, a partir de 08/02/2027 (ler o CSV e fazer 7 textos).
+1. **C01-L12 em diante — Reflexões (Quaresma e Tempo Comum), lotes seguintes até o fim do calendário (março de 2027):** um lote por etapa, a partir de 15/02/2027 (ler o CSV e fazer 7 textos). C01-L11 já está preparada no topo.
 2. **S01 — Assinatura do AAB:** aplicar no gradle a leitura de `key.properties` (sem segredo no repo), seguindo `docs/roteiro-assinatura-aab.md`.
 
 ## Bloqueadas (esperando decisão do Wanderson)
@@ -29,6 +29,10 @@ Para o Wanderson: (a) revisar o lote 9 (D04): 25/01 é festa, e Mc 16,9-20 (fina
 - Texto bíblico completo — D05.
 
 ## Histórico
+- **C01-L10 — Reflexões do Tempo Comum, lote 10 (01/02/2027–07/02/2027)** — concluída 2026-11-27 (UTC).
+  - Arquivos: `docs/reflexoes-rascunho-tempo-comum-lote10.md` (novo; 7 textos de ~95 palavras: 01/02 Mc 5,1-20; 02/02 Lc 2,22-40 · Apresentação do Senhor; 03/02 Mc 6,1-6; 04/02 Mc 6,7-13; 05/02 Mc 6,14-29; 06/02 Mc 6,30-34; 07/02 Mc 1,29-39 · 5º Domingo do Tempo Comum, Ano B). Mesmo formato dos lotes 2 a 9; sem texto bíblico; cada texto termina com pergunta e passo prático. Referências copiadas do CSV. CSV, catálogo e código não mudaram.
+  - Testes: não rodados (só `.md` novo). A marcação "em andamento" foi enviada antes do trabalho (commit 5d79393).
+  - Pendências: conferência CNBB não feita (site carrega por JavaScript); 02/02 repete Lc 2,22-40 (lote 5); 07/02 repete Mc 1,29-39 (lote 7); 05/02 trata de violência sem descrever a cena; 01/02 é texto longo e a reflexão trata da libertação sem detalhes; revisão humana (D04).
 - **C01-L9 — Reflexões do Tempo Comum, lote 9 (25/01/2027–31/01/2027)** — concluída 2026-11-26 (UTC).
   - Arquivos: `docs/reflexoes-rascunho-tempo-comum-lote9.md` (novo; 7 textos de 84 a 105 palavras: 25/01 Mc 16,15-18 · Festa da Conversão de São Paulo; 26/01 Lc 10,1-9; 27/01 Mc 4,1-20; 28/01 Mc 4,21-25; 29/01 Mc 4,26-34; 30/01 Mc 4,35-41; 31/01 Mc 1,21-28 · 4º Domingo do Tempo Comum, Ano B). Mesmo formato dos lotes 2 a 8; sem texto bíblico; cada texto termina com pergunta e passo prático. Referências copiadas do CSV. CSV, catálogo e código não mudaram.
   - Testes: não rodados (só `.md` novo).
