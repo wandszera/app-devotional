@@ -4,7 +4,7 @@ Controle da tarefa agendada que roda de hora em hora: cada execução faz **uma*
 marca como concluída e deixa a próxima preparada. Branch de trabalho: `rotina/semente`.
 
 ## Estado
-- Em andamento: (nenhuma)
+- Em andamento: C01-L10 — iniciada 2026-11-27 12:52 UTC (rotina)
 - Última execução: 2026-11-26 (UTC) — C01-L9 concluída: `docs/reflexoes-rascunho-tempo-comum-lote9.md` com 7 rascunhos (25/01 a 31/01; 25/01 é a Festa da Conversão de São Paulo; 31/01 é o 4º Domingo, Ano B), mesmo formato dos lotes 2 a 8. Só `.md`; nenhum código, CSV ou catálogo mudou. Referências copiadas do CSV (`ref_cnbb_ok`). A conferência na Liturgia Diária CNBB continua pendente, porque o site carrega o conteúdo por JavaScript.
 - Testes: não rodados nesta etapa (só `.md` novo). Última validação de código: T04d (`flutter analyze` sem issues; `flutter test` 71 passou). Backend não tocado.
 
