@@ -4,13 +4,13 @@ Controle da tarefa agendada que roda de hora em hora: cada execução faz **uma*
 marca como concluída e deixa a próxima preparada. Branch de trabalho: `rotina/semente`.
 
 ## Estado
-- Em andamento: C01-L11 — iniciada 2026-11-28 11:18 UTC (rotina)
-- Última execução: 2026-11-27 (UTC) — C01-L10 concluída: `docs/reflexoes-rascunho-tempo-comum-lote10.md` com 7 rascunhos (01/02 a 07/02; 02/02 é a Apresentação do Senhor; 07/02 é o 5º Domingo, Ano B), mesmo formato dos lotes 2 a 9. Só `.md`; nenhum código, CSV ou catálogo mudou. A conferência na Liturgia Diária CNBB continua pendente, porque o site carrega o conteúdo por JavaScript.
+- Em andamento: (nenhuma)
+- Última execução: 2026-11-28 (UTC) — C01-L11 concluída: `docs/reflexoes-rascunho-tempo-comum-lote11.md` com 7 rascunhos (08/02 a 14/02; 10/02 é a Quarta-feira de Cinzas; 14/02 é o 1º Domingo da Quaresma, Ano B), mesmo formato dos lotes anteriores. A Quaresma segue o formato do Tempo Comum, sem regra de jejum ou abstinência (decisão padrão, o Wanderson pode mudar). Só `.md`; nenhum código, CSV ou catálogo mudou. A conferência na Liturgia Diária CNBB continua pendente, porque o site carrega o conteúdo por JavaScript.
 - Testes: não rodados nesta etapa (só `.md` novo). Última validação de código: T04d (`flutter analyze` sem issues; `flutter test` 71 passou). Backend não tocado.
 
 ## Próxima etapa preparada
-**C01-L11 — Reflexões do Tempo Comum e início da Quaresma, lote 11 (08/02/2027 a 14/02/2027):** escrever 7 rascunhos no mesmo formato, em `docs/reflexoes-rascunho-tempo-comum-lote11.md`. Referências do CSV: 08/02 Mc 6,53-56; 09/02 Mc 7,1-13; 10/02 Quarta-feira de Cinzas, Mt 6,1-6.16-18; 11/02 Lc 9,22-25; 12/02 Mt 9,14-15; 13/02 Lc 5,27-32; 14/02 1º Domingo da Quaresma, Ano B, Mc 1,12-15. Atenções: antes de escrever, checar no CSV se alguma dessas referências já aparece em lote anterior (Mt 9,14-15 e Lc 5,27-32 são candidatas à repetição); 10/02 abre a Quaresma, então o texto fala de conversão e não traz regra de jejum ou abstinência (sem fonte, não entra); 11/02 a 14/02 já são Quaresma: o tom segue o do lote, salvo decisão diferente do Wanderson. Só referência bíblica, nunca o texto (D05). Cada texto termina com pergunta e passo prático. CSV, catálogo e código não mudam. Um commit e push para o lote.
-Para o Wanderson: (a) revisar os lotes 9 e 10 (D04): repetições em 02/02 (lote 5, Lc 2,22-40), 07/02 (lote 7, Mc 1,29-39) e 31/01 (lote 7, Mc 1,21-28); 25/01 com Mc 16,9-20 (final longo de Marcos); 05/02 trata de violência sem descrever a cena; (b) decidir se a Quaresma (a partir de 10/02) ganha tom e formato próprios, ou se segue o formato do Tempo Comum; (c) decidir se a Quarta-feira de Cinzas fala só de conversão ou também de jejum e esmola; (d) conferir na CNBB as referências dos lotes 3 a 10, porque o site não pode ser lido por aqui.
+**C01-L12 — Reflexões da Quaresma, lote 12 (15/02/2027 a 21/02/2027):** escrever 7 rascunhos no mesmo formato, em `docs/reflexoes-rascunho-quaresma-lote12.md`. Referências do CSV: 15/02 Mt 25,31-46; 16/02 Mt 6,7-15; 17/02 Lc 11,29-32; 18/02 Mt 7,7-12; 19/02 Mt 5,20-26; 20/02 Mt 5,43-48; 21/02 2º Domingo da Quaresma, Ano B, Mc 9,2-10. Atenções: 16/02 trata do Pai-nosso (Mt 6,9-13), então o texto não cita a oração, só o tema; 15/02 (juízo, Mt 25) pede cuidado de tom com os pobres e necessitados, sem ameaça; 21/02 (transfiguração) é o domingo, texto curto; checar repetição com lote 10 (Mt 6,1-6, 10/02): Mt 6,7-15 é outro trecho, mas o tema da oração se aproxima. Só referência bíblica, nunca o texto (D05). Cada texto termina com pergunta e passo prático. CSV, catálogo e código não mudam. Um commit e push para o lote.
+Para o Wanderson: (a) revisar os lotes 9, 10 e 11 (D04): repetições em 02/02 (lote 5), 07/02 (lote 7) e 31/01 (lote 7); 25/01 com Mc 16,9-20; 09/02 pede cuidado para não caricaturar fariseus; 12/02 trata do jejum como prática de amor, com nota de saúde; (b) confirmar se a Quaresma segue no formato do Tempo Comum (padrão adotado) ou ganha tom próprio a partir de 15/02; (c) conferir na CNBB as referências dos lotes 3 a 11, porque o site não pode ser lido por aqui.
 
 ## Regras rápidas
 - Uma etapa por execução. Etapa "em andamento" há menos de 50 min = outra execução trabalhando: não fazer nada.
@@ -19,7 +19,7 @@ Para o Wanderson: (a) revisar os lotes 9 e 10 (D04): repetições em 02/02 (lote
 - `pytest` e `flutter analyze` + `flutter test` (mobile/) passando antes de cada commit.
 
 ## Fila (em ordem)
-1. **C01-L12 em diante — Reflexões (Quaresma e Tempo Comum), lotes seguintes até o fim do calendário (março de 2027):** um lote por etapa, a partir de 15/02/2027 (ler o CSV e fazer 7 textos). C01-L11 já está preparada no topo.
+1. **C01-L13 em diante — Reflexões (Quaresma e Tempo Comum), lotes seguintes até o fim do calendário (março de 2027):** um lote por etapa, a partir de 22/02/2027 (ler o CSV e fazer 7 textos). C01-L12 já está preparada no topo.
 2. **S01 — Assinatura do AAB:** aplicar no gradle a leitura de `key.properties` (sem segredo no repo), seguindo `docs/roteiro-assinatura-aab.md`.
 
 ## Bloqueadas (esperando decisão do Wanderson)
@@ -29,6 +29,11 @@ Para o Wanderson: (a) revisar os lotes 9 e 10 (D04): repetições em 02/02 (lote
 - Texto bíblico completo — D05.
 
 ## Histórico
+- **C01-L11 — Reflexões do Tempo Comum e início da Quaresma, lote 11 (08/02/2027–14/02/2027)** — concluída 2026-11-28 (UTC).
+  - Arquivos: `docs/reflexoes-rascunho-tempo-comum-lote11.md` (novo; 7 textos de ~90 palavras: 08/02 Mc 6,53-56; 09/02 Mc 7,1-13; 10/02 Mt 6,1-6.16-18 · Quarta-feira de Cinzas; 11/02 Lc 9,22-25; 12/02 Mt 9,14-15; 13/02 Lc 5,27-32; 14/02 Mc 1,12-15 · 1º Domingo da Quaresma, Ano B). Mesmo formato dos lotes anteriores; sem texto bíblico; cada texto termina com pergunta e passo prático. Referências copiadas do CSV. CSV, catálogo e código não mudaram.
+  - Decisão padrão (não é D01–D08): Quaresma no formato do Tempo Comum, sem regra de jejum ou abstinência; 12/02 tem nota de saúde no jejum.
+  - Testes: não rodados (só `.md` novo). Nenhuma das sete referências repete lote anterior.
+  - Pendências: conferência CNBB não feita (site por JavaScript); tom de 09/02 (fariseus); tom de 12/02 (jejum); confirmar formato da Quaresma (D04/revisão humana).
 - **C01-L10 — Reflexões do Tempo Comum, lote 10 (01/02/2027–07/02/2027)** — concluída 2026-11-27 (UTC).
   - Arquivos: `docs/reflexoes-rascunho-tempo-comum-lote10.md` (novo; 7 textos de ~95 palavras: 01/02 Mc 5,1-20; 02/02 Lc 2,22-40 · Apresentação do Senhor; 03/02 Mc 6,1-6; 04/02 Mc 6,7-13; 05/02 Mc 6,14-29; 06/02 Mc 6,30-34; 07/02 Mc 1,29-39 · 5º Domingo do Tempo Comum, Ano B). Mesmo formato dos lotes 2 a 9; sem texto bíblico; cada texto termina com pergunta e passo prático. Referências copiadas do CSV. CSV, catálogo e código não mudaram.
   - Testes: não rodados (só `.md` novo). A marcação "em andamento" foi enviada antes do trabalho (commit 5d79393).
